@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
     @logins = []
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @logins }
     end
   end
