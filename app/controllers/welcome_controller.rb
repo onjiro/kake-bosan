@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
 class WelcomeController < ApplicationController
   def index
-    @logins = []
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @logins }
+    if current_user.nil?
+      respond_to do |format|
+        format.html
+      end
+    else
+      redirect_to "/topic/index"
     end
   end
 end
