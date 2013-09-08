@@ -40,15 +40,14 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="brand" href="/"><i class="icon-home"></i>家計簿さん</a>
-          <% if current_user  %>
-          <% if notice %>
-          <li><%= notice %></li>
-          <% end %>
-          <li>ようこそ <%= current_user.name %>さん</li>
-          <li><%= link_to "ログアウト", "/signout" %></li>
-          <% else %>
-          <li><%= link_to "Twitterでログイン", "/auth/twitter" %></li>
-          <% end %>
+          <div class="user-menu pull-right">
+            <% if current_user  %>
+              <span class="current-user">ログイン中: <%= current_user.name %></span>
+              <span class="logout btn"><%= link_to "ログアウト", "/signout" %></span>
+            <% else %>
+              <%= link_to sanitize('<i class="icon-twitter"></i> Twitterでログイン'), "/auth/twitter", class: "twitter-login btn btn-primary" %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
