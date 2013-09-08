@@ -25,7 +25,7 @@ gem 'less-rails'
 gem 'jquery-rails'
 gem 'twitter-bootstrap-rails'
 gem 'omniauth'
-gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem 'rails_config'
 
 # To use ActiveModel has_secure_password
