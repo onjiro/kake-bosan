@@ -44,6 +44,7 @@
             <span class="current-user">ログイン中: <%= current_user.name %></span>
             <span class="logout btn"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/signout" %></span>
           <% else %>
+            <%= link_to(sanitize('<i class="icon-signin"></i> 開発者としてログイン'), "/auth/developer", class: "developer-login btn btn-primary") unless Rails.env.production? %>
             <%= link_to sanitize('<i class="icon-twitter"></i> Twitterでログイン'), "/auth/twitter", class: "twitter-login btn btn-primary" %>
           <% end %>
         </div>
