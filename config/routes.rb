@@ -1,4 +1,6 @@
 KakaiboSan::Application.routes.draw do
+  get "topic/index"
+
   get "sessions/create"
 
   get "sessions/destroy"
