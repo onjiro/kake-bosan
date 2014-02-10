@@ -35,69 +35,15 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
-    <div class="nav">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header sr-only">
-            <a class="navbar-brand" href="#">検索フォーム</a>
-          </div>
-          <form class="navbar-form form-inline input-group" role="search">
-            <div class="form-group">
-              <input class="form-control" type="text" placeholder="検索"/>
-            </div>
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> 検索</button>
-            </div>
-          </form>
-        </div>
+    <!-- ヘッダ部分 ログイン時のみ表示 -->
+    <% if current_user %>
+    <%= render :file => 'layouts/_header.html.erb' %>
+    <% end %>
 
-        <!-- bootstrap 2系で作成してた分、いったん非表示。あとでメニューとかに移す -->
-        <div class="navbar-inner" style="display: none">
-          <a class="brand" href="/"><i class="icon-home"></i>家計簿さん</a>
-          <div class="user-menu pull-right">
-            <% if current_user  %>
-            <span class="current-user">ログイン中: <%= current_user.name %></span>
-            <span class="logout btn"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/signout" %></span>
-            <% else %>
-            <%= link_to(sanitize('<i class="icon-signin"></i> 開発者としてログイン'), "/auth/developer", class: "developer-login btn btn-primary") unless Rails.env.production? %>
-            <%= link_to sanitize('<i class="icon-twitter"></i> Twitterでログイン'), "/auth/twitter", class: "twitter-login btn btn-primary" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- 本文 -->
+    <%= yield %>
 
-    <!-- メニュー選択のタブ部分 -->
-    <!-- TODO 携帯から見た際は幅全部を使いたい -->
-    <!-- TODO PCから見た際はサイドバーにしたい -->
-    <ul class="nav nav-tabs">
-      <!-- 登録ボタンは携帯では画面表示上常に左下に表示する -->
-      <!-- TODO style の直書きをやめる -->
-      <!-- TODO hover 時のスタイルがtabのスタイルになってしまっているのを通常のボタンのスタイルを適用する -->
-      <li style="display: block; position: fixed; bottom: 1.2em; left: 1em;"><a  class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span> 登録</a></li>
-      <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-check"></span> 棚卸し</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-time"></span> 集計</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> 設定</a></li>
-    </ul>
-
-    <div class="container-fluid">
-      <div class="row" style="min-height: 320px;">
-        <%= yield %>
-      </div><!--/row-->
-
-      <footer style="display: none;">
-        <p class="row">
-          <span class="pull-right">&copy; <a href="https://twitter.com/onjiro_mohyahya" target="_blank">@onjiro_mohyahya</a> 2013</span>
-        </p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Javascripts
-         ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Javascripts ================================================== -->
     <%= javascript_include_tag "application" %>
-
   </body>
 </html>
