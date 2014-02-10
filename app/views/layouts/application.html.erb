@@ -35,20 +35,49 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
+    <div class="nav">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header sr-only">
+            <a class="navbar-brand" href="#">検索フォーム</a>
+          </div>
+          <form class="navbar-form form-inline input-group" role="search">
+            <div class="form-group">
+              <input class="form-control" type="text" placeholder="検索"/>
+            </div>
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> 検索</button>
+            </div>
+          </form>
+        </div>
 
-    <div class="navbar navbar-fluid-top">
-      <div class="navbar-inner">
-        <a class="brand" href="/"><i class="icon-home"></i>家計簿さん</a>
-        <div class="user-menu pull-right">
-          <% if current_user  %>
+        <!-- bootstrap 2系で作成してた分、いったん非表示。あとでメニューとかに移す -->
+        <div class="navbar-inner" style="display: none">
+          <a class="brand" href="/"><i class="icon-home"></i>家計簿さん</a>
+          <div class="user-menu pull-right">
+            <% if current_user  %>
             <span class="current-user">ログイン中: <%= current_user.name %></span>
             <span class="logout btn"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/signout" %></span>
-          <% else %>
+            <% else %>
             <%= link_to(sanitize('<i class="icon-signin"></i> 開発者としてログイン'), "/auth/developer", class: "developer-login btn btn-primary") unless Rails.env.production? %>
             <%= link_to sanitize('<i class="icon-twitter"></i> Twitterでログイン'), "/auth/twitter", class: "twitter-login btn btn-primary" %>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- メニュー選択のタブ部分 -->
+    <!-- TODO 携帯から見た際は幅全部を使いたい -->
+    <!-- TODO PCから見た際はサイドバーにしたい -->
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-asterisk"></span> 棚卸し</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-asterisk"></span> 期間集計</a></li>
+    </ul>
+
+    <!-- TODO 登録ボタン、携帯では常に左下あたりに表示したい -->
+    <div class="entry">
     </div>
 
     <div class="container-fluid">
@@ -61,7 +90,6 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-          <%= bootstrap_flash %>
           <%= yield %>
         </div>
       </div><!--/row-->
