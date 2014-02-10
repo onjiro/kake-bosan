@@ -1,12 +1,32 @@
-<section class="history">
-  <table class="table table-striped table-bordered">
-    <thead>
-      <th>日時</th>
-      <th>費用 or 資産</th>
-      <th>金額</th>
-    </thead>
-    <tbody>
-      <!-- 履歴を表示します -->
-    </tbody>
-  </table>
-</section>
+<!-- メニュー選択のタブ部分 -->
+<!-- TODO 携帯から見た際は幅全部を使いたい -->
+<!-- TODO PCから見た際はサイドバーにしたい -->
+<ul class="nav nav-tabs">
+  <!-- 登録ボタンは携帯では画面表示上常に左下に表示する -->
+  <!-- TODO style の直書きをやめる -->
+  <!-- TODO hover 時のスタイルがtabのスタイルになってしまっているのを通常のボタンのスタイルを適用する -->
+  <li style="display: block; position: fixed; bottom: 1.2em; left: 1em;"><a  class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span> 登録</a></li>
+  <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
+  <li><a href="#"><span class="glyphicon glyphicon-check"></span> 棚卸し</a></li>
+  <li><a href="#"><span class="glyphicon glyphicon-time"></span> 集計</a></li>
+  <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> 設定</a></li>
+</ul>
+
+<div class="container-fluid">
+  <div class="row" style="min-height: 320px;">
+    <section class="history">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <th>日時</th>
+          <th>費用 or 資産</th>
+          <th>金額</th>
+        </thead>
+        <tbody>
+          <!-- 履歴を表示します -->
+        </tbody>
+      </table>
+    </section>
+  </div><!--/row-->
+
+
+</div> <!-- /container -->

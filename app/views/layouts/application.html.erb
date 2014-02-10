@@ -35,49 +35,15 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
+    <!-- ヘッダ部分 ログイン時のみ表示 -->
+    <% if current_user %>
+    <%= render :file => 'layouts/_header.html.erb' %>
+    <% end %>
 
-    <div class="navbar navbar-fluid-top">
-      <div class="navbar-inner">
-        <a class="brand" href="/"><i class="icon-home"></i>家計簿さん</a>
-        <div class="user-menu pull-right">
-          <% if current_user  %>
-            <span class="current-user">ログイン中: <%= current_user.name %></span>
-            <span class="logout btn"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/signout" %></span>
-          <% else %>
-            <%= link_to(sanitize('<i class="icon-signin"></i> 開発者としてログイン'), "/auth/developer", class: "developer-login btn btn-primary") unless Rails.env.production? %>
-            <%= link_to sanitize('<i class="icon-twitter"></i> Twitterでログイン'), "/auth/twitter", class: "twitter-login btn btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+    <!-- 本文 -->
+    <%= yield %>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
-      </div><!--/row-->
-
-      <footer>
-        <p class="row-fluid">
-          <span class="pull-right">&copy; <a href="https://twitter.com/onjiro_mohyahya" target="_blank">@onjiro_mohyahya</a> 2013</span>
-        </p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Javascripts
-         ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Javascripts ================================================== -->
     <%= javascript_include_tag "application" %>
-
   </body>
 </html>
