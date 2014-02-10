@@ -37,7 +37,7 @@
   <body>
     <div class="nav">
       <div class="navbar navbar-default" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header sr-only">
             <a class="navbar-brand" href="#">検索フォーム</a>
           </div>
@@ -71,31 +71,23 @@
     <!-- TODO 携帯から見た際は幅全部を使いたい -->
     <!-- TODO PCから見た際はサイドバーにしたい -->
     <ul class="nav nav-tabs">
+      <!-- 登録ボタンは携帯では画面表示上常に左下に表示する -->
+      <!-- TODO style の直書きをやめる -->
+      <!-- TODO hover 時のスタイルがtabのスタイルになってしまっているのを通常のボタンのスタイルを適用する -->
+      <li style="display: block; position: fixed; bottom: 1.2em; left: 1em;"><a  class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span> 登録</a></li>
       <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-asterisk"></span> 棚卸し</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-asterisk"></span> 期間集計</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-check"></span> 棚卸し</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-time"></span> 集計</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-wrench"></span> 設定</a></li>
     </ul>
 
-    <!-- TODO 登録ボタン、携帯では常に左下あたりに表示したい -->
-    <div class="entry">
-    </div>
-
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <%= yield %>
-        </div>
+      <div class="row" style="min-height: 320px;">
+        <%= yield %>
       </div><!--/row-->
 
-      <footer>
-        <p class="row-fluid">
+      <footer style="display: none;">
+        <p class="row">
           <span class="pull-right">&copy; <a href="https://twitter.com/onjiro_mohyahya" target="_blank">@onjiro_mohyahya</a> 2013</span>
         </p>
       </footer>
