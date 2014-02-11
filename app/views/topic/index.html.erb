@@ -5,7 +5,10 @@
   <!-- 登録ボタンは携帯では画面表示上常に左下に表示する -->
   <!-- TODO style の直書きをやめる -->
   <!-- TODO hover 時のスタイルがtabのスタイルになってしまっているのを通常のボタンのスタイルを適用する -->
-  <li style="display: block; position: fixed; bottom: 1.2em; left: 1em;"><a  class="btn btn-primary" href="#"><span class="glyphicon glyphicon-pencil"></span> 登録</a></li>
+
+  <li style="display: block; position: fixed; bottom: 1.2em; left: 1em;">
+    <%= link_to sanitize('<span class="glyphicon glyphicon-pencil"></span> 登録'), "/financial_transaction/new", class: "btn btn-primary" %>
+  </li>
   <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
   <li><a href="#"><span class="glyphicon glyphicon-check"></span> 棚卸し</a></li>
   <li><a href="#"><span class="glyphicon glyphicon-time"></span> 集計</a></li>

@@ -35,15 +35,8 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
-    <!-- ヘッダ部分 ログイン時のみ表示 -->
-    <% if current_user %>
-    <%= render :file => 'layouts/_header.html.erb' %>
-    <% end %>
+    <%= content_for?(:content) ? yield(:content): yield %>
 
-    <!-- 本文 -->
-    <%= yield %>
-
-    <!-- Javascripts ================================================== -->
     <%= javascript_include_tag "application" %>
   </body>
 </html>
