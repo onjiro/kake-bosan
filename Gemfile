@@ -12,6 +12,7 @@ gem 'sqlite3'
 # in production environments by default.
 group :assets do
   gem 'jquery-rails'
+  gem 'angular-gem',  '~> 1.2.1'
   gem 'less-rails'
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
