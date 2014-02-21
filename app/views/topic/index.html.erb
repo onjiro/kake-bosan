@@ -7,7 +7,7 @@
   <!-- TODO hover 時のスタイルがtabのスタイルになってしまっているのを通常のボタンのスタイルを適用する -->
 
   <li style="display: block; position: fixed; bottom: 1.2em; left: 1em;">
-    <%= link_to sanitize('<span class="glyphicon glyphicon-pencil"></span> 登録'), "/financial_transaction/new", class: "btn btn-primary" %>
+    <a ng-click="toggleEntryForm()" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> 登録</a>
   </li>
   <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 履歴</a></li>
   <li><a href="#"><span class="glyphicon glyphicon-check"></span> 棚卸し</a></li>
@@ -68,7 +68,7 @@
               <div class="form-group">
                 <div class="col-sm-8">
                   <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-pencil"></span> 登録</button>
-                  <button class="btn btn-default" type="button">キャンセル</button>
+                  <button ng-click="toggleEntryForm()" class="btn btn-default" type="button">キャンセル</button>
                 </div>
               </div>
             </fieldset>
