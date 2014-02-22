@@ -4,39 +4,46 @@
     <div class="row">
       <div class="col-xs-12" style="margin-top: 12px;">
         <div style="background: #fff; padding: 24px 0; border-radius: 4px;">
+          <!-- formでoffset 1を指定し、内部は11カラム -->
           <form class="form-horizontal col-xs-offset-1">
             <fieldset>
               <legend>登録</legend>
               <div class="form-group">
-                <label class="col-sm-2 control-label" for="datetime">日付</label>
-                <div class="col-sm-8 col-xs-10">
+                <label class="col-xs-11 col-sm-2 control-label" for="datetime">日付</label>
+                <div class="col-xs-11 col-sm-9">
                   <input name="datetime" class="form-control" type="datetime-local" placeholder="日付"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">金額</label>
-                <div class="col-sm-8 col-xs-10">
+                <label class="col-xs-11 col-sm-2 control-label">金額</label>
+                <div class="col-xs-11 col-sm-9">
                   <input name="amount" class="form-control" type="number" placeholder="金額"/>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">購入課目</label>
-                <div class="col-sm-8 col-xs-10">
-                  <select name="debit-account" class="form-control">
-                    <option>【購入課目】</option>
-                  </select>
+                <label class="col-xs-11 col-sm-2 control-label">購入課目</label>
+                <div class="col-xs-11 col-sm-9">
+                  <div class="input-group">
+                    <select name="debit-account" class="form-control">
+                      <option>【購入課目】</option>
+                    </select>
+                    <span class="input-group-btn add-account-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">支払課目</label>
-                <div class="col-sm-8 col-xs-10">
-                  <select class="form-control col-sm-8" name="credit-account">
-                    <option>【支払課目】</option>
-                  </select>
+                <label class="col-xs-11 col-sm-2 control-label">支払課目</label>
+                <div class="col-xs-11 col-sm-9">
+                  <div class="input-group">
+                    <select class="form-control" name="credit-account">
+                      <option>【支払課目】</option>
+                    </select>
+                    <span class="input-group-btn add-account-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-8">
+                <div class="col-xs-11 col-sm-9">
                   <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-pencil"></span> 登録</button>
                   <button ng-click="toggleEntryForm()" class="btn btn-default" type="button">キャンセル</button>
                 </div>
