@@ -1,0 +1,50 @@
+<div ng-cloak ng-show="onEntry" class="entry-forms">
+  <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2)" ></div>
+  <div class="container-fluid" style="position: absolute; top: 0; left: 0; width: 100%;">
+    <div class="row">
+      <div class="col-xs-12" style="margin-top: 12px;">
+        <div style="background: #fff; padding: 24px 0; border-radius: 4px;">
+          <form class="form-horizontal col-xs-offset-1">
+            <fieldset>
+              <legend>登録</legend>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="datetime">日付</label>
+                <div class="col-sm-8 col-xs-10">
+                  <input name="datetime" class="form-control" type="datetime-local" placeholder="日付"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">金額</label>
+                <div class="col-sm-8 col-xs-10">
+                  <input name="amount" class="form-control" type="number" placeholder="金額"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">購入課目</label>
+                <div class="col-sm-8 col-xs-10">
+                  <select name="debit-account" class="form-control col-sm-8">
+                    <option>【購入課目】</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">支払課目</label>
+                <div class="col-sm-8 col-xs-10">
+                  <select class="form-control col-sm-8" name="credit-account">
+                    <option>【支払課目】</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-8">
+                  <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-pencil"></span> 登録</button>
+                  <button ng-click="toggleEntryForm()" class="btn btn-default" type="button">キャンセル</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
