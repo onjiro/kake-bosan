@@ -43,26 +43,30 @@
               <legend>登録</legend>
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="datetime">日付</label>
-                <div class="col-sm-8">
-                  <input name="datetime" type="datetime" placeholder="日付"/>
+                <div class="col-sm-8 col-xs-10">
+                  <input name="datetime" class="form-control" type="datetime-local" placeholder="日付"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">金額</label>
-                <div class="col-sm-8">
-                  <input name="amount" type="number" placeholder="金額"/>
+                <div class="col-sm-8 col-xs-10">
+                  <input name="amount" class="form-control" type="number" placeholder="金額"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">購入課目</label>
-                <div class="col-sm-8">
-                  <input name="debit-account" type="text" placeholder="購入課目"/>
+                <div class="col-sm-8 col-xs-10">
+                  <select name="debit-account" class="form-control col-sm-8">
+                    <option>【購入課目】</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">支払課目</label>
-                <div class="col-sm-8">
-                  <input name="credit-account" type="text" placeholder="支払課目"/>
+                <div class="col-sm-8 col-xs-10">
+                  <select class="form-control col-sm-8" name="credit-account">
+                    <option>【支払課目】</option>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
