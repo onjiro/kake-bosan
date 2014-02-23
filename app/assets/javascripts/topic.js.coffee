@@ -1,4 +1,4 @@
-window.appController = ($scope) ->
+window.appController = ($scope, $http) ->
   transactions = $scope.transactions = []
   newTransactionEntry = $scope.newTransactionEntry =
     datetime: new Date()
@@ -10,11 +10,17 @@ window.appController = ($scope) ->
   $scope.onEntry = false
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
-    newTransaction =
-      datetime: newTransactionEntry.datetime
-      amount:   newTransactionEntry.amount
-      getSummaryAccount: () -> "account summary"
-      getAmount: () -> this.amount
-    transactions.push newTransaction
-    # TODO post to server
+    $http
+      url:     '/transaction'
+      method:  'POST'
+      data:    newTransaction =
+        datetime: newTransactionEntry.datetime
+        amount:   newTransactionEntry.amount
+        getSummaryAccount: () -> "account summary"
+        getAmount: () -> this.amount
+    .success (data) ->
+      transactions.push newTransaction
+    .error (data, status) ->
+      # TODO エラー処理についてはまた改めて検討する
+      console.error data
     this.onEntry = false
