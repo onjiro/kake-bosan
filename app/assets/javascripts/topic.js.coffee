@@ -10,10 +10,7 @@ window.appController = ($scope, $http) ->
   $scope.onEntry = false
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
-    $http
-      url:     '/transaction'
-      method:  'POST'
-      data:    newTransaction =
+    $http.post '/transaction', newTransaction =
         datetime: newTransactionEntry.datetime
         amount:   newTransactionEntry.amount
         getSummaryAccount: () -> "account summary"
