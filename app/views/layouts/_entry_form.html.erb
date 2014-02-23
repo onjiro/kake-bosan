@@ -5,27 +5,27 @@
       <div class="col-xs-12" style="margin-top: 12px;">
         <div style="background: #fff; padding: 24px 0; border-radius: 4px;">
           <!-- formでoffset 1を指定し、内部は11カラム -->
-          <form class="form-horizontal col-xs-offset-1" ng-submit="addNewTransaction()">
+          <form id="entry-form" class="form-horizontal col-xs-offset-1" ng-submit="addNewTransaction()">
             <fieldset>
               <legend>登録</legend>
               <div class="form-group">
                 <label class="col-xs-11 col-sm-2 control-label" for="datetime">日付</label>
                 <div class="col-xs-11 col-sm-9">
-                  <input name="datetime" class="form-control" type="datetime-local" placeholder="日付"/>
+                  <input name="datetime" class="form-control" type="datetime-local" placeholder="日付" ng-model="newTransactionEntry.datetime" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-xs-11 col-sm-2 control-label">金額</label>
                 <div class="col-xs-11 col-sm-9">
-                  <input name="amount" class="form-control" type="number" placeholder="金額"/>
+                  <input name="amount" class="form-control" type="number" placeholder="金額" ng-model="newTransactionEntry.amount" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-xs-11 col-sm-2 control-label">購入課目</label>
                 <div class="col-xs-11 col-sm-9">
                   <div class="input-group">
-                    <select name="debit-account" class="form-control">
-                      <option>【購入課目】</option>
+                    <select name="debit-account" class="form-control" ng-model="newTransactionEntry.debitAccount">
+                      <option value="0">【購入課目】</option>
                     </select>
                     <span class="input-group-btn add-account-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
                   </div>
@@ -35,8 +35,8 @@
                 <label class="col-xs-11 col-sm-2 control-label">支払課目</label>
                 <div class="col-xs-11 col-sm-9">
                   <div class="input-group">
-                    <select class="form-control" name="credit-account">
-                      <option>【支払課目】</option>
+                    <select class="form-control" name="credit-account" ng-model="newTransactionEntry.creditAccount">
+                      <option value="0">【支払課目】</option>
                     </select>
                     <span class="input-group-btn add-account-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button></span>
                   </div>
