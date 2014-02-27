@@ -10,6 +10,7 @@ window.appController = ($scope, $http) ->
   $scope.onEntry = false
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
+    this.toggleEntryForm()
     $http.post '/transaction', newTransaction =
         datetime: newTransactionEntry.datetime
         amount:   newTransactionEntry.amount
@@ -20,4 +21,3 @@ window.appController = ($scope, $http) ->
     .error (data, status) ->
       # TODO エラー処理についてはまた改めて検討する
       console.error data
-    this.onEntry = false
