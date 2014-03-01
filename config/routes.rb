@@ -1,4 +1,9 @@
 KakaiboSan::Application.routes.draw do
+  namespace :accounting do
+    resources :transactions
+  end
+
+
   get "financial_transaction/index"
 
   get "financial_transaction/new"

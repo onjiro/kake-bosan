@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @accounting_transaction.user %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @accounting_transaction.date %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @accounting_transaction.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_accounting_transaction_path(@accounting_transaction) %> |
+<%= link_to 'Back', accounting_transactions_path %>
