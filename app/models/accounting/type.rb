@@ -1,4 +1,4 @@
 class Accounting::Type < ActiveRecord::Base
-  belongs_to :accounting/side
-  attr_accessible :deleted_at, :name
+  belongs_to :side
+  attr_accessible :side_id, :deleted_at, :name
 end

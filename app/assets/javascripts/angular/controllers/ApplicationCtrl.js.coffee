@@ -1,3 +1,7 @@
+user_id = 0
+accounting_side_credit = 0
+accounting_side_debit  = 1
+
 window.appController = ($scope, $http) ->
   transactions = $scope.transactions = []
   newTransactionEntry = $scope.newTransactionEntry =
@@ -11,13 +15,28 @@ window.appController = ($scope, $http) ->
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
     this.toggleEntryForm()
-    $http.post '/transaction', newTransaction =
-        datetime: newTransactionEntry.datetime
-        amount:   newTransactionEntry.amount
+    $http.post '/accounting/transactions.json', data =
+      transaction:
+        user_id:  user_id
+        date: newTransactionEntry.datetime
+        entries_attributes:  [
+          {
+            user_id: user_id
+            side_id: accounting_side_debit
+            item_id: newTransactionEntry.debitAccount
+            amount: newTransactionEntry.amount
+          }
+          {
+            user_id: user_id
+            side_id: accounting_side_credit
+            item_id: newTransactionEntry.creditAccount
+            amount: newTransactionEntry.amount
+          }
+        ]
         getSummaryAccount: () -> "account summary"
-        getAmount: () -> this.amount
+        getAmount: () -> newTransactionEntry.amount
     .success (data) ->
-      transactions.push newTransaction
+      transactions.push data.accounting_transaction
     .error (data, status) ->
       # TODO エラー処理についてはまた改めて検討する
       console.error data

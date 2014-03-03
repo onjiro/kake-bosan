@@ -15,15 +15,19 @@ ActiveRecord::Schema.define(:version => 20140301073851) do
 
   create_table "accounting_entries", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "accounting_side_id"
-    t.integer  "accounting_item_id"
+    t.integer  "transaction_id"
+    t.integer  "entry_id"
+    t.integer  "side_id"
+    t.integer  "item_id"
     t.integer  "amount"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
-  add_index "accounting_entries", ["accounting_item_id"], :name => "index_accounting_entries_on_accounting_item_id"
-  add_index "accounting_entries", ["accounting_side_id"], :name => "index_accounting_entries_on_accounting_side_id"
+  add_index "accounting_entries", ["entry_id"], :name => "index_accounting_entries_on_entry_id"
+  add_index "accounting_entries", ["item_id"], :name => "index_accounting_entries_on_item_id"
+  add_index "accounting_entries", ["side_id"], :name => "index_accounting_entries_on_side_id"
+  add_index "accounting_entries", ["transaction_id"], :name => "index_accounting_entries_on_transaction_id"
   add_index "accounting_entries", ["user_id"], :name => "index_accounting_entries_on_user_id"
 
   create_table "accounting_items", :force => true do |t|

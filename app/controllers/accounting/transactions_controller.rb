@@ -40,15 +40,15 @@ class Accounting::TransactionsController < ApplicationController
   # POST /accounting/transactions
   # POST /accounting/transactions.json
   def create
-    @accounting_transaction = Accounting::Transaction.new(params[:accounting_transaction])
+    @transaction = Accounting::Transaction.new(params[:transaction])
 
     respond_to do |format|
-      if @accounting_transaction.save
-        format.html { redirect_to @accounting_transaction, notice: 'Transaction was successfully created.' }
-        format.json { render json: @accounting_transaction, status: :created, location: @accounting_transaction }
+      if @transaction.save
+        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.json { render json: @transaction, status: :created, location: @transaction }
       else
         format.html { render action: "new" }
-        format.json { render json: @accounting_transaction.errors, status: :unprocessable_entity }
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
   end
