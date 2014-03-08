@@ -2,12 +2,6 @@ user_id = 0
 accounting_side_credit = 0
 accounting_side_debit  = 1
 
-class Transaction
-  constructor: (@user_id, @date, @entries) ->
-
-  getSummaryAccount: () -> "account summary"
-  getAmount: () -> 0
-
 window.appController = ($scope, $http) ->
   transactions = $scope.transactions = []
   newTransactionEntry = $scope.newTransactionEntry =
@@ -40,7 +34,7 @@ window.appController = ($scope, $http) ->
           }
         ]
     .success (data) ->
-      transactions.push new Transaction(data.user_id, data.date, data.entry_attributes)
+      transactions.push new Transaction(data)
     .error (data, status) ->
       # TODO エラー処理についてはまた改めて検討する
       console.error data
