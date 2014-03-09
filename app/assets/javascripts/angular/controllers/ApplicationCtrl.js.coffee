@@ -17,17 +17,14 @@ window.appController = ($scope, $http) ->
     this.toggleEntryForm()
     $http.post '/accounting/transactions.json', data =
       transaction:
-        user_id:  user_id
         date: newTransactionEntry.datetime
         entries_attributes:  [
           {
-            user_id: user_id
             side_id: accounting_side_debit
             item_id: newTransactionEntry.debitAccount
             amount: newTransactionEntry.amount
           }
           {
-            user_id: user_id
             side_id: accounting_side_credit
             item_id: newTransactionEntry.creditAccount
             amount: newTransactionEntry.amount
