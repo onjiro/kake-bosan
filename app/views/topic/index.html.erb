@@ -14,7 +14,7 @@
           <tr ng-repeat="transaction in transactions">
             <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
             <td>{{transaction.getSummaryAccount()}}</td>
-            <td>{{transaction.getAmount()}}</td>
+            <td style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
           </tr>
         </tbody>
       </table>
