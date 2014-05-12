@@ -3,5 +3,5 @@ class @Transaction
     {@user_id, @date, @entries} = options
 
   getSummaryAccount: () -> "account summary"
-  getAmount: () -> this.debitEntries().reduce(((entry, sum) -> 0 + entry.amount), 0)
-  debitEntries: () -> [] # todo
+  getAmount: () -> this.debitEntries().reduce(((sum, entry) -> sum + entry.amount), 0)
+  debitEntries: () -> @entries.filter (entry) -> entry.side_id == 0

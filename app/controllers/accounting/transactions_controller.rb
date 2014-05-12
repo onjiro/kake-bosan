@@ -51,8 +51,10 @@ class Accounting::TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
+        logger.debug(@transaction.inspect)
+        logger.debug(@transaction.entries)
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
-        format.json { render json: @transaction, status: :created, location: @transaction }
+        format.json { render json: @transaction.to_json(:include => :entries), status: :created, location: @transaction }
       else
         format.html { render action: "new" }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
