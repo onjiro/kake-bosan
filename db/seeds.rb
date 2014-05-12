@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+accounting_sides = Accounting::Side.create([
+  {id: 1, name: "debit" , deleted_at: nil},
+  {id: 2, name: "credit", deleted_at: nil},
+], without_protection: true)

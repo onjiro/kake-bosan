@@ -1,6 +1,6 @@
 user_id = 0
-accounting_side_credit = 0
-accounting_side_debit  = 1
+accounting_side_credit = 1
+accounting_side_debit  = 2
 
 window.appController = ($scope, $http) ->
   transactions = $scope.transactions = []

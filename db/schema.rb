@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140301073851) do
+ActiveRecord::Schema.define(:version => 20140512143922) do
 
   create_table "accounting_entries", :force => true do |t|
     t.integer  "user_id"
@@ -43,7 +43,8 @@ ActiveRecord::Schema.define(:version => 20140301073851) do
   add_index "accounting_items", ["accounting_type_id"], :name => "index_accounting_items_on_accounting_type_id"
   add_index "accounting_items", ["user_id"], :name => "index_accounting_items_on_user_id"
 
-  create_table "accounting_sides", :force => true do |t|
+  create_table "accounting_sides", :id => false, :force => true do |t|
+    t.integer  "id"
     t.string   "name"
     t.datetime "deleted_at"
     t.datetime "created_at", :null => false
@@ -69,6 +70,11 @@ ActiveRecord::Schema.define(:version => 20140301073851) do
   end
 
   add_index "accounting_types", ["accounting_side_id"], :name => "index_accounting_types_on_accounting_side_id"
+
+  create_table "temp", :id => false, :force => true do |t|
+    t.integer "id"
+    t.string  "name", :limit => nil
+  end
 
   create_table "transactions", :force => true do |t|
     t.datetime "created_at", :null => false

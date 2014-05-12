@@ -4,4 +4,4 @@ class @Transaction
 
   getSummaryAccount: () -> "account summary"
   getAmount: () -> this.debitEntries().reduce(((sum, entry) -> sum + entry.amount), 0)
-  debitEntries: () -> @entries.filter (entry) -> entry.side_id == 0
+  debitEntries: () -> @entries.filter (entry) -> entry.side_id == 1
