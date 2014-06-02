@@ -4,6 +4,6 @@ class Accounting::Side < ActiveRecord::Base
 
   attr_accessible :deleted_at, :name
 
-  DEBIT = Accounting::Side.new({id: 1, name: 'debit'}, without_protection: true)
-  CREDIT = Accounting::Side.new({id: 2, name: 'credit'}, without_protection: true)
+  DEBIT  = Accounting::Side.new({id: 1, name: '借方'}, without_protection: true)
+  CREDIT = Accounting::Side.new({id: 2, name: '貸方'}, without_protection: true)
 end
