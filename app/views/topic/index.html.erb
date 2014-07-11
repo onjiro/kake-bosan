@@ -3,12 +3,19 @@
     <section class="history">
       <table class="table table-striped table-bordered">
         <thead>
-          <th>日時</th>
-          <th>費用 or 資産</th>
-          <th>金額</th>
+          <tr>
+            <th>日時</th>
+            <th>費用 or 資産</th>
+            <th>金額</th>
+          </tr>
         </thead>
         <tbody>
           <!-- 履歴を表示します -->
+          <tr ng-repeat="transaction in transactions">
+            <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
+            <td>{{transaction.getSummaryAccount()}}</td>
+            <td style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
+          </tr>
         </tbody>
       </table>
     </section>
