@@ -53,4 +53,23 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  namespace :accounting do
+    resources :transactions
+  end
+
+  get "financial_transaction/index"
+
+  get "financial_transaction/new"
+
+  get "financial_transaction/show"
+
+  get "financial_transaction/edit"
+
+  get "topic/index"
+
+  get "sessions/create"
+
+  get "sessions/destroy"
+
 end
