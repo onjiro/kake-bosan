@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  root 'welcome#index'
+
   namespace :accounting do
     resources :transactions
   end
