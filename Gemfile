@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '~> 4.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,8 +14,8 @@ group :assets do
   gem 'jquery-rails'
   gem 'angular-gem',  '~> 1.2.1'
   gem 'less-rails'
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails', '~> 4.0.3'
+  gem 'coffee-rails', '~> 4.0.1'
   gem 'bootstrap-sass', '~> 3.1.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -27,7 +27,6 @@ end
 gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-twitter'
-gem 'rails_config'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
