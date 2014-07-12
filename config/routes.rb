@@ -70,8 +70,9 @@ Rails.application.routes.draw do
 
   get "topic/index"
 
-  get "sessions/create"
-
   get "sessions/destroy"
+
+  get '/auth/:provider/callback', to: 'sessions#create'
+  post '/auth/:provider/callback', to: 'sessions#create'
 
 end
