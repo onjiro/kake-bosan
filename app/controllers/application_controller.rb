@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
 
   before_filter :authorize
   after_filter :set_csrf_cookie_for_ng
