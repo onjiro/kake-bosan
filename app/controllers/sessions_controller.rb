@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authorize, :verify_authenticity_token
 
   def create
     auth = auth_params
