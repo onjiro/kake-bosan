@@ -7,7 +7,6 @@ gem 'rails', '~> 4.1.0'
 
 gem 'sqlite3'
 gem 'jquery-rails'
-gem 'angular-gem',  '~> 1.2.1'
 gem 'less-rails'
 gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.1'
