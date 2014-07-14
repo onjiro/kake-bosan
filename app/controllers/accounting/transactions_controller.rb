@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Accounting::TransactionsController < ApplicationController
   # GET /accounting/transactions
   # GET /accounting/transactions.json

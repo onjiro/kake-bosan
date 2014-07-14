@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Accounting::Side < ActiveRecord::Base
   self.primary_key = :id
 

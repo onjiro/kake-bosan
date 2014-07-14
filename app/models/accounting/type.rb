@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Accounting::Type < ActiveRecord::Base
   belongs_to :side
 
