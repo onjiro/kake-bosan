@@ -1,7 +1,16 @@
-class @Transaction
-  constructor: (options) ->
-    {@user_id, @date, @entries} = options
+#= require angular/modules/kake-bosan
 
-  getSummaryAccount: () -> "account summary"
-  getAmount: () -> this.debitEntries().reduce(((sum, entry) -> sum + entry.amount), 0)
-  debitEntries: () -> @entries.filter (entry) -> entry.side_id == 1
+angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
+  Transaction = $resource '/accounting/transactions/:id.json', {
+    id: '@id',
+    user_id: null,
+    date: null,
+    entries: [],
+  }
+
+  Transaction.prototype.getSummaryAccount = () -> "account summary"
+  Transaction.prototype.getAmount = () -> this.debitEntries().reduce(((sum, entry) -> sum + entry.amount), 0)
+  Transaction.prototype.debitEntries = () -> @entries.filter (entry) -> entry.side_id == 1
+
+  return Transaction
+]

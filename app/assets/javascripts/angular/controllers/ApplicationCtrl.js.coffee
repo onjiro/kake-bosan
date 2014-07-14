@@ -1,10 +1,11 @@
 #= require angular/modules/kake-bosan
+#= require angular/models/Transaction
 
 user_id = 0
 accounting_side_credit = 1
 accounting_side_debit  = 2
 
-angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', '$resource', ($scope, $http, $resource) ->
+angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Transaction', ($scope, $http, Transaction) ->
   transactions = $scope.transactions = []
   newTransactionEntry = $scope.newTransactionEntry =
     datetime: new Date()
