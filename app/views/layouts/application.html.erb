@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" ng-app>
+<html lang="ja" ng-app="kake-bosan">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -34,7 +34,7 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
   </head>
-  <body ng-controller="appController">
+  <body ng-controller="AppController">
     <%= content_for?(:content) ? yield(:content): yield %>
 
     <%= javascript_include_tag "application" %>

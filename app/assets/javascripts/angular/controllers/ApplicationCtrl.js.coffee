@@ -1,8 +1,10 @@
+#= require angular/modules/kake-bosan
+
 user_id = 0
 accounting_side_credit = 1
 accounting_side_debit  = 2
 
-window.appController = ($scope, $http) ->
+angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', '$resource', ($scope, $http, $resource) ->
   transactions = $scope.transactions = []
   newTransactionEntry = $scope.newTransactionEntry =
     datetime: new Date()
@@ -35,3 +37,4 @@ window.appController = ($scope, $http) ->
     .error (data, status) ->
       # TODO エラー処理についてはまた改めて検討する
       console.error data
+]
