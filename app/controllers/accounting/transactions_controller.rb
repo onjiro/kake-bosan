@@ -47,7 +47,7 @@ class Accounting::TransactionsController < ApplicationController
       entry[:user_id] = @current_user.id
     end
 
-    @transaction = Accounting::Transaction.new(params[:transaction])
+    @transaction = Accounting::Transaction.new(params[:transaction].permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount]))
 
     respond_to do |format|
       if @transaction.save
