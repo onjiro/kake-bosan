@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  attr_accessible :access_token, :email, :image_url, :name, :provider, :uid
-
   validates :provider, presence: :true
   validates :uid, presence: :true
   validates :name, presence: :true

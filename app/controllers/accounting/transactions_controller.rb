@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Accounting::TransactionsController < ApplicationController
   # GET /accounting/transactions
   # GET /accounting/transactions.json
@@ -41,13 +40,7 @@ class Accounting::TransactionsController < ApplicationController
   # POST /accounting/transactions
   # POST /accounting/transactions.json
   def create
-    # TODO Transaction 側でよりスマートに受け入れる
-    params[:transaction][:user_id] = @current_user.id
-    params[:transaction][:entries_attributes].each do |entry|
-      entry[:user_id] = @current_user.id
-    end
-
-    @transaction = Accounting::Transaction.new(params[:transaction])
+    @transaction = Accounting::Transaction.new(transaction_params)
 
     respond_to do |format|
       if @transaction.save
@@ -88,5 +81,17 @@ class Accounting::TransactionsController < ApplicationController
       format.html { redirect_to accounting_transactions_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def transaction_params()
+    transaction = params[:transaction]
+
+    transaction[:user_id] = @current_user.id
+    transaction[:entries_attributes].each do |entry|
+      entry[:user_id] = @current_user.id
+    end
+
+    return transaction.permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
   end
 end

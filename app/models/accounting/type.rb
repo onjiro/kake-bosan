@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 class Accounting::Type < ActiveRecord::Base
   belongs_to :side
-  attr_accessible :side_id, :deleted_at, :name
 
   ASSET     = Accounting::Type.new({id: 1, side: Accounting::Side::DEBIT, name: '資産'}, without_protection: true)
   EXPENSE   = Accounting::Type.new({id: 2, side: Accounting::Side::DEBIT, name: '費用'}, without_protection: true)
