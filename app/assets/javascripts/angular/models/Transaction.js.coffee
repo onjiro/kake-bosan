@@ -9,8 +9,11 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
   }
 
   Transaction.prototype.getSummaryAccount = () -> "account summary"
-  Transaction.prototype.getAmount = () -> this.debitEntries().reduce(((sum, entry) -> sum + entry.amount), 0)
-  Transaction.prototype.debitEntries = () -> @entries.filter (entry) -> entry.side_id == 1
+  Transaction.prototype.getAmount = () ->
+    this.debitEntries().reduce(((sum, entry) -> sum + entry.amount), 0)
+  Transaction.prototype.debitEntries = () ->
+    this.entries = [] unless this.entries
+    this.entries.filter (entry) -> entry.side_id == 1
 
   return Transaction
 ]

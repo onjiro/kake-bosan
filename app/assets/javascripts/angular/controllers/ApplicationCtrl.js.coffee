@@ -6,7 +6,8 @@ accounting_side_credit = 1
 accounting_side_debit  = 2
 
 angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Transaction', ($scope, $http, Transaction) ->
-  transactions = $scope.transactions = []
+  transactions = $scope.transactions = Transaction.query()
+
   newTransactionEntry = $scope.newTransactionEntry =
     datetime: new Date()
     amount: null
