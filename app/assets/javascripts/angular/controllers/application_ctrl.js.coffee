@@ -10,35 +10,40 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Tr
   $scope.items = Item.query()
   transactions = $scope.transactions = Transaction.query()
 
-  newTransactionEntry = $scope.newTransactionEntry =
-    datetime: new Date()
-    amount: null
-    debitAccount: 0
-    creditAccount: 0
+  newTransaction = $scope.newTransaction = new Transaction
+    date: new Date(),
+    entries_attributes: [
+      {
+        side_id: 2, # Credit
+        item_id: 0,
+        amount: 0,
+      },
+      {
+        side_id: 1, # Debit
+        item_id: 0,
+        amount: 0,
+      },
+    ]
 
   # entry form
   $scope.onEntry = false
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
     this.toggleEntryForm()
-    $http.post '/accounting/transactions.json', data =
-      transaction:
-        date: newTransactionEntry.datetime
-        entries_attributes:  [
-          {
-            side_id: accounting_side_debit
-            item_id: newTransactionEntry.debitAccount
-            amount: newTransactionEntry.amount
-          }
-          {
-            side_id: accounting_side_credit
-            item_id: newTransactionEntry.creditAccount
-            amount: newTransactionEntry.amount
-          }
-        ]
-    .success (data) ->
+    newTransaction.$save (data, res) ->
       transactions.push new Transaction(data)
-    .error (data, status) ->
-      # TODO エラー処理についてはまた改めて検討する
-      console.error data
+      $scope.newTransaction = new Transaction
+        date: new Date(),
+        entries_attributes: [
+          {
+            side_id: 1, # Debit
+            item_id: 0,
+            amount: 0,
+          },
+          {
+            side_id: 2, # Credit
+            item_id: 0,
+            amount: 0,
+          },
+        ]
 ]

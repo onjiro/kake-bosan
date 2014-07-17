@@ -85,13 +85,11 @@ class Accounting::TransactionsController < ApplicationController
 
   private
   def transaction_params()
-    transaction = params[:transaction]
-
-    transaction[:user_id] = @current_user.id
-    transaction[:entries_attributes].each do |entry|
+    params[:user_id] = @current_user.id
+    params[:entries_attributes].each do |entry|
       entry[:user_id] = @current_user.id
     end
 
-    return transaction.permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
+    return params.permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
   end
 end

@@ -11,20 +11,20 @@
               <div class="form-group">
                 <label class="col-xs-11 col-sm-2 control-label" for="datetime">日付</label>
                 <div class="col-xs-11 col-sm-9">
-                  <input name="datetime" class="form-control" type="datetime-local" placeholder="日付" ng-model="newTransactionEntry.datetime" />
+                  <input name="datetime" class="form-control" type="datetime-local" placeholder="日付" ng-model="newTransaction.date" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-xs-11 col-sm-2 control-label">金額</label>
                 <div class="col-xs-11 col-sm-9">
-                  <input name="amount" class="form-control" type="number" placeholder="金額" ng-model="newTransactionEntry.amount" />
+                  <input name="amount" class="form-control" type="number" placeholder="金額" ng-model="newTransaction.entries_attributes[0].amount" ng-change="newTransaction.entries_attributes[1].amount = newTransaction.entries_attributes[0].amount"/>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-xs-11 col-sm-2 control-label">購入課目</label>
                 <div class="col-xs-11 col-sm-9">
                   <div class="input-group">
-                    <select name="debit-account" class="form-control" ng-model="newTransactionEntry.debitAccount">
+                    <select name="debit-account" class="form-control" ng-model="newTransaction.entries_attributes[0].item_id">
                       <option value="0">【購入課目】</option>
                       <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
                     </select>
@@ -36,7 +36,7 @@
                 <label class="col-xs-11 col-sm-2 control-label">支払課目</label>
                 <div class="col-xs-11 col-sm-9">
                   <div class="input-group">
-                    <select class="form-control" name="credit-account" ng-model="newTransactionEntry.creditAccount">
+                    <select class="form-control" name="credit-account" ng-model="newTransaction.entries_attributes[1].item_id">
                       <option value="0">【支払課目】</option>
                       <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
                     </select>
