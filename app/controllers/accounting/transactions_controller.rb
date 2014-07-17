@@ -2,7 +2,7 @@ class Accounting::TransactionsController < ApplicationController
   # GET /accounting/transactions
   # GET /accounting/transactions.json
   def index
-    @accounting_transactions = Accounting::Transaction.all
+    @accounting_transactions = Accounting::Transaction.where user_id: @current_user.id
 
     respond_to do |format|
       format.html # index.html.erb
