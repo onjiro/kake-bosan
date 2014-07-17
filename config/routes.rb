@@ -58,6 +58,7 @@ Rails.application.routes.draw do
 
   namespace :accounting do
     resources :transactions
+    resources :items
   end
 
   get "financial_transaction/index"

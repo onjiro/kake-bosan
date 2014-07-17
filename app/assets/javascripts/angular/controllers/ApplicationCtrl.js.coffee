@@ -1,11 +1,13 @@
 #= require angular/modules/kake-bosan
 #= require angular/models/Transaction
+#= require angular/models/item
 
 user_id = 0
 accounting_side_credit = 1
 accounting_side_debit  = 2
 
-angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Transaction', ($scope, $http, Transaction) ->
+angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Transaction', 'Item', ($scope, $http, Transaction, Item) ->
+  $scope.items = Item.query()
   transactions = $scope.transactions = Transaction.query()
 
   newTransactionEntry = $scope.newTransactionEntry =
