@@ -61,14 +61,6 @@ Rails.application.routes.draw do
     resources :items
   end
 
-  get "financial_transaction/index"
-
-  get "financial_transaction/new"
-
-  get "financial_transaction/show"
-
-  get "financial_transaction/edit"
-
   get "topic/index"
 
   get "sessions/destroy"
