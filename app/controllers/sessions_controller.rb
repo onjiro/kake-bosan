@@ -2,11 +2,9 @@ class SessionsController < ApplicationController
   skip_before_filter :authorize, :verify_authenticity_token
 
   def create
-    auth = auth_params
-
-    user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-
+    user = SessionsController.helpers.find_or_create_user(auth_params)
     session[:user_id] = user.id
+
     redirect_to "/topic/index", :notice => "Signed In!"
   end
 
