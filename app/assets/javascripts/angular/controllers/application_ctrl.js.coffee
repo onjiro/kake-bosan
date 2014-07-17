@@ -1,5 +1,5 @@
 #= require angular/modules/kake-bosan
-#= require angular/models/Transaction
+#= require angular/models/transaction
 #= require angular/models/item
 
 user_id = 0
