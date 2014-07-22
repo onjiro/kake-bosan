@@ -11,7 +11,7 @@
         </thead>
         <tbody>
           <!-- 履歴を表示します -->
-          <tr ng-repeat="transaction in transactions">
+          <tr ng-repeat="transaction in transactions | orderBy:'date':true">
             <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
             <td>{{transaction.getSummaryAccount()}}</td>
             <td style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
