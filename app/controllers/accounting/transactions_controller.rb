@@ -2,11 +2,11 @@ class Accounting::TransactionsController < ApplicationController
   # GET /accounting/transactions
   # GET /accounting/transactions.json
   def index
-    @accounting_transactions = Accounting::Transaction.where user_id: @current_user.id
+    @accounting_transactions = Accounting::Transaction.where(user_id: @current_user.id).includes(:entries)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @accounting_transactions }
+      format.json { render json: @accounting_transactions, include: :entries }
     end
   end
 
