@@ -3,47 +3,50 @@
   margin-bottom: 24px;
   }
 
-  #entry-form .row {
-  margin-top: 8px;
+  #entry-form td {
+  width: 20%;
   }
 
-  .entries-group {
-  float: none;
+  #entry-form td:nth-child(odd) {
+  width: 30%;
   }
 
-  .entries-group .separator {
-  text-align: center;
-  border-color: transparent;
-  box-shadow: none;
-  }
-  
-  @media (max-width: 768px) {
-  .entries-group {
-  letter-spacing: -.40em;
-  }
-  .entries-group .input-group {
-  display: inline-table;
-  }
-  .entries-group [name="credit-account"],
-  .entries-group [name="debit-account"] {
-  margin: 0;
-  padding: 0;
+  .delete-row {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   display: inline-block;
-  width: 41.6666666666%;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  vertical-align: middle;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #888;
+  background-color: transparent;
+  border: none;
   }
-  .entries-group .separator {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 16.6666666666%;
+
+  .delete-row:hover,
+  .delete-row:focus {
+  color: white;
+  background-color: #c9302c;
   }
+
+  .delete-row:active {
+  color: white;
+  background-color: #a44;
+  }
+
+  td > .delete-row {
+  margin-top: 4px;
   }
 </style>
 
 <div class="container-fluid">
-  <form id="entry-form" class="form-inline" ng-submit="addNewTransaction()">
+  <form id="entry-form" ng-submit="addNewTransaction()">
     <fieldset>
-
       <legend class="hidden-xs">▼ 登録</legend>
 
       <!-- トランザクションに1つ -->
@@ -54,57 +57,111 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
             <input name="date" class="form-control"
                    type="date" placeholder="日付"
-                   ng-model="newTransaction.date" />
+                   ng-model="newTransaction.date"
+                   autofocus />
           </span>
         </span>
       </div>
 
-      <!-- トランザクションに1〜複数 -->
-      <div class="row">
+      <table class="table table-striped table-bordered">
+        <thead class="hidden">
+          <tr>
+            <th>借方</th>
+            <th class="hidden">借方金額</th>
+            <th>貸方</th>
+            <th>貸方金額</th>
+          </tr>
+        </thead>
 
-        <!-- 取引金額 -->
-        <span class="entries-group col-sm-3">
-          <span class="input-group">
-            <span class="input-group-addon">&yen;</span>
-            <input name="amount" class="form-control" style="text-align: right;"
-                   type="number" placeholder="金額"
-                   ng-model="newTransaction.entries_attributes[0].amount"
-                   ng-change="newTransaction.entries_attributes[1].amount = newTransaction.entries_attributes[0].amount"/>
-          </span>
-        </span>
-          
-        <!-- 取引科目 -->
-        <span class="entries-group col-sm-8">
-          <span class="form-group">
-            <select name="account-transition-type-selection" class="form-control">
-              <option>【科目フィルタ】</option>
-              <option>費用 ◀ 資産</option>
-              <option>資産 ◀ 資産</option>
-            </select>
+        <tbody>
+          <tr>
 
-            <select name="debit-account" class="form-control"
-                    ng-model="newTransaction.entries_attributes[0].item_id">
-              <option value="0">【借方】</option>
-              <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
-            </select>
+            <td class="debit-account">
+              <div class="input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">資産</a></li>
+                    <li><a href="#">費用</a></li>
+                    <li><a href="#">負債</a></li>
+                    <li><a href="#">資本</a></li>
+                    <li><a href="#">利益</a></li>
+                    <li><a href="#">フィルタなし</a></li>
+                  </ul>
+                </div>
+                <select name="debit-account" class="form-control"
+                        ng-model="newTransaction.entries_attributes[0].item_id">
+                  <option value="0">【借方】</option>
+                  <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
+                </select>
+              </div>
+            </td>
 
-            <span class="separator form-control">◀</span>
+            <td class="debit-amount">
+              <div class="input-group">
+                <div class="input-group-addon">&yen;</div>
+                <input name="amount" class="form-control" style="text-align: right;"
+                       type="number" placeholder="借方金額"
+                       ng-model="newTransaction.entries_attributes[0].amount"
+                       disabled>
+                <div class="input-group-addon" title="金額自動転記">
+                  <input type="checkbox" checked> <i class="glyphicon glyphicon-link"></i>
+                </div>
+              </div>
+            </td>
 
-            <select name="credit-account" class="form-control"
-                    ng-model="newTransaction.entries_attributes[1].item_id">
-              <option value="0">【貸方】</option>
-              <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
-            </select>
-          </span>
-        </span>
+            <td class="credit-account">
+              <div class="input-group">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">資産</a></li>
+                    <li><a href="#">費用</a></li>
+                    <li><a href="#">負債</a></li>
+                    <li><a href="#">資本</a></li>
+                    <li><a href="#">利益</a></li>
+                    <li><a href="#">フィルタなし</a></li>
+                  </ul>
+                </div>
+                <select name="credit-account" class="form-control"
+                        ng-model="newTransaction.entries_attributes[1].item_id">
+                  <option value="0">【貸方】</option>
+                  <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
+                </select>
+              </div>
+            </td>
 
-      </div>
+            <td class="credit-amount">
+              <div class="input-group">
+                <div class="input-group-addon">&yen;</div>
+                <input name="amount" class="form-control" style="text-align: right;"
+                       type="number" placeholder="貸方金額"
+                       ng-model="newTransaction.entries_attributes[1].amount"
+                       ng-change="newTransaction.entries_attributes[0].amount = newTransaction.entries_attributes[1].amount"/>
+              </div>
+            </td>
 
-      <!-- フォームに1つ -->
+            <!-- エントリーコントロール -->
+            <td><button type="button" class="delete-row">x</button></td>
+          </tr>
+
+          <!-- トランザクションコントロール1 -->
+          <tr>
+            <td colspan="5" >
+              <button class="btn btn-default col-sm-2">
+                <i class="glyphicon glyphicon-plus"></i> 行を追加
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!-- トランザクションコントロール2 -->
       <div id="entry-form-control" class="row">
         <div class="col-sm-12">
           <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-pencil"></i> 登録 </button>
-          <button ng-click="toggleEntryForm()" class="btn btn-default" type="button">キャンセル</button>
+          <button ng-click="toggleEntryForm()" class="btn btn-default" type="button">クリア</button>
         </div>
       </div>
 
