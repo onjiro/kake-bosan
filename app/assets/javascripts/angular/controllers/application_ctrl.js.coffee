@@ -16,12 +16,12 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Tr
       {
         side_id: 2, # Credit
         item_id: 0,
-        amount: 0,
+        amount: null,
       },
       {
         side_id: 1, # Debit
         item_id: 0,
-        amount: 0,
+        amount: null,
       },
     ]
 
