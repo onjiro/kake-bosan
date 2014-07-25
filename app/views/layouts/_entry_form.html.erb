@@ -35,12 +35,10 @@
                 <div class="input-group-btn">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> <span class="caret"></span></button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">資産</a></li>
-                    <li><a href="#">費用</a></li>
-                    <li><a href="#">負債</a></li>
-                    <li><a href="#">資本</a></li>
-                    <li><a href="#">利益</a></li>
-                    <li><a href="#">フィルタなし</a></li>
+                    <!-- repaet: filters -->
+                    <li ng-repeat="filter in type_filters">
+                      <a href="#">{{filter.title}}</a>
+                    </li>
                   </ul>
                 </div>
                 <select name="debit-account" class="form-control"
@@ -69,12 +67,10 @@
                 <div class="input-group-btn">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> <span class="caret"></span></button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">資産</a></li>
-                    <li><a href="#">費用</a></li>
-                    <li><a href="#">負債</a></li>
-                    <li><a href="#">資本</a></li>
-                    <li><a href="#">利益</a></li>
-                    <li><a href="#">フィルタなし</a></li>
+                    <!-- repaet: filters -->
+                    <li ng-repeat="filter in type_filters">
+                      <a href="#">{{filter.title}}</a>
+                    </li>
                   </ul>
                 </div>
                 <select name="credit-account" class="form-control"

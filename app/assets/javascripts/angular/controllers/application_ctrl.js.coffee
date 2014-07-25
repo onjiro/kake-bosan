@@ -8,6 +8,14 @@ accounting_side_debit  = 2
 
 angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Transaction', 'Item', ($scope, $http, Transaction, Item) ->
   $scope.items = Item.query()
+  $scope.type_filters = [
+    { title: "資産"         },
+    { title: "費用"         },
+    { title: "負債"         },
+    { title: "資本"         },
+    { title: "利益"         },
+    { title: "フィルタなし" },
+  ]
   transactions = $scope.transactions = Transaction.query()
 
   newTransaction = $scope.newTransaction = new Transaction
