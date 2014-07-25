@@ -1,15 +1,59 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- *= require_self
- *= require_tree .
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require_self
+*= require_tree .
+*/
 @import "bootstrap";
 
+#entry-form {
+  margin-bottom: 24px;
+
+  td {
+    width: 20%;
+  }
+
+  td:nth-child(odd) {
+    width: 30%;
+  }
+}
+
+.delete-row {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  vertical-align: middle;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #888;
+  background-color: transparent;
+  border: none;
+
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: #c9302c;
+  }
+
+  &:active {
+    color: white;
+    background-color: #a44;
+  }
+
+}
+
+td > .delete-row {
+  margin-top: 4px;
+}
