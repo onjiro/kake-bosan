@@ -13,18 +13,6 @@
 */
 @import "bootstrap";
 
-#entry-form {
-  margin-bottom: 24px;
-
-  td {
-    width: 20%;
-  }
-
-  td:nth-child(odd) {
-    width: 30%;
-  }
-}
-
 .delete-row {
   -webkit-user-select: none;
   -moz-user-select: none;

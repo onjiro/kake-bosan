@@ -1,0 +1,11 @@
+#entry-form {
+  margin-bottom: 24px;
+
+  td {
+    width: 20%;
+  }
+
+  td:nth-child(odd) {
+    width: 30%;
+  }
+}
