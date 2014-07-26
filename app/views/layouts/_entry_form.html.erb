@@ -30,7 +30,7 @@
         <tbody>
           <tr>
 
-            <td class="debit-account" ng-controller="AccountSelectController">
+            <td class="debit-account" ng-controller="AccountSelectController" ng-init="current_filter = type_filters[1]">
               <div class="input-group">
                 <div class="input-group-btn">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span></button>
@@ -62,7 +62,7 @@
               </div>
             </td>
 
-            <td class="credit-account" ng-controller="AccountSelectController">
+            <td class="credit-account" ng-controller="AccountSelectController" ng-init="current_filter = type_filters[0]">
               <div class="input-group">
                 <div class="input-group-btn">
                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span></button>
