@@ -44,7 +44,7 @@
                 <select name="debit-account" class="form-control"
                         ng-model="newTransaction.entries_attributes[0].item_id">
                   <option value="0">【借方】</option>
-                  <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
+                  <option ng-repeat="item in items | byAccount:current_filter.type_ids" value="{{ item.id }}">{{ item.name }}</option>
                 </select>
               </div>
             </td>
@@ -76,7 +76,7 @@
                 <select name="credit-account" class="form-control"
                         ng-model="newTransaction.entries_attributes[1].item_id">
                   <option value="0">【貸方】</option>
-                  <option ng-repeat="item in items" value="{{ item.id }}">{{ item.name }}</option>
+                  <option ng-repeat="item in items | byAccount:current_filter.type_ids" value="{{ item.id }}">{{ item.name }}</option>
                 </select>
               </div>
             </td>
