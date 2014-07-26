@@ -9,4 +9,7 @@ angular.module('kake-bosan').controller 'AccountSelectController', ['$scope', ($
     { title: "利益"         },
     { title: "フィルタなし" },
   ]
+  $scope.current_filter = $scope.type_filters[5]
+
+  $scope.setCurrentFilter = (filter) -> $scope.current_filter = filter
 ]

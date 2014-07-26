@@ -33,11 +33,11 @@
             <td class="debit-account" ng-controller="AccountSelectController">
               <div class="input-group">
                 <div class="input-group-btn">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> <span class="caret"></span></button>
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span></button>
                   <ul class="dropdown-menu" role="menu">
                     <!-- repaet: filters -->
                     <li ng-repeat="filter in type_filters">
-                      <a href="#">{{filter.title}}</a>
+                      <a href ng-click="setCurrentFilter(filter)">{{filter.title}}</a>
                     </li>
                   </ul>
                 </div>
@@ -65,11 +65,11 @@
             <td class="credit-account" ng-controller="AccountSelectController">
               <div class="input-group">
                 <div class="input-group-btn">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> <span class="caret"></span></button>
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span></button>
                   <ul class="dropdown-menu" role="menu">
                     <!-- repaet: filters -->
                     <li ng-repeat="filter in type_filters">
-                      <a href="#">{{filter.title}}</a>
+                      <a href ng-click="setCurrentFilter(filter)">{{filter.title}}</a>
                     </li>
                   </ul>
                 </div>
