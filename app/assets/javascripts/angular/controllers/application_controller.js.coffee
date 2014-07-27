@@ -16,9 +16,4 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
     $scope.newTransaction.$save (data, res) ->
       transactions.push new Transaction(data)
       $scope.newTransaction = Transaction.template(data)
-
-  $scope.$watch "newTransaction.date", (newValue, oldValue) ->
-    # use $timeout for avoid "Error: [$rootScope: inprog]"
-    # https://docs.angularjs.org/error/$rootScope/inprog?p0=$digest 
-    $timeout () -> $element.find("input[name='date']").focus()
 ]
