@@ -2,11 +2,7 @@
 #= require angular/models/transaction
 #= require angular/models/item
 
-user_id = 0
-accounting_side_credit = 1
-accounting_side_debit  = 2
-
-angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Transaction', 'Item', ($scope, $http, Transaction, Item) ->
+angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', '$timeout', 'Transaction', 'Item', ($scope, $element, $timeout, Transaction, Item) ->
   $scope.items = Item.query()
   transactions = $scope.transactions = Transaction.query()
 
@@ -20,4 +16,9 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Tr
     $scope.newTransaction.$save (data, res) ->
       transactions.push new Transaction(data)
       $scope.newTransaction = Transaction.template(data)
+
+  $scope.$watch "newTransaction.date", (newValue, oldValue) ->
+    # use $timeout for avoid "Error: [$rootScope: inprog]"
+    # https://docs.angularjs.org/error/$rootScope/inprog?p0=$digest 
+    $timeout () -> $element.find("input[name='date']").focus()
 ]
