@@ -54,6 +54,7 @@ module SessionsHelper
         - { name: 住民税       , description: '' }
         - { name: 固定資産税   , description: '' }
         - { name: 手数料       , description: 取引に伴う手数料など }
+        - { name: 棚卸差額     , description: 棚卸し時に判明した差額 }
         - { name: その他費用   , description: '' }
       <%= Accounting::Type::LIABILITY.id %>:
         - { name: カード決済1  , description: 口座振替前のカード決済額を表す科目。口座振替完了時に打ち消される }
