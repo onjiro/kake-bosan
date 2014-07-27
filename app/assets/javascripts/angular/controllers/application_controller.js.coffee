@@ -10,40 +10,14 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$http', 'Tr
   $scope.items = Item.query()
   transactions = $scope.transactions = Transaction.query()
 
-  newTransaction = $scope.newTransaction = new Transaction
-    date: new Date(),
-    entries_attributes: [
-      {
-        side_id: 2, # Credit
-        item_id: 0,
-        amount: null,
-      },
-      {
-        side_id: 1, # Debit
-        item_id: 0,
-        amount: null,
-      },
-    ]
+  $scope.newTransaction = Transaction.template()
 
   # entry form
   $scope.onEntry = false
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
     this.toggleEntryForm()
-    newTransaction.$save (data, res) ->
+    $scope.newTransaction.$save (data, res) ->
       transactions.push new Transaction(data)
-      $scope.newTransaction = new Transaction
-        date: new Date(),
-        entries_attributes: [
-          {
-            side_id: 1, # Debit
-            item_id: 0,
-            amount: 0,
-          },
-          {
-            side_id: 2, # Credit
-            item_id: 0,
-            amount: 0,
-          },
-        ]
+      $scope.newTransaction = Transaction.template(data)
 ]
