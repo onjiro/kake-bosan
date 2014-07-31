@@ -66,6 +66,7 @@ module SessionsHelper
       <%= Accounting::Type::CAPITAL.id %>: []
       <%= Accounting::Type::INCOME.id %>:
         - { name: 給与収入     , description: '' }
+        - { name: ポイント発生 , description: '' }
         - { name: その他雑収入 , description: '' }
     EOD
     initial_assets.each_pair do |accounting_type_id, items|
