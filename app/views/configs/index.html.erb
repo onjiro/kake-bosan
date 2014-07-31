@@ -1,7 +1,16 @@
 <div class="container-fluid">
   <div class="row">
     <section class="account-items-configs">
+      <h3>勘定科目設定</h3>
       <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+              <th>科目名</th>
+              <th>分類</th>
+              <th>説明</th>
+              <th></th>
+            </tr>
+        </thead>
         <tbody>
           <tr ng-repeat="item in items">
             <td>{{item.name}}</td>
