@@ -7,5 +7,8 @@ angular.module('kake-bosan').factory 'Item', ['$resource', ($resource) ->
     name: null,
     accounting_type: null,
     description: null,
+  },
+  {
+    update: { method: 'PUT' },
   }
 ]
