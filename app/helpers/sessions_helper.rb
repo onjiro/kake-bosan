@@ -71,7 +71,7 @@ module SessionsHelper
     EOD
     initial_assets.each_pair do |accounting_type_id, items|
       items.each do |item|
-        Accounting::Item.new(item.merge(user_id: user.id, accounting_type_id: accounting_type_id)).save()
+        Accounting::Item.new(item.merge(user_id: user.id, type_id: accounting_type_id)).save()
       end
     end
   end
