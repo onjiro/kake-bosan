@@ -1,17 +1,21 @@
 <div class="nav">
   <div class="navbar navbar-default" role="navigation">
-    <!-- bootstrap 2系で作成してた分、いったん非表示。あとでメニューとかに移す -->
-    <div class="navbar-inner" style="display: none">
-      <a class="brand" href="/"><i class="icon-home"></i>家計簿さん</a>
-      <div class="user-menu pull-right">
-        <% if current_user  %>
-        <span class="current-user">ログイン中: <%= current_user.name %></span>
-        <span class="logout btn"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/signout" %></span>
-        <% else %>
-        <%= link_to(sanitize('<span class="glyphicon glyphicon-signin"></span> 開発者としてログイン'), "/auth/developer", class: "developer-login btn btn-primary") unless Rails.env.production? %>
-        <%= link_to sanitize('<span class="glyphicon glyphicon-twitter"></span> Twitterでログイン'), "/auth/twitter", class: "twitter-login btn btn-primary" %>
-        <% end %>
+    <div class="container-fluid">
+      <div class="nav navbar-header">
+        <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> 家計簿さん</a>
       </div>
+
+      <% if current_user  %>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="current-user dropdown">
+          <a href="#" data-toggle="dropdown">ログイン中: <%= current_user.name %> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="logout"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/sessions/destroy" %></li>
+          </ul>
+        </li>
+      </ul>
+      <% end %>
+
     </div>
   </div>
 </div>
