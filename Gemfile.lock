@@ -60,6 +60,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.4.0)
     multi_json (1.10.1)
+    non-stupid-digest-assets (1.0.4)
     oauth (0.4.7)
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
@@ -130,6 +131,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.1)
   jquery-rails
   less-rails
+  non-stupid-digest-assets
   omniauth
   omniauth-twitter
   rails (~> 4.1.0)

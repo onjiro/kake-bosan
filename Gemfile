@@ -31,3 +31,7 @@ gem 'omniauth-twitter'
 
 # To use debugger
 # gem 'debugger'
+
+group :production do
+  gem 'non-stupid-digest-assets'
+end
