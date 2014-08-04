@@ -18,6 +18,7 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
 
   # entry form
   $scope.addNewTransaction = () ->
+    return unless $scope.newTransaction.validate()
     $scope.newTransaction.submitting = true
     document.body.style.cursor = 'wait'
     $scope.newTransaction.$save(

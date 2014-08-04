@@ -26,12 +26,25 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
     this.creditEntries()[0]?.item?.name
   Transaction.prototype.getAmount = () ->
     this.debitEntries().reduce ((sum, entry) -> sum + entry.amount), 0
+
   Transaction.prototype.debitEntries = () ->
-    this.entries = [] unless this.entries
-    this.entries.filter (entry) -> entry.side_id == 1
+    if this.entries
+      this.entries.filter (entry) -> entry.side_id == 1
+    else
+      this.entries_attributes.filter (entry) -> entry.side_id == 1
   Transaction.prototype.creditEntries = () ->
-    this.entries = [] unless this.entries
-    this.entries.filter (entry) -> entry.side_id == 2
+    if this.entries
+      this.entries.filter (entry) -> entry.side_id == 2
+    else
+      this.entries_attributes.filter (entry) -> entry.side_id == 2
+
+  Transaction.prototype.validate = () ->
+    sum = _.reduce(
+      this.debitEntries(),
+      (memo, each) -> console.log each; if each.amount then memo + each.amount else memo
+      0
+    )
+    return sum > 0
 
   return Transaction
 ]
