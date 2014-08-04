@@ -11,6 +11,7 @@
           <input name="date" class="form-control"
                  type="date" placeholder="日付"
                  ng-model="newTransaction.date"
+                 ng-disabled="newTransaction.submitting"
                  ng-focus-on-change="newTransaction.date"
                  autofocus />
         </span>
@@ -42,6 +43,7 @@
                 </ul>
               </div>
               <select name="debit-account" class="form-control"
+                      ng-disabled="newTransaction.submitting"
                       ng-model="newTransaction.entries_attributes[0].item_id">
                 <option value="0">【借方】</option>
                 <option ng-repeat="item in items | byAccount:current_filter.type_ids" value="{{ item.id }}">{{ item.name }}</option>
@@ -55,7 +57,7 @@
               <input name="amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="借方金額"
                      ng-model="newTransaction.entries_attributes[0].amount"
-                     disabled>
+                     ng-disabled="newTransaction.submitting || true"><!-- TODO 複雑なTransactionへの対応まで、常に無効化する -->
               <div class="input-group-addon" title="金額自動転記">
                 <input type="checkbox" checked> <i class="glyphicon glyphicon-link"></i>
               </div>
@@ -65,7 +67,11 @@
           <td class="credit-account" ng-controller="AccountSelectController" ng-init="current_filter = type_filters[0]">
             <div class="input-group">
               <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle"
+                        ng-disabled="newTransaction.submitting"
+                        data-toggle="dropdown">
+                  <i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span>
+                </button>
                 <ul class="dropdown-menu" role="menu">
                   <!-- repaet: filters -->
                   <li ng-repeat="filter in type_filters">
@@ -74,6 +80,7 @@
                 </ul>
               </div>
               <select name="credit-account" class="form-control"
+                      ng-disabled="newTransaction.submitting"
                       ng-model="newTransaction.entries_attributes[1].item_id">
                 <option value="0">【貸方】</option>
                 <option ng-repeat="item in items | byAccount:current_filter.type_ids" value="{{ item.id }}">{{ item.name }}</option>
@@ -86,19 +93,20 @@
               <div class="input-group-addon">&yen;</div>
               <input name="amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="貸方金額"
+                     ng-disabled="newTransaction.submitting"
                      ng-model="newTransaction.entries_attributes[1].amount"
                      ng-change="newTransaction.entries_attributes[0].amount = newTransaction.entries_attributes[1].amount"/>
             </div>
           </td>
 
           <!-- エントリーコントロール -->
-          <td><button type="button" class="delete-row">x</button></td>
+          <td><button type="button" class="delete-row" ng-disabled="newTransaction.submitting">x</button></td>
         </tr>
 
         <!-- トランザクションコントロール1 -->
         <tr>
           <td colspan="5" >
-            <button class="btn btn-default col-sm-2">
+            <button class="btn btn-default col-sm-2" ng-disabled="newTransaction.submitting">
               <i class="glyphicon glyphicon-plus"></i> 行を追加
             </button>
           </td>
@@ -110,8 +118,10 @@
     <!-- トランザクションコントロール2 -->
     <div id="entry-form-control" class="row">
       <div class="col-sm-12">
-        <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-pencil"></i> 登録 </button>
-        <button ng-click="toggleEntryForm()" class="btn btn-default" type="button">クリア</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="newTransaction.submitting">
+          <i class="glyphicon glyphicon-pencil"></i> 登録
+        </button>
+        <button ng-click="toggleEntryForm()" class="btn btn-default" type="button" ng-disabled="newTransaction.submitting">クリア</button>
       </div>
     </div>
 

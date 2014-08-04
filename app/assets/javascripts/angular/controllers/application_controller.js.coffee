@@ -21,7 +21,16 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
   $scope.toggleEntryForm = () -> $scope.onEntry = !$scope.onEntry
   $scope.addNewTransaction = () ->
     this.toggleEntryForm()
-    $scope.newTransaction.$save (data, res) ->
-      transactions.push new Transaction(data)
-      $scope.newTransaction = Transaction.template(data)
+    $scope.newTransaction.submitting = true
+    document.body.style.cursor = 'wait'
+    $scope.newTransaction.$save(
+      (data, res) ->
+        transactions.push new Transaction(data)
+        $scope.newTransaction = Transaction.template(data)
+        document.body.style.cursor = 'auto'
+      (err) ->
+        alert "#{err.status}: #{err.statusText}"
+        delete $scope.newTransaction.submitting
+        document.body.style.cursor = 'auto'
+    )
 ]
