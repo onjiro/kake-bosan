@@ -31,16 +31,14 @@
       <tbody>
         <tr>
 
-          <td class="debit-account" ng-controller="AccountSelectController" ng-init="current_filter = type_filters[1]">
-            <div class="input-group">
-              <%= render file: 'layouts/_account_filter_button_plugin'  %>
-              <select name="debit-account" class="form-control"
-                      ng-disabled="newTransaction.submitting"
-                      ng-model="newTransaction.entries_attributes[0].item_id">
-                <option value="0">【借方】</option>
-                <option ng-repeat="item in items | byAccount:current_filter.type_ids" value="{{ item.id }}">{{ item.name }}</option>
-              </select>
-            </div>
+          <td class="debit-account">
+            <%= render file: 'layouts/_account_item_selection',
+                locals: {
+                  initial_filter: 'type_filters[1]',
+                  selection_model: 'newTransaction.entries_attributes[0].item_id',
+                  selection_title: '【借方】',
+                }
+            %>
           </td>
 
           <td class="debit-amount">
@@ -54,16 +52,14 @@
             </div>
           </td>
 
-          <td class="credit-account" ng-controller="AccountSelectController" ng-init="current_filter = type_filters[0]">
-            <div class="input-group">
-              <%= render file: 'layouts/_account_filter_button_plugin'  %>
-              <select name="credit-account" class="form-control"
-                      ng-disabled="newTransaction.submitting"
-                      ng-model="newTransaction.entries_attributes[1].item_id">
-                <option value="0">【貸方】</option>
-                <option ng-repeat="item in items | byAccount:current_filter.type_ids" value="{{ item.id }}">{{ item.name }}</option>
-              </select>
-            </div>
+          <td class="credit-account">
+            <%= render file: 'layouts/_account_item_selection',
+                locals: {
+                  initial_filter: 'type_filters[0]',
+                  selection_model: 'newTransaction.entries_attributes[1].item_id',
+                  selection_title: '【貸方】',
+                }
+            %>
           </td>
 
           <td class="credit-amount">
