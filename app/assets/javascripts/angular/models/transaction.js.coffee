@@ -12,12 +12,12 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
       entries_attributes: [
         {
           side_id: 1, # Debit
-          item_id: src?.entries?[0]?.item_id || 0,
+          item_id: src?.debitEntries()[0]?.item_id || 0,
           amount: null,
         },
         {
           side_id: 2, # Credit
-          item_id: src?.entries?[1]?.item_id || 0,
+          item_id: src?.creditEntries()[0]?.item_id || 0,
           amount: null,
         },
       ]

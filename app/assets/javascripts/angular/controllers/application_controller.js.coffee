@@ -23,8 +23,8 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
     document.body.style.cursor = 'wait'
     $scope.newTransaction.$save(
       (data, res) ->
-        transactions.push new Transaction(data)
-        $scope.newTransaction = Transaction.template(data)
+        transactions.push new Transaction($scope.newTransaction)
+        $scope.newTransaction = Transaction.template($scope.newTransaction)
         document.body.style.cursor = 'auto'
       (err) ->
         alert "#{err.status}: #{err.statusText}"
