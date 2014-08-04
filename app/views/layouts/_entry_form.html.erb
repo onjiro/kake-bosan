@@ -34,7 +34,13 @@
           <td class="debit-account" ng-controller="AccountSelectController" ng-init="current_filter = type_filters[1]">
             <div class="input-group">
               <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle"
+                        data-toggle="dropdown"
+                        ng-focus-on-change="current_filter">
+                  <i class="glyphicon glyphicon-filter"></i>
+                  {{current_filter.title}}
+                  <span class="caret"></span>
+                </button>
                 <ul class="dropdown-menu" role="menu">
                   <!-- repaet: filters -->
                   <li ng-repeat="filter in type_filters">
@@ -67,8 +73,11 @@
               <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle"
                         ng-disabled="newTransaction.submitting"
-                        data-toggle="dropdown">
-                  <i class="glyphicon glyphicon-filter"></i> {{current_filter.title}} <span class="caret"></span>
+                        data-toggle="dropdown"
+                        ng-focus-on-change="current_filter">
+                  <i class="glyphicon glyphicon-filter"></i>
+                  {{current_filter.title}}
+                  <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <!-- repaet: filters -->
