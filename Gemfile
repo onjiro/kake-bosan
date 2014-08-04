@@ -12,6 +12,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'uglifier', '>= 1.0.3'
+gem 'non-stupid-digest-assets'
 
 gem 'therubyracer'
 gem 'omniauth'
@@ -31,7 +32,3 @@ gem 'omniauth-twitter'
 
 # To use debugger
 # gem 'debugger'
-
-group :production do
-  gem 'non-stupid-digest-assets'
-end
