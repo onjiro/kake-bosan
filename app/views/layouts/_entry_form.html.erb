@@ -56,11 +56,9 @@
               <div class="input-group-addon">&yen;</div>
               <input name="amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="借方金額"
+                     ng-disabled="newTransaction.submitting"
                      ng-model="newTransaction.entries_attributes[0].amount"
-                     ng-disabled="newTransaction.submitting || true"><!-- TODO 複雑なTransactionへの対応まで、常に無効化する -->
-              <div class="input-group-addon" title="金額自動転記">
-                <input type="checkbox" checked> <i class="glyphicon glyphicon-link"></i>
-              </div>
+                     ng-change="newTransaction.entries_attributes[1].amount = newTransaction.entries_attributes[0].amount"/>
             </div>
           </td>
 
@@ -93,9 +91,11 @@
               <div class="input-group-addon">&yen;</div>
               <input name="amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="貸方金額"
-                     ng-disabled="newTransaction.submitting"
                      ng-model="newTransaction.entries_attributes[1].amount"
-                     ng-change="newTransaction.entries_attributes[0].amount = newTransaction.entries_attributes[1].amount"/>
+                     ng-disabled="newTransaction.submitting || true"><!-- TODO 複雑なTransactionへの対応まで、常に無効化する -->
+              <div class="input-group-addon" title="金額自動転記">
+                <input type="checkbox" checked> <i class="glyphicon glyphicon-link"></i>
+              </div>
             </div>
           </td>
 
