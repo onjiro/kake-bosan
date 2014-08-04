@@ -41,7 +41,7 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
   Transaction.prototype.validate = () ->
     sum = _.reduce(
       this.debitEntries(),
-      (memo, each) -> console.log each; if each.amount then memo + each.amount else memo
+      (memo, each) -> if each.amount then memo + each.amount else memo
       0
     )
     return sum > 0
