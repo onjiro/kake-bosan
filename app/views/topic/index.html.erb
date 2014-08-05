@@ -19,9 +19,21 @@
           <td ng-hide="transaction.showDetails" style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
 
           <td ng-show="transaction.showDetails" colspan="3">
-            <span>詳細</span>
-            <button type="button" class="delete-row pull-right"
-                    ng-click="$event.stopPropagation(); remove(transaction)">x</button>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
+                  <td>{{transaction.debitEntries()[0].item_id}}</td>
+                  <td>&yen;{{transaction.debitEntries()[0].amount}}</td>
+                  <td>{{transaction.creditEntries()[0].item_id}}</td>
+                  <td>&yen;{{transaction.creditEntries()[0].amount}}</td>
+                  <td>
+                    <button type="button" class="delete-row pull-right"
+                            ng-click="$event.stopPropagation(); remove(transaction)">x</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </td>
         </tr>
       </tbody>
