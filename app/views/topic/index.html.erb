@@ -19,7 +19,9 @@
           <td ng-hide="transaction.showDetails" style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
 
           <td ng-show="transaction.showDetails" colspan="3">
-            詳細
+            <span>詳細</span>
+            <button type="button" class="delete-row pull-right"
+                    ng-click="transaction.$remove()">x</button>
           </td>
         </tr>
       </tbody>
