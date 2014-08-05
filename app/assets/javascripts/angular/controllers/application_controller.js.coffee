@@ -39,5 +39,5 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
       (err) -> alert "#{err.status}: #{err.statusText}"
     )
 
-  $scope.itemName = (item_id) -> _.findWhere($scope.items, {id: item_id}).name
+  $scope.itemName = (item_id) -> _.findWhere($scope.items, {id: item_id})?.name
 ]
