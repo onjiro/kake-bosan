@@ -13,10 +13,14 @@
       </thead>
       <tbody>
         <!-- 履歴を表示します -->
-        <tr ng-repeat="transaction in transactions | orderBy:'date':true">
-          <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
-          <td>{{transaction.getSummaryAccount()}}</td>
-          <td style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
+        <tr ng-repeat="transaction in transactions | orderBy:'date':true" ng-click="transaction.showDetails = !transaction.showDetails">
+          <td ng-hide="transaction.showDetails">{{transaction.date | date: 'yyyy-MM-dd'}}</td>
+          <td ng-hide="transaction.showDetails">{{transaction.getSummaryAccount()}}</td>
+          <td ng-hide="transaction.showDetails" style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
+
+          <td ng-show="transaction.showDetails" colspan="3">
+            詳細
+          </td>
         </tr>
       </tbody>
     </table>
