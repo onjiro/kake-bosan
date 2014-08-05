@@ -23,9 +23,9 @@
               <tbody>
                 <tr>
                   <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
-                  <td>{{itemName(transaction.debitEntries()[0].item_id)}}</td>
+                  <td>{{transaction.debitEntries()[0].item_id | itemName}}</td>
                   <td>&yen;{{transaction.debitEntries()[0].amount}}</td>
-                  <td>{{itemName(transaction.creditEntries()[0].item_id)}}</td>
+                  <td>{{transaction.creditEntries()[0].item_id | itemName}}</td>
                   <td>&yen;{{transaction.creditEntries()[0].amount}}</td>
                   <td>
                     <button type="button" class="delete-row pull-right"

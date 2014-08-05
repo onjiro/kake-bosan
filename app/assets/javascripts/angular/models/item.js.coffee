@@ -9,6 +9,7 @@ angular.module('kake-bosan').factory 'Item', ['$resource', ($resource) ->
     description: null,
   },
   {
+    query: {method: 'GET', isArray: true, cache: true},
     update: { method: 'PUT' },
   }
 ]
