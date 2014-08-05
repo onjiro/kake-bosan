@@ -21,7 +21,7 @@
           <td ng-show="transaction.showDetails" colspan="3">
             <span>詳細</span>
             <button type="button" class="delete-row pull-right"
-                    ng-click="transaction.$remove()">x</button>
+                    ng-click="$event.stopPropagation(); remove(transaction)">x</button>
           </td>
         </tr>
       </tbody>
