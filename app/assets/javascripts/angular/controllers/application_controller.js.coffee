@@ -31,4 +31,13 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
         delete $scope.newTransaction.submitting
         document.body.style.cursor = 'auto'
     )
+
+  $scope.remove = (transaction) ->
+    return unless confirm "本当に削除してよろしいですか？"
+    transaction.$remove(
+      (data, res) -> transactions.splice(transactions.indexOf(transaction), 1)
+      (err) -> alert "#{err.status}: #{err.statusText}"
+    )
+
+  $scope.itemName = (item_id) -> _.findWhere($scope.items, {id: item_id}).name
 ]
