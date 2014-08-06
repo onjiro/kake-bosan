@@ -18,13 +18,21 @@
             <td ng-class="{deleted: item.deleted_at}">{{types[item.type_id - 1].name}}</td>
             <td ng-class="{deleted: item.deleted_at}">{{item.description}}</td>
             <td class="controls">
-              <button class="btn btn-mini btn-default" ng-click="item.editing = true">
+              <button class="btn btn-mini btn-default"
+                      ng-click="item.editing = true"
+                      ng-disabled="item.updating">
                 <i class="glyphicon glyphicon-edit"></i> 編集
               </button>
-              <button class="btn btn-mini btn-default" ng-hide="item.deleted_at">
+              <button class="btn btn-mini btn-default"
+                      ng-click="toggleItemSelectable(item)"
+                      ng-show="item.selectable"
+                      ng-disabled="item.updating">
                 <i class="glyphicon glyphicon-remove"></i> 無効化
               </button>
-              <button class="btn btn-mini btn-default" ng-show="item.deleted_at">
+              <button class="btn btn-mini btn-default"
+                      ng-click="toggleItemSelectable(item)"
+                      ng-hide="item.selectable"
+                      ng-disabled="item.updating">
                 <i class="glyphicon glyphicon-ok"></i> 有効化
               </button>
             </td>
