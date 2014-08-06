@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806073859) do
+ActiveRecord::Schema.define(version: 20140806082107) do
 
   create_table "accounting_entries", force: true do |t|
     t.integer  "user_id"
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20140806073859) do
     t.string   "name"
     t.integer  "type_id"
     t.string   "description"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "selectable",  default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "selectable",  default: true, null: false
   end
 
   add_index "accounting_items", ["type_id"], name: "index_accounting_items_on_type_id"
