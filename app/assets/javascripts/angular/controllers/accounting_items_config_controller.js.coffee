@@ -6,6 +6,8 @@ angular.module('kake-bosan').controller 'AccountingItemsConfigController', ['$sc
   $scope.toggleItemSelectable = (item) ->
     item.updating = true
     item.selectable = !item.selectable
-    item.$update()
-      .finally () -> delete item.updating
+    item.$update(
+      angular.noop
+      (err) -> alert "#{err.status}: #{err.statusText}"
+    ).finally () -> delete item.updating
 ]
