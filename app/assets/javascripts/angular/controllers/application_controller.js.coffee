@@ -15,6 +15,7 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
   transactions = $scope.transactions = Transaction.query()
 
   $scope.newTransaction = Transaction.template()
+  $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
 
   # entry form
   $scope.addNewTransaction = () ->

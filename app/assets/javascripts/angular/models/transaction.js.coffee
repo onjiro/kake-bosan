@@ -46,5 +46,18 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
     )
     return sum > 0
 
+  # 帳票フォーマットとして表示しやすい形に整える
+  Transaction.prototype.toDisplayFormat = () ->
+    {
+      date: this.date,
+      rows: toDisplayFormatRows(this.debitEntries(), this.creditEntries())
+    }
+
+  toDisplayFormatRows = (debits, credits) ->
+    rowLength = if debits.length < credits.length then credits.length else debits.length
+    rows = []
+    rows.push {debit: debits[i], credit: credits[i] } for i in [0...rowLength]
+    return rows
+
   return Transaction
 ]
