@@ -33,6 +33,7 @@ class Accounting::ItemsController < ApplicationController
       name: params[:name],
       type_id: params[:type_id],
       description: params[:description],
+      selectable: params[:selectable],
     }
   end
 end
