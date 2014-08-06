@@ -26,6 +26,7 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
       (data, res) ->
         transactions.push new Transaction($scope.newTransaction)
         $scope.newTransaction = Transaction.template($scope.newTransaction)
+        $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
         document.body.style.cursor = 'auto'
       (err) ->
         alert "#{err.status}: #{err.statusText}"

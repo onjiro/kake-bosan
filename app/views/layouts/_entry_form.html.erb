@@ -82,7 +82,9 @@
         <!-- トランザクションコントロール1 -->
         <tr>
           <td colspan="5" >
-            <button class="btn btn-default col-sm-2" ng-disabled="newTransaction.submitting">
+            <button class="btn btn-default col-sm-2" type="button"
+                    ng-click="newTransaction.addEmptyEntriesPair(); formattedNewTransaction = newTransaction.toDisplayFormat()"
+                    ng-disabled="newTransaction.submitting">
               <i class="glyphicon glyphicon-plus"></i> 行を追加
             </button>
           </td>

@@ -46,6 +46,16 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
     )
     return sum > 0
 
+  Transaction.prototype.addEmptyEntriesPair = () ->
+    this.entries_attributes.push
+      side_id: 1, # Debit
+      item_id: src?.debitEntries()[0]?.item_id || 0,
+      amount: null,
+    this.entries_attributes.push
+      side_id: 2, # Credit
+      item_id: src?.creditEntries()[0]?.item_id || 0,
+      amount: null,
+
   # 帳票フォーマットとして表示しやすい形に整える
   Transaction.prototype.toDisplayFormat = () ->
     {
