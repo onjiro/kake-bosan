@@ -14,13 +14,13 @@
         <tbody ng-repeat="item in items">
           <!-- 通常表示 -->
           <tr ng-hide="item.editing">
-            <td ng-class="{deleted: item.deleted_at}">{{item.name}}</td>
-            <td ng-class="{deleted: item.deleted_at}">{{types[item.type_id - 1].name}}</td>
-            <td ng-class="{deleted: item.deleted_at}">{{item.description}}</td>
+            <td ng-class="{deleted: !item.selectable}">{{item.name}}</td>
+            <td ng-class="{deleted: !item.selectable}">{{types[item.type_id - 1].name}}</td>
+            <td ng-class="{deleted: !item.selectable}">{{item.description}}</td>
             <td class="controls">
               <button class="btn btn-mini btn-default"
                       ng-click="item.editing = true"
-                      ng-disabled="item.updating">
+                      ng-disabled="item.updating || !item.selectable">
                 <i class="glyphicon glyphicon-edit"></i> 編集
               </button>
               <button class="btn btn-mini btn-default"
