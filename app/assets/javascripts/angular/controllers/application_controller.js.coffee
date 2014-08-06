@@ -38,4 +38,5 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
       (data, res) -> transactions.splice(transactions.indexOf(transaction), 1)
       (err) -> alert "#{err.status}: #{err.statusText}"
     )
+
 ]
