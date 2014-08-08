@@ -42,7 +42,11 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
   Transaction.prototype.validate = () ->
     debitSum = _.reduce(this.debitEntries(), entriesSumFn, 0)
     creditSum = _.reduce(this.creditEntries(), entriesSumFn, 0)
-    return debitSum > 0 && debitSum == creditSum
+    allOfEntriesHaveZeroAmounts = _.reduce(
+      this.entries || this.entries_attributes
+      (memo, each) -> memo && !each.amount # confirm amount is not undefined/null/0
+    )
+    return debitSum == creditSum && (not allOfEntriesHaveZeroAmounts)
 
   Transaction.prototype.addEmptyEntriesPair = () ->
     this.entries_attributes.push
