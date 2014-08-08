@@ -78,7 +78,11 @@
           </td>
 
           <!-- エントリーコントロール -->
-          <td><button type="button" class="delete-row" ng-disabled="newTransaction.submitting">x</button></td>
+          <td>
+            <button type="button" class="delete-row"
+                      ng-disabled="formattedNewTransaction.rows.length === 1 || newTransaction.submitting">x
+            </button>
+          </td>
         </tr>
 
         <!-- トランザクションコントロール1 -->

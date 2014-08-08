@@ -45,6 +45,10 @@
     background-color: #a44;
   }
 
+  &:disabled {
+    color: transparent;
+    background-color: transparent;
+  }
 }
 
 td > .delete-row {
