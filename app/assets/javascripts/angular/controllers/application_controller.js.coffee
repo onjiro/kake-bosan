@@ -25,17 +25,14 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
   $scope.addNewTransaction = () ->
     return unless $scope.newTransaction.validate()
     $scope.newTransaction.submitting = true
-    document.body.style.cursor = 'wait'
     $scope.newTransaction.$save(
       (data, res) ->
         transactions.push new Transaction($scope.newTransaction)
         $scope.newTransaction = Transaction.template($scope.newTransaction)
         $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
-        document.body.style.cursor = 'auto'
       (err) ->
         alert "#{err.status}: #{err.statusText}"
         delete $scope.newTransaction.submitting
-        document.body.style.cursor = 'auto'
     )
 
   $scope.remove = (transaction) ->
