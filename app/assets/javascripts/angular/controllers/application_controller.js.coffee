@@ -25,15 +25,14 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
   $scope.addNewTransaction = () ->
     return unless $scope.newTransaction.validate()
     $scope.newTransaction.submitting = true
-    $scope.newTransaction.$save(
+    console.log $scope.newTransaction.$save(
       (data, res) ->
         transactions.push new Transaction($scope.newTransaction)
         $scope.newTransaction = Transaction.template($scope.newTransaction)
         $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
       (err) ->
         alert "#{err.status}: #{err.statusText}"
-        delete $scope.newTransaction.submitting
-    )
+    ).finally () -> delete $scope.newTransaction.submitting
 
   $scope.remove = (transaction) ->
     return unless confirm "本当に削除してよろしいですか？"
