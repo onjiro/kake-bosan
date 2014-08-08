@@ -38,13 +38,11 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
     else
       this.entries_attributes.filter (entry) -> entry.side_id == 2
 
+  entriesSumFn = (memo, each) -> if each.amount then memo + each.amount else memo
   Transaction.prototype.validate = () ->
-    sum = _.reduce(
-      this.debitEntries(),
-      (memo, each) -> if each.amount then memo + each.amount else memo
-      0
-    )
-    return sum > 0
+    debitSum = _.reduce(this.debitEntries(), entriesSumFn, 0)
+    creditSum = _.reduce(this.creditEntries(), entriesSumFn, 0)
+    return debitSum > 0 && debitSum == creditSum
 
   Transaction.prototype.addEmptyEntriesPair = () ->
     this.entries_attributes.push
