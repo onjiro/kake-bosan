@@ -15,6 +15,11 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
   transactions = $scope.transactions = Transaction.query()
 
   $scope.newTransaction = Transaction.template()
+  $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
+
+  $scope.amountLinked = true
+  $scope.$watch 'formattedNewTransaction.rows.length', (newValue, oldValue) ->
+    $scope.amountLinked = (newValue == 1)
 
   # entry form
   $scope.addNewTransaction = () ->
@@ -25,6 +30,7 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
       (data, res) ->
         transactions.push new Transaction($scope.newTransaction)
         $scope.newTransaction = Transaction.template($scope.newTransaction)
+        $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
         document.body.style.cursor = 'auto'
       (err) ->
         alert "#{err.status}: #{err.statusText}"

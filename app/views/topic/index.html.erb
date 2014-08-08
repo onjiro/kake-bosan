@@ -13,7 +13,9 @@
       </thead>
       <tbody>
         <!-- 履歴を表示します -->
-        <tr ng-repeat="transaction in transactions | orderBy:'date':true" ng-click="transaction.showDetails = !transaction.showDetails">
+        <tr ng-repeat="transaction in transactions | orderBy:'date':true"
+            ng-click="transaction.showDetails = !transaction.showDetails"
+            ng-init="transaction.displayFormat = transaction.toDisplayFormat()">
           <td ng-hide="transaction.showDetails">{{transaction.date | date: 'yyyy-MM-dd'}}</td>
           <td ng-hide="transaction.showDetails">{{transaction.getSummaryAccount()}}</td>
           <td ng-hide="transaction.showDetails" style="text-align: right">&yen;{{transaction.getAmount() | number: 0}}</td>
@@ -21,12 +23,12 @@
           <td ng-show="transaction.showDetails" colspan="3">
             <table class="table table-bordered">
               <tbody>
-                <tr>
-                  <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
-                  <td>{{transaction.debitEntries()[0].item_id | itemName}}</td>
-                  <td>&yen;{{transaction.debitEntries()[0].amount}}</td>
-                  <td>{{transaction.creditEntries()[0].item_id | itemName}}</td>
-                  <td>&yen;{{transaction.creditEntries()[0].amount}}</td>
+                <tr ng-repeat="row in transaction.displayFormat.rows">
+                  <td>{{ $index === 0 ? transaction.date: '' | date: 'yyyy-MM-dd'}}</td>
+                  <td>{{ row.debit ? row.debit.item_id: '' | itemName}}</td>
+                  <td>{{ row.debit ? '&yen;': '' }}{{ row.debit ? row.debit.amount: '' }}</td>
+                  <td>{{ row.credit ? row.credit.item_id: '' | itemName }}</td>
+                  <td>{{ row.credit ? '&yen;': '' }}{{ row.credit ? row.credit.amount: '' }}</td>
                   <td>
                     <button type="button" class="delete-row pull-right"
                             ng-click="$event.stopPropagation(); remove(transaction)">x</button>
