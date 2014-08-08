@@ -17,6 +17,10 @@ angular.module('kake-bosan').controller 'AppController', ['$scope', '$element', 
   $scope.newTransaction = Transaction.template()
   $scope.formattedNewTransaction = $scope.newTransaction.toDisplayFormat()
 
+  $scope.amountLinked = true
+  $scope.$watch 'formattedNewTransaction.rows.length', (newValue, oldValue) ->
+    $scope.amountLinked = (newValue == 1)
+
   # entry form
   $scope.addNewTransaction = () ->
     return unless $scope.newTransaction.validate()
