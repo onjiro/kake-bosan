@@ -29,7 +29,8 @@
       </thead>
 
       <tbody>
-        <tr ng-repeat="row in formattedNewTransaction.rows">
+        <tr ng-repeat="row in formattedNewTransaction.rows"
+            ng-focus-first-input-if="($index !== 0) && (formattedNewTransaction.rows.length === $index + 1)">
 
           <td class="debit-account">
             <%= render file: 'layouts/_account_item_selection',
