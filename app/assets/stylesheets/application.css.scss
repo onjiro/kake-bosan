@@ -58,3 +58,14 @@ td > .delete-row {
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+.caret.caret-right {
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-left: 4px solid;
+}
+
+.amount {
+  text-align: right;
+}

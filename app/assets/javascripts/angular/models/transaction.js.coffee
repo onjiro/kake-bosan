@@ -22,8 +22,6 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
         },
       ]
 
-  Transaction.prototype.getSummaryAccount = () ->
-    this.debitEntries()[0]?.item?.name
   Transaction.prototype.getAmount = () ->
     this.debitEntries().reduce ((sum, entry) -> sum + entry.amount), 0
 
