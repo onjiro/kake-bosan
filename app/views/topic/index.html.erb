@@ -36,7 +36,9 @@
 
           <td class="history-column-separator"></td>
           <td class="history-column-account">
-            {{transaction.getSummaryAccount()}}
+            <span ng-repeat="entry in transaction.debitEntries()">
+              {{  entry.item_id | itemName }}
+            </span>
           </td>
           <td class="amount history-column-amount">
             &yen;{{transaction.getAmount() | number: 0}}
@@ -44,7 +46,9 @@
 
           <td class="history-column-separator"></td>
           <td class="history-column-account">
-            {{transaction.getSummaryAccount()}}
+            <span ng-repeat="entry in transaction.creditEntries()">
+              {{  entry.item_id | itemName }}
+            </span>
           </td>
           <td class="amount history-column-amount">&yen;{{transaction.getAmount() | number: 0}}</td>
 
