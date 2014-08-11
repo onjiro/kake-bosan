@@ -17,3 +17,22 @@
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
+
+/* for ngAnimate */
+.history-transaction {
+  transition: 0.4s linear all;
+
+  &.ng-enter {
+    opacity: 0;
+    &.ng-enter-active {
+      opacity: 1;
+    }
+  }
+
+  &.ng-leave {
+    opacity: 1;
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+}

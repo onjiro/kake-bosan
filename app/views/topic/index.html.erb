@@ -19,6 +19,7 @@
         </tr>
       </thead>
       <tbody
+         class="history-transaction"
          ng-repeat="transaction in transactions | orderBy:'date':true"
          ng-click="(transaction.displayFormat.rows.length > 1) && (transaction.showDetails = !transaction.showDetails)"
          ng-init="transaction.displayFormat = transaction.toDisplayFormat()">
