@@ -6,33 +6,50 @@
     <table class="table" ng-show="transactions.$resolved" ng-cloak>
       <thead>
         <tr>
-          <th></th>
-          <th>日時</th>
+          <th><!-- expands --></th>
+          <th>日付</th>
+          <th><!-- separator --></th>
           <th>借方科目</th>
-          <th>借方金額</th>
+          <th class="amount">借方金額</th>
+          <th><!-- separator --></th>
           <th>貸方科目</th>
-          <th>貸方金額</th>
-          <th></th>
+          <th class="amount">貸方金額</th>
+          <th><!-- separator --></th>
+          <th><!-- controls --></th>
         </tr>
       </thead>
       <tbody
          ng-repeat="transaction in transactions | orderBy:'date':true"
-         ng-click="transaction.showDetails = !transaction.showDetails"
+         ng-click="(transaction.displayFormat.rows.length > 1) && (transaction.showDetails = !transaction.showDetails)"
          ng-init="transaction.displayFormat = transaction.toDisplayFormat()">
         <!-- 概要 -->
         <tr class="history-row history-row-outline"
             ng-hide="transaction.showDetails">
-          <td class="row-expands">
+          <td class="history-column-row-expands">
             <span ng-show="transaction.displayFormat.rows.length > 1">
               <i class="caret caret-right"></i>
             </span>
           </td>
-          <td>{{ transaction.date | date: 'yyyy-MM-dd' }}</td>
-          <td>{{transaction.getSummaryAccount()}}</td>
-          <td class="amount" style="text-align: right;">&yen;{{transaction.getAmount() | number: 0}}</td>
-          <td>{{transaction.getSummaryAccount()}}</td>
-          <td class="amount" style="text-align: right;">&yen;{{transaction.getAmount() | number: 0}}</td>
-          <td class="transaction-controls">
+          <td class="history-column-date">
+            {{ transaction.date | date: 'yyyy-MM-dd' }}
+          </td>
+
+          <td class="history-column-separator"></td>
+          <td class="history-column-account">
+            {{transaction.getSummaryAccount()}}
+          </td>
+          <td class="amount history-column-amount">
+            &yen;{{transaction.getAmount() | number: 0}}
+          </td>
+
+          <td class="history-column-separator"></td>
+          <td class="history-column-account">
+            {{transaction.getSummaryAccount()}}
+          </td>
+          <td class="amount history-column-amount">&yen;{{transaction.getAmount() | number: 0}}</td>
+
+          <td class="history-column-separator"></td>
+          <td class="history-column-transaction-controls">
             <button type="button" class="delete-row pull-right"
                     ng-click="$event.stopPropagation(); remove(transaction)">x</button>
           </td>
@@ -47,10 +64,16 @@
               <i class="caret"></i></td>
           </span>
           <td>{{ $index === 0 ? transaction.date: '' | date: 'yyyy-MM-dd'}}</td>
+
+          <td class="history-column-separator"></td>
           <td>{{ row.debit ? row.debit.item_id: '' | itemName}}</td>
           <td class="amount" style="text-align: right;">{{ row.debit ? '&yen;': '' }}{{ row.debit ? row.debit.amount: '' | number: 0 }}</td>
+
+          <td class="history-column-separator"></td>
           <td>{{ row.credit ? row.credit.item_id: '' | itemName }}</td>
           <td class="amount" style="text-align: right;">{{ row.credit ? '&yen;': '' }}{{ row.credit ? row.credit.amount: '' | number: 0 }}</td>
+
+          <td class="history-column-separator"></td>
           <td>
             <span ng-show="$index === 0">
               <button type="button" class="delete-row pull-right"
