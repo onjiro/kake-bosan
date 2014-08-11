@@ -32,3 +32,17 @@ gem 'omniauth-twitter'
 
 # To use debugger
 # gem 'debugger'
+
+group :development, :test do
+    # for js test
+  gem "teaspoon"
+  gem "guard-teaspoon"
+  gem "mocha"
+  gem "selenium-webdriver"
+
+  # for capybara test
+  gem "capybara"
+  gem 'capybara-webkit'
+  gem 'minitest-power_assert'
+  gem 'database_rewinder'
+end
