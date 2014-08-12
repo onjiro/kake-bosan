@@ -1,2 +1,45 @@
-<h1>Inventories#index</h1>
-<p>Find me in app/views/inventories/index.html.erb</p>
+<div class="container-fluid">
+  <div class="row">
+    <section class="inventories" ng-controller="InventoriesController">
+      <h3>棚卸高</h3>
+      <table class="table" ng-show="inventories.$resolved">
+        <thead>
+          <tr>
+            <th>科目名</th>
+            <th>分類</th>
+            <th>残高</th>
+            <th><!-- コントロール --></th>
+          </tr>
+        </thead>
+
+        <tbody ng-repeat="inventory in inventories">
+          <tr ng-hide="inventory.editing">
+            <td>{{ inventory.item.name }}</td>
+            <td>{{ inventory.item.type_id | type_name }}</td>
+            <td>{{ inventory.amount }}</td>
+            <td>
+              <button class="btn btn-default" ng-click="inventory.editing = true">
+                <i class="glyphicon glyphicon-edit"></i>
+              </button>
+            </td>
+          </tr>
+
+          <tr ng-show="inventory.editing">
+            <td>{{ inventory.item.name }}</td>
+            <td>{{ inventory.item.type_id | type_name }}</td>
+            <td>
+              <span class="input-group">
+                <span class="input-group-addon">&yen;</span>
+                <input class="form-control" name="amount" type="number"
+                       ng-disabled="inventory.submitting"
+                       ng-model="inventory.amount"/>
+              </span>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="loading well" ng-hide="inventories.$resolved">ロード中...</div>
+    </section>
+  </div>
+</div>
