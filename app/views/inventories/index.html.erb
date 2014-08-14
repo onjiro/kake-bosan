@@ -15,18 +15,19 @@
         <tbody ng-repeat="inventory in inventories">
           <tr ng-hide="inventory.editing">
             <td>{{ inventory.item.name }}</td>
-            <td>{{ inventory.item.type_id | type_name }}</td>
+            <td>{{ inventory.item.type_id }}</td>
             <td>{{ inventory.amount }}</td>
             <td>
-              <button class="btn btn-default" ng-click="inventory.editing = true">
-                <i class="glyphicon glyphicon-edit"></i>
+              <button class="btn btn-default" type="button"
+                      ng-click="inventory.editing = true">
+                <i class="glyphicon glyphicon-pencil"></i>
               </button>
             </td>
           </tr>
 
           <tr ng-show="inventory.editing">
             <td>{{ inventory.item.name }}</td>
-            <td>{{ inventory.item.type_id | type_name }}</td>
+            <td>{{ inventory.item.type_id }}</td>
             <td>
               <span class="input-group">
                 <span class="input-group-addon">&yen;</span>
@@ -35,7 +36,16 @@
                        ng-model="inventory.amount"/>
               </span>
             </td>
-            <td></td>
+            <td>
+              <button class="btn btn-primary" type="submit"
+                      ng-click="inventory.editing = false">
+                <i class="glyphicon glyphicon-ok"></i>
+              </button>
+              <button class="btn btn-default" type="button"
+                      ng-click="inventory.editing = false">
+                <i class="glyphicon glyphicon-remove"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
