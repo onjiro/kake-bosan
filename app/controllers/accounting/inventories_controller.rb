@@ -1,4 +1,4 @@
-class Accounting::Items::InventoriesController < ApplicationController
+class Accounting::InventoriesController < ApplicationController
   # GET /accounting/items/inventories
   # GET /accounting/items/inventories.json
   def index

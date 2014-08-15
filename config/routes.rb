@@ -59,11 +59,7 @@ Rails.application.routes.draw do
 
   namespace :accounting do
     resources :transactions
-
-    namespace :items do
-      resources :inventories
-    end
-
+    resources :inventories
     resources :items
   end
 
