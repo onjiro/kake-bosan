@@ -11,7 +11,7 @@ class Accounting::Entry < ActiveRecord::Base
     type = Accounting::Type.arel_table
 
     Accounting::Entry
-      .where(e[:user_id].eq(user_id).and(trx[:date].lt(date)))
+      .where(e[:user_id].eq(user_id).and trx[:date].lt(date))
       .joins(:transaction_belongs_to, item: [:type])
       .select(e[:item_id], type[:side_id], <<-EOD_AMOUNT)
           SUM(
