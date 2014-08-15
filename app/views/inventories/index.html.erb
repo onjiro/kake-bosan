@@ -14,8 +14,8 @@
 
         <tbody ng-repeat="inventory in inventories">
           <tr ng-hide="inventory.editing">
-            <td>{{ inventory.item.name }}</td>
-            <td>{{ inventory.item.type_id }}</td>
+            <td>{{ inventory.item_id | itemName }}</td>
+            <td>{{ inventory.item_id | itemType }}</td>
             <td>{{ inventory.amount }}</td>
             <td>
               <button class="btn btn-default" type="button"
@@ -26,8 +26,8 @@
           </tr>
 
           <tr ng-show="inventory.editing">
-            <td>{{ inventory.item.name }}</td>
-            <td>{{ inventory.item.type_id }}</td>
+            <td>{{ inventory.item_id | itemName }}</td>
+            <td>{{ inventory.item_id | itemType }}</td>
             <td>
               <span class="input-group">
                 <span class="input-group-addon">&yen;</span>

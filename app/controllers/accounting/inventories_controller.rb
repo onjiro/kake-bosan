@@ -5,7 +5,7 @@ class Accounting::InventoriesController < ApplicationController
     @inventories = Accounting::Entry.inventories @current_user.id, Date.parse(params[:date])
 
     respond_to do |format|
-      format.json { render json: @inventories, include: :item }
+      format.json { render json: @inventories }
     end
   end
 
