@@ -7,7 +7,8 @@
           <tr>
             <th>科目名</th>
             <th>分類</th>
-            <th>残高</th>
+            <th class="amount">残高</th>
+            <th><!-- separator --></th>
             <th><!-- コントロール --></th>
           </tr>
         </thead>
@@ -16,7 +17,8 @@
           <tr ng-hide="inventory.editing">
             <td>{{ inventory.item_id | itemName }}</td>
             <td>{{ inventory.item_id | itemType }}</td>
-            <td>{{ inventory.amount }}</td>
+            <td class="amount">{{ inventory.amount | number:0 }}</td>
+            <td class="history-column-separator"></td>
             <td>
               <button class="btn btn-default" type="button"
                       ng-click="inventory.editing = true">
@@ -36,6 +38,7 @@
                        ng-model="inventory.amount"/>
               </span>
             </td>
+            <td class="history-column-separator"></td>
             <td>
               <button class="btn btn-primary" type="submit"
                       ng-click="inventory.editing = false">
