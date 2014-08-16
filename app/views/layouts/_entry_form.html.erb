@@ -35,6 +35,7 @@
           <td class="debit-account">
             <%= render file: 'layouts/_account_item_selection',
                 locals: {
+                  name: 'debit-account',
                   initial_filter: 'type_filters[1]',
                   selection_model: 'row.debit.item_id',
                   selection_title: '【借方】',
@@ -56,6 +57,7 @@
           <td class="credit-account">
             <%= render file: 'layouts/_account_item_selection',
                 locals: {
+                  name: 'credit-account',
                   initial_filter: 'type_filters[0]',
                   selection_model: 'row.credit.item_id',
                   selection_title: '【貸方】',

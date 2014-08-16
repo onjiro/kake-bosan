@@ -1,7 +1,7 @@
 module SessionsHelper
   def find_or_create_user(auth_params)
     return User.find_by_provider_and_uid(auth_params["provider"], auth_params["uid"]) ||
-      create_user_account(auth_params)
+      ActiveRecord::Base.transaction { create_user_account(auth_params) }
   end
 
   private

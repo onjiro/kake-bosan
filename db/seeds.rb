@@ -6,13 +6,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Accounting::Side.delete_all()
-Accounting::Side::DEBIT.save()
-Accounting::Side::CREDIT.save()
+ActiveRecord::Base.transaction do
+  Accounting::Side.delete_all()
+  Accounting::Side::DEBIT.save
+  Accounting::Side::CREDIT.save()
 
-Accounting::Type.delete_all()
-Accounting::Type::ASSET.save()
-Accounting::Type::EXPENSE.save()
-Accounting::Type::LIABILITY.save()
-Accounting::Type::CAPITAL.save()
-Accounting::Type::INCOME.save()
+  Accounting::Type.delete_all()
+  Accounting::Type::ASSET.save()
+  Accounting::Type::EXPENSE.save()
+  Accounting::Type::LIABILITY.save()
+  Accounting::Type::CAPITAL.save()
+  Accounting::Type::INCOME.save()
+end
