@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816123102) do
+ActiveRecord::Schema.define(version: 20140816124938) do
 
   create_table "accounting_entries", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "transaction_id"
-    t.integer  "side_id"
-    t.integer  "item_id"
-    t.integer  "amount"
+    t.integer  "user_id",        null: false
+    t.integer  "transaction_id", null: false
+    t.integer  "side_id",        null: false
+    t.integer  "item_id",        null: false
+    t.integer  "amount",         null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -30,10 +30,10 @@ ActiveRecord::Schema.define(version: 20140816123102) do
   add_index "accounting_entries", ["user_id"], name: "index_accounting_entries_on_user_id"
 
   create_table "accounting_items", force: true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.integer  "type_id"
-    t.string   "description"
+    t.integer  "user_id",                    null: false
+    t.string   "name",                       null: false
+    t.integer  "type_id",                    null: false
+    t.string   "description",                null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "selectable",  default: true, null: false
@@ -44,15 +44,15 @@ ActiveRecord::Schema.define(version: 20140816123102) do
 
   create_table "accounting_sides", id: false, force: true do |t|
     t.integer  "id"
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "accounting_transactions", force: true do |t|
-    t.integer  "user_id"
-    t.datetime "date"
+    t.integer  "user_id",     null: false
+    t.datetime "date",        null: false
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20140816123102) do
   add_index "accounting_transactions", ["user_id"], name: "index_accounting_transactions_on_user_id"
 
   create_table "accounting_types", force: true do |t|
-    t.string   "name"
-    t.integer  "side_id"
+    t.string   "name",       null: false
+    t.integer  "side_id",    null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20140816123102) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "provider"
-    t.string   "uid"
+    t.string   "provider",     null: false
+    t.string   "uid",          null: false
     t.string   "name"
     t.string   "image_url"
     t.string   "email"
