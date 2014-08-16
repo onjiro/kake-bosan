@@ -13,15 +13,20 @@ class InventoriesTest < ActionDispatch::IntegrationTest
   end
 
   test '現在の資産の額を確認できること' do
-    fill_in 'amount', with: '100'
+    fill_in 'debit-amount', with: 1
     select '食費', from: 'debit-account'
     select '現金', from: 'credit-account'
     click_button '登録'
     assert { all('.history tbody').size == 1 }
-    save_screenshot "#{Rails.root}/screenshots/inventories_index_pre.png"
 
     click_link '棚卸し'
     assert { page.has_no_content? 'ロード中・・・' }
+
+    assert { all('.inventories tbody').size == 1 }
+    row = find '.inventories tbody tr'
+    assert { row.has_content? '現金' }
+    assert { row.has_content? '資産' }
+    assert { row.has_content? '-1' }
 
     save_screenshot "#{Rails.root}/screenshots/inventories_index.png"
   end

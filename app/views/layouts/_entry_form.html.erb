@@ -46,7 +46,7 @@
           <td class="debit-amount">
             <div class="input-group">
               <div class="input-group-addon">&yen;</div>
-              <input name="amount" class="form-control" style="text-align: right;"
+              <input name="debit-amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="借方金額"
                      ng-disabled="newTransaction.submitting"
                      ng-model="row.debit.amount"
@@ -68,7 +68,7 @@
           <td class="credit-amount">
             <div class="input-group">
               <div class="input-group-addon">&yen;</div>
-              <input name="amount" class="form-control" style="text-align: right;"
+              <input name="credit-amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="貸方金額"
                      ng-model="row.credit.amount"
                      ng-disabled="amountLinked || newTransaction.submitting ">
