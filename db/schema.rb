@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806082107) do
+ActiveRecord::Schema.define(version: 20140816120101) do
 
   create_table "accounting_entries", force: true do |t|
     t.integer  "user_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140806082107) do
   add_index "accounting_entries", ["item_id"], name: "index_accounting_entries_on_item_id"
   add_index "accounting_entries", ["side_id"], name: "index_accounting_entries_on_side_id"
   add_index "accounting_entries", ["transaction_id"], name: "index_accounting_entries_on_transaction_id"
+  add_index "accounting_entries", ["user_id", "item_id", "side_id"], name: "index_accounting_entries_on_user_id_and_item_id_and_side_id"
   add_index "accounting_entries", ["user_id"], name: "index_accounting_entries_on_user_id"
 
   create_table "accounting_items", force: true do |t|
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140806082107) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "accounting_transactions", ["date"], name: "index_accounting_transactions_on_date"
   add_index "accounting_transactions", ["user_id"], name: "index_accounting_transactions_on_user_id"
 
   create_table "accounting_types", force: true do |t|
