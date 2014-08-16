@@ -31,7 +31,7 @@ class InventoriesTest < ActionDispatch::IntegrationTest
     save_screenshot "#{Rails.root}/screenshots/inventories_index.png"
   end
 
-  test '現在の実資産額を登録できること' do
-    skip
-  end
+  # test '現在の実資産額を登録できること' do
+  #   skip
+  # end
 end
