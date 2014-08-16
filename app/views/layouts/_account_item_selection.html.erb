@@ -1,4 +1,4 @@
-<div class="debit-account"
+<div class="<%= name %>"
      ng-controller="AccountSelectController"
      ng-init="current_filter = <%== initial_filter %>">
   <div class="input-group">
@@ -22,7 +22,7 @@
     </div>
 
     <!-- 科目選択ダイアログ -->
-    <select name="debit-account" class="form-control"
+    <select name="<%= name %>" class="form-control"
             ng-disabled="newTransaction.submitting"
             ng-model="<%== selection_model %>">
       <option value="0"><%== selection_title %></option>

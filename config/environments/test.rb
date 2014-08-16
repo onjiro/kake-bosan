@@ -36,4 +36,16 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Omniauth integration test setting
+  # @see https://github.com/intridea/omniauth/wiki/Integration-Testing
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:development] = OmniAuth::AuthHash.new
+  {
+    provider: 'development',
+    uid: 'test_mock_user',
+    info: {
+        name: 'Test User'
+    }
+  }
 end

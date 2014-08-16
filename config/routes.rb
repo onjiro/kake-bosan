@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -58,12 +59,14 @@ Rails.application.routes.draw do
 
   namespace :accounting do
     resources :transactions
+    resources :inventories
     resources :items
   end
 
   get "topic/index"
 
   get "configs", to: 'configs#index'
+  get 'inventories', to: 'inventories#index'
 
   get "sessions/destroy"
 
