@@ -21,6 +21,6 @@ class Accounting::Entry < ActiveRecord::Base
             END
           ) AS amount
         EOD_AMOUNT
-      .group(:item_id)
+      .group(e[:item_id], type[:side_id])
   end
 end
