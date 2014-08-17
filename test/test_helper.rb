@@ -4,7 +4,7 @@ require 'rails/test_help'
 require 'capybara/rails'
 
 Capybara.default_driver = :selenium
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = 10
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
