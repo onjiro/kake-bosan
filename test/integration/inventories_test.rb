@@ -22,8 +22,8 @@ class InventoriesTest < ActionDispatch::IntegrationTest
     click_link '棚卸し'
     assert { page.has_no_content? 'ロード中・・・' }
 
-    assert { all('.inventories tbody').size == 1 }
-    row = find '.inventories tbody tr'
+    assert { all('.inventories tbody').size == 20 }
+    row = all('.inventories tbody tr').first
     assert { row.has_content? '現金' }
     assert { row.has_content? '資産' }
     assert { row.has_content? '-1' }

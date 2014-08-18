@@ -9,18 +9,24 @@ class Accounting::Entry < ActiveRecord::Base
     e = Accounting::Entry.arel_table
     trx = Accounting::Transaction.arel_table
     type = Accounting::Type.arel_table
+    i = Accounting::Item.arel_table
 
-    Accounting::Entry
-      .where(e[:user_id].eq(user_id).and trx[:date].lt(date))
-      .joins(:transaction_belongs_to, item: [:type])
-      .select(e[:item_id], type[:side_id], <<-EOD_AMOUNT)
-          SUM(
+    return Accounting::Item
+      .joins(:type)
+      .joins(i
+               .join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id]).and e[:user_id].eq(user_id))
+               .join(trx, Arel::Nodes::OuterJoin).on(e[:transaction_id].eq(trx[:id]).and trx[:date].lt(date))
+               .join_sources
+             )
+      .where(i[:user_id].eq(user_id))
+      .select(i[:id].as('item_id'), type[:side_id], <<-EOD_AMOUNT)
+          COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
               THEN  accounting_entries.amount
               ELSE -accounting_entries.amount
             END
-          ) AS amount
+          ), 0) AS amount
         EOD_AMOUNT
-      .group(e[:item_id], type[:side_id])
+      .group(i[:id], type[:side_id])
   end
 end
