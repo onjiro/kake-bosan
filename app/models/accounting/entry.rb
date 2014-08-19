@@ -19,7 +19,7 @@ class Accounting::Entry < ActiveRecord::Base
                .join_sources
              )
       .where(i[:user_id].eq(user_id))
-      .select(i[:id].as('item_id'), type[:side_id], <<-EOD_AMOUNT)
+      .select(i[:id].as('item_id'), type[:side_id], <<-EOD_AMOUNT, i[:selectable])
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
               THEN  accounting_entries.amount

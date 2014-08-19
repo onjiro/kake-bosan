@@ -31,6 +31,18 @@ class InventoriesTest < ActionDispatch::IntegrationTest
     save_screenshot "#{Rails.root}/screenshots/inventories_index.png"
   end
 
+  test '無効化された科目は表示されないこと' do
+    click_link '設定'
+    assert { page.has_no_content? 'ロード中・・・' }
+    row = all('.account-items-configs tbody tr').first.click_button '無効化'
+
+    click_link '棚卸し'
+    assert { page.has_no_content? 'ロード中・・・' }
+
+    assert { all('.inventories tbody').size == 19 }
+    assert { page.has_no_content? '現金' }
+  end
+
   # test '現在の実資産額を登録できること' do
   #   skip
   # end
