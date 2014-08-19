@@ -14,7 +14,7 @@
           </tr>
         </thead>
 
-        <tbody ng-repeat="inventory in inventories | byItemType:[1,3] | filter:{selectable:true}:strict"><!-- 資産と負債 -->
+        <tbody ng-repeat="inventory in inventories | byItemType:[1,3] | filter:{selectable:true}:strict | orderBy:'item_id'"><!-- 資産と負債 -->
           <tr ng-hide="inventory.editing">
             <td class="inventory-column inventory-column-name">
               {{ inventory.item_id | itemName }}
