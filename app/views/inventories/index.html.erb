@@ -7,6 +7,7 @@
           <tr>
             <th>科目名</th>
             <th>分類</th>
+            <th>説明</th>
             <th class="amount">残高</th>
             <th><!-- separator --></th>
             <th><!-- コントロール --></th>
@@ -21,6 +22,9 @@
             <td class="inventory-column inventory-column-type">
               {{ inventory.item_id | itemType }}
             </td>
+            <td class="inventory-column inventory-column-description">
+              {{ inventory.description }}
+            </td>
             <td class="inventory-column inventory-column-amount">
               {{ inventory.amount | number:0 }}
             </td>
@@ -28,7 +32,7 @@
             <td class="inventory-column inventory-column-controller">
               <button class="btn btn-default" type="button"
                       ng-click="inventory.editing = true; inventory.original_amount = inventory.amount">
-                <i class="glyphicon glyphicon-pencil"></i>
+                <i class="glyphicon glyphicon-pencil"></i> 棚卸額登録
               </button>
             </td>
           </tr>
@@ -39,6 +43,9 @@
             </td>
             <td class="inventory-column inventory-column-type">
               {{ inventory.item_id | itemType }}
+            </td>
+            <td class="inventory-column inventory-column-description">
+              {{ inventory.description }}
             </td>
             <td class="inventory-column inventory-column-amount">
               <span class="input-group">
