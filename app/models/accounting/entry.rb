@@ -66,6 +66,8 @@ class Accounting::Entry < ActiveRecord::Base
 
     inventory = self.inventory(item_id, user_id, date)
     entry_amount = amount_to_be - inventory.amount
+    return inventory if entry_amount == 0
+
     entry_side = (entry_amount > 0) ? item.type.side: item.type.side.flip
     opposite_account_item = Accounting::Item.inventory_fix_item_for(user_id, entry_side.flip)
 
