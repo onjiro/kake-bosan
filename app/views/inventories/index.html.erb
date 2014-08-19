@@ -21,7 +21,7 @@
             <td class="history-column-separator"></td>
             <td>
               <button class="btn btn-default" type="button"
-                      ng-click="inventory.editing = true">
+                      ng-click="inventory.editing = true; inventory.original_amount = inventory.amount">
                 <i class="glyphicon glyphicon-pencil"></i>
               </button>
             </td>
@@ -45,7 +45,7 @@
                 <i class="glyphicon glyphicon-ok"></i>
               </button>
               <button class="btn btn-default" type="button"
-                      ng-click="inventory.editing = false">
+                      ng-click="inventory.editing = false; inventory.amount = inventory.original_amount">
                 <i class="glyphicon glyphicon-remove"></i>
               </button>
             </td>
