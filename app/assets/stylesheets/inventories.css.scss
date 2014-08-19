@@ -1,3 +1,24 @@
 // Place all the styles related to the Inventories controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.inventory-column-name {
+    width: 18%;
+}
+.inventory-column-type {
+    width: 5%;
+}
+.inventory-column-description {
+    width: 40%;
+}
+.inventory-column-amount {
+    width: 20%;
+    text-align: right;
+}
+.inventory-column-separator {
+    width: 2%;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.inventory-column-controller {
+}
+

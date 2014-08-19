@@ -2,11 +2,12 @@
   <div class="row">
     <section class="inventories" ng-controller="InventoriesController">
       <h3>棚卸高</h3>
-      <table class="table" ng-show="inventories.$resolved">
+      <table class="table" ng-show="inventories.$resolved" ng-cloak>
         <thead>
           <tr>
             <th>科目名</th>
             <th>分類</th>
+            <th>説明</th>
             <th class="amount">残高</th>
             <th><!-- separator --></th>
             <th><!-- コントロール --></th>
@@ -15,37 +16,53 @@
 
         <tbody ng-repeat="inventory in inventories | byItemType:[1,3] | filter:{selectable:true}:strict"><!-- 資産と負債 -->
           <tr ng-hide="inventory.editing">
-            <td>{{ inventory.item_id | itemName }}</td>
-            <td>{{ inventory.item_id | itemType }}</td>
-            <td class="amount">{{ inventory.amount | number:0 }}</td>
-            <td class="history-column-separator"></td>
-            <td>
+            <td class="inventory-column inventory-column-name">
+              {{ inventory.item_id | itemName }}
+            </td>
+            <td class="inventory-column inventory-column-type">
+              {{ inventory.item_id | itemType }}
+            </td>
+            <td class="inventory-column inventory-column-description">
+              {{ inventory.description }}
+            </td>
+            <td class="inventory-column inventory-column-amount">
+              {{ inventory.amount | number:0 }}
+            </td>
+            <td class="inventory-column inventory-column-separator"></td>
+            <td class="inventory-column inventory-column-controller">
               <button class="btn btn-default" type="button"
-                      ng-click="inventory.editing = true">
-                <i class="glyphicon glyphicon-pencil"></i>
+                      ng-click="inventory.editing = true; inventory.original_amount = inventory.amount">
+                <i class="glyphicon glyphicon-pencil"></i> 棚卸額登録
               </button>
             </td>
           </tr>
 
           <tr ng-show="inventory.editing">
-            <td>{{ inventory.item_id | itemName }}</td>
-            <td>{{ inventory.item_id | itemType }}</td>
-            <td>
+            <td class="inventory-column inventory-column-name">
+              {{ inventory.item_id | itemName }}
+            </td>
+            <td class="inventory-column inventory-column-type">
+              {{ inventory.item_id | itemType }}
+            </td>
+            <td class="inventory-column inventory-column-description">
+              {{ inventory.description }}
+            </td>
+            <td class="inventory-column inventory-column-amount">
               <span class="input-group">
                 <span class="input-group-addon">&yen;</span>
-                <input class="form-control" name="amount" type="number"
+                <input class="form-control amount" name="amount" type="number"
                        ng-disabled="inventory.submitting"
                        ng-model="inventory.amount"/>
               </span>
             </td>
-            <td class="history-column-separator"></td>
-            <td>
+            <td class="inventory-column inventory-column-separator"></td>
+            <td class="inventory-column inventory-column-controller">
               <button class="btn btn-primary" type="submit"
-                      ng-click="inventory.editing = false">
+                      ng-click="takeInventory(inventory)">
                 <i class="glyphicon glyphicon-ok"></i>
               </button>
               <button class="btn btn-default" type="button"
-                      ng-click="inventory.editing = false">
+                      ng-click="inventory.editing = false; inventory.amount = inventory.original_amount">
                 <i class="glyphicon glyphicon-remove"></i>
               </button>
             </td>
