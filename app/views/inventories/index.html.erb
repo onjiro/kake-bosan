@@ -52,7 +52,8 @@
                 <span class="input-group-addon">&yen;</span>
                 <input class="form-control amount" name="amount" type="number"
                        ng-disabled="inventory.submitting"
-                       ng-model="inventory.amount"/>
+                       ng-model="inventory.amount"
+                       ng-focus-on-change="inventory.editing"/>
               </span>
             </td>
             <td class="inventory-column inventory-column-separator"></td>
