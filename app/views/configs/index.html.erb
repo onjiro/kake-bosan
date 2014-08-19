@@ -11,7 +11,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody ng-repeat="item in items">
+        <tbody ng-repeat="item in items | orderBy:'item_id'">
           <!-- 通常表示 -->
           <tr ng-hide="item.editing">
             <td ng-class="{deleted: !item.selectable}">{{item.name}}</td>
