@@ -1,6 +1,6 @@
 class Accounting::Transaction < ActiveRecord::Base
   belongs_to :user
-  has_many :entries, class_name: 'Accounting::Entry'
+  has_many :entries, class_name: 'Accounting::Entry', dependent: :delete_all
   accepts_nested_attributes_for :entries
 
   before_save :remove_empty_entry, unless: 'entries.nil?'
