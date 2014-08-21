@@ -1,6 +1,44 @@
 <section id="inventory-opposite-items-config">
   <h3>棚卸高登録時反対科目設定</h3>
-  <div>
-    todo
-  </div>
+  <form class="col-sm-12">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>貸方増大時</label>
+          <select class="form-control">
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>借方増大時</label>
+          <select class="form-control">
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row controls">
+      <div class="col-sm-12">
+        <!-- 通常時のコントロール -->
+        <div class="inventory-config-control-on-showing">
+          <button class="btn btn-default" type="button">
+            <i class="glyphicon glyphicon-edit"></i> 編集
+          </button>
+        </div>
+        <!-- 編集時のコントロール -->
+        <div class="inventory-config-control-on-editing" style="display: none;">
+          <button class="btn btn-primary" type="submit">
+            <i class="glyphicon glyphicon-ok"></i> 決定
+          </button>
+          <button class="btn btn-default" type="button">
+            <i class="glyphicon glyphicon-remove"></i> キャンセル
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+  <div class="loading well" style="display: none;">ロード中...</div>
 </section>
