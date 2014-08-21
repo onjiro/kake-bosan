@@ -1,6 +1,6 @@
 <section class="account-items-configs" ng-controller="AccountingItemsConfigController">
   <h3>勘定科目設定</h3>
-  <table class="table" ng-show="items.$resolved">
+  <table class="table" ng-show="items.$resolved" ng-cloak>
     <thead>
       <tr>
         <th>科目名</th>
@@ -55,7 +55,7 @@
       </tr>
     </tbody>
   </table>
-  <div class="controls" ng-show="items.$resolved">
+  <div class="controls" ng-show="items.$resolved" ng-cloak>
     controll
   </div>
   <div class="loading well" ng-hide="items.$resolved">ロード中...</div>
