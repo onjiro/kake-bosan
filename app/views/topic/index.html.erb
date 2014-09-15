@@ -69,15 +69,25 @@
             <span ng-show="$index === 0">
               <i class="caret"></i></td>
           </span>
-          <td>{{ $index === 0 ? transaction.date: '' | date: 'yyyy-MM-dd'}}</td>
+          <td>
+            <span>{{ $index === 0 ? transaction.date: '' | date: 'yyyy-MM-dd'}}</span>
+          </td>
 
           <td class="history-column-separator"></td>
-          <td>{{ row.debit ? row.debit.item_id: '' | itemName}}</td>
-          <td class="amount" style="text-align: right;">{{ row.debit ? '&yen;': '' }}{{ row.debit ? row.debit.amount: '' | number: 0 }}</td>
+          <td>
+            <span>{{ row.debit ? row.debit.item_id: '' | itemName}}</span>
+          </td>
+          <td class="amount" style="text-align: right;">
+            <span>{{ row.debit ? '&yen;': '' }}{{ row.debit ? row.debit.amount: '' | number: 0 }}</span>
+          </td>
 
           <td class="history-column-separator"></td>
-          <td>{{ row.credit ? row.credit.item_id: '' | itemName }}</td>
-          <td class="amount" style="text-align: right;">{{ row.credit ? '&yen;': '' }}{{ row.credit ? row.credit.amount: '' | number: 0 }}</td>
+          <td>
+            <span>{{ row.credit ? row.credit.item_id: '' | itemName }}</span>
+          </td>
+          <td class="amount" style="text-align: right;">
+            <span>{{ row.credit ? '&yen;': '' }}{{ row.credit ? row.credit.amount: '' | number: 0 }}</span>
+          </td>
 
           <td class="history-column-separator"></td>
           <td>
