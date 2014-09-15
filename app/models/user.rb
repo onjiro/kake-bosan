@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_one :inventory_setting
+
   validates :provider, presence: :true
   validates :uid, presence: :true
   validates :name, presence: :true
