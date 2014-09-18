@@ -5,7 +5,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>貸方増大時</label>
-          <select class="form-control" ng-model="setting.credit_item_id">
+          <select class="form-control"
+                  ng-model="setting.credit_item_id"
+                  ng-change="saveInventorySetting()">
             <option ng-repeat="item in items" value="{{item.id}}">{{item.name}}</option>
           </select>
         </div>
@@ -13,7 +15,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>借方増大時</label>
-          <select class="form-control" ng-model="setting.debit_item_id">
+          <select class="form-control"
+                  ng-model="setting.debit_item_id"
+                  ng-change="saveInventorySetting()">
             <option ng-repeat="item in items" value="{{item.id}}">{{item.name}}</option>
           </select>
         </div>

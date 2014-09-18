@@ -15,9 +15,9 @@ class InventorySettingsController < ApplicationController
 
     respond_to do |format|
       if @setting.update(update_params)
-        format.json { render :json, @setting, status: :ok }
+        format.json { render json: @setting, status: :ok }
       else
-        format.json { render :json, @setting.errors, status: :unprocessable_entity }
+        format.json { render json: @setting.errors, status: :unprocessable_entity }
       end
     end
   end
