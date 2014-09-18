@@ -1,11 +1,12 @@
 <section id="inventory-opposite-items-config" ng-controller="InventoryOppositeItemsConfigController">
   <h3>棚卸高登録時反対科目設定</h3>
-  <form class="col-sm-12" ng-show="setting.$resolved">
+  <form class="col-sm-12" ng-show="setting.$resolved && items.$resolved">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label>貸方増大時</label>
           <select class="form-control" ng-model="setting.credit_item_id">
+            <option ng-repeat="item in items" value="{{item.id}}">{{item.name}}</option>
           </select>
         </div>
       </div>
@@ -13,6 +14,7 @@
         <div class="form-group">
           <label>借方増大時</label>
           <select class="form-control" ng-model="setting.debit_item_id">
+            <option ng-repeat="item in items" value="{{item.id}}">{{item.name}}</option>
           </select>
         </div>
       </div>
@@ -39,5 +41,5 @@
     </div>
   </form>
 
-  <div class="loading well" ng-hide="setting.$resolved">ロード中...</div>
+  <div class="loading well" ng-hide="setting.$resolved && items.$resolved">ロード中...</div>
 </section>
