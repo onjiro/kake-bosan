@@ -8,6 +8,6 @@ class DashBoardTest < ActionDispatch::IntegrationTest
 
   test '/dash_board が開けること' do
     visit '/dash_board'
-    assert { page.has_content? 'DashBoard#index' }
+    assert { page.has_content? '家計簿さん' }
   end
 end
