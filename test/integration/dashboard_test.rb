@@ -9,6 +9,6 @@ class DashBoardTest < ActionDispatch::IntegrationTest
   test 'サイドメニューにダッシュボードへのリンクがあること' do
     click_link 'ダッシュボード'
 
-    assert { page.current_path == '/dash_board' }
+    assert { page.current_path == '/dashboard' }
   end
 end

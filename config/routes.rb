@@ -63,7 +63,7 @@ Rails.application.routes.draw do
     resources :items
   end
 
-  get 'dash_board', to: 'dash_board#index'
+  get 'dashboard', to: 'dashboard#index'
   get "topic/index"
 
   get "configs", to: 'configs#index'
