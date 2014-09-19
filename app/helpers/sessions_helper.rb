@@ -7,7 +7,8 @@ module SessionsHelper
   private
   def create_user_account(auth_params)
     user = User.create_with_omniauth(auth_params)
-    create_initial_asset_datas(user)
+    items = create_initial_asset_datas(user)
+    create_inventory_setting(user, items)
     return user
   end
 
@@ -69,10 +70,23 @@ module SessionsHelper
         - { name: ポイント発生 , description: '' }
         - { name: その他雑収入 , description: '' }
     EOD
-    initial_assets.each_pair do |accounting_type_id, items|
-      items.each do |item|
-        Accounting::Item.new(item.merge(user_id: user.id, type_id: accounting_type_id)).save()
+    initial_assets.inject({}) do |result, (accounting_type_id, items)|
+      result[accounting_type_id] = items.map do |item|
+        item = Accounting::Item.new(item.merge(user_id: user.id, type_id: accounting_type_id))
+        item.save()
+        item
       end
+      result
     end
+  end
+
+  def create_inventory_setting(user, items)
+    inventoryDifferenceItem = items[Accounting::Type::EXPENSE.id].find do |item|
+      item.name == '棚卸差額'
+    end
+
+    setting = InventorySetting::create(user_id:        user.id,
+                                       debit_item_id:  inventoryDifferenceItem.id,
+                                       credit_item_id: inventoryDifferenceItem.id)
   end
 end
