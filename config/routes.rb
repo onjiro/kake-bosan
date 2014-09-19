@@ -73,4 +73,6 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'sessions#create'
   post '/auth/:provider/callback', to: 'sessions#create'
 
+  get 'inventory_settings', to: 'inventory_settings#index'
+  put 'inventory_settings', to: 'inventory_settings#update'
 end

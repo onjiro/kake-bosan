@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816124938) do
+ActiveRecord::Schema.define(version: 20140915024221) do
 
   create_table "accounting_entries", force: true do |t|
     t.integer  "user_id",        null: false
@@ -70,6 +70,13 @@ ActiveRecord::Schema.define(version: 20140816124938) do
   end
 
   add_index "accounting_types", ["side_id"], name: "index_accounting_types_on_side_id"
+
+  create_table "inventory_settings", primary_key: "user_id", force: true do |t|
+    t.integer  "debit_item_id",  null: false
+    t.integer  "credit_item_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "temp", id: false, force: true do |t|
     t.integer "id"
