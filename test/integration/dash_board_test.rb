@@ -6,8 +6,9 @@ class DashBoardTest < ActionDispatch::IntegrationTest
     sign_in
   end
 
-  test '/dash_board が開けること' do
-    visit '/dash_board'
-    assert { page.has_content? '家計簿さん' }
+  test 'サイドメニューにダッシュボードへのリンクがあること' do
+    click_link 'ダッシュボード'
+
+    assert { page.current_path == '/dash_board' }
   end
 end
