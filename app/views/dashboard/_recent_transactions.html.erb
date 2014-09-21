@@ -1,5 +1,5 @@
 <section class="history col-sm-12" ng-controller="RecentTransactionsController">
-  <table class="table" ng-show="transactions.$resolved" ng-cloak>
+  <table class="table" ng-show="recents.$resolved" ng-cloak>
     <thead>
       <tr>
         <th><!-- expands --></th>
@@ -16,7 +16,7 @@
     </thead>
     <tbody
        class="history-transaction"
-       ng-repeat="transaction in transactions | orderBy:'date':true"
+       ng-repeat="transaction in recents | orderBy:'date':true"
        ng-class="{'history-transaction-expandable': transaction.displayFormat.rows.length > 1}"
        ng-click="(transaction.displayFormat.rows.length > 1) && (transaction.showDetails = !transaction.showDetails)"
        ng-init="transaction.displayFormat = transaction.toDisplayFormat()">
@@ -95,5 +95,6 @@
       </tr>
     </tbody>
   </table>
-  <div class="loading well" ng-hide="transactions.$resolved">ロード中...</div>
+  <div class="loading well" ng-show="recents.$resolved && recents.length === 0">直近のあれはありません</div>
+  <div class="loading well" ng-hide="recents.$resolved">ロード中...</div>
 </section>
