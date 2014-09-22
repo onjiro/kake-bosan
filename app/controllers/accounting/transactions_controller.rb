@@ -2,10 +2,17 @@ class Accounting::TransactionsController < ApplicationController
   # GET /accounting/transactions
   # GET /accounting/transactions.json
   def index
-    @accounting_transactions = Accounting::Transaction
-      .where(user_id: @current_user.id)
-      .includes(entries: [:item])
-      .joins(entries: [:item])
+    from = params[:from] ? DateTime.parse(params[:from]): nil
+    to   = params[:to]   ? DateTime.parse(params[:to]  ): nil
+
+    if from.nil? then
+      @accounting_transactions = Accounting::Transaction
+        .where(user_id: @current_user.id)
+        .includes(entries: [:item])
+        .joins(entries: [:item])
+    else
+      @accounting_transactions = Accounting::Transaction.find_by_terms(@current_user.id, from: from, to: to)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
