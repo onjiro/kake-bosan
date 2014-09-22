@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915024221) do
+ActiveRecord::Schema.define(version: 20140922144623) do
 
   create_table "accounting_entries", force: true do |t|
     t.integer  "user_id",        null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140915024221) do
   end
 
   add_index "accounting_transactions", ["date"], name: "index_accounting_transactions_on_date"
-  add_index "accounting_transactions", ["user_id"], name: "index_accounting_transactions_on_user_id"
+  add_index "accounting_transactions", ["user_id", "date"], name: "index_accounting_transactions_on_user_id_and_date"
 
   create_table "accounting_types", force: true do |t|
     t.string   "name",       null: false
