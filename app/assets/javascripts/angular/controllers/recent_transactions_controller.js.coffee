@@ -6,5 +6,12 @@ angular.module('kake-bosan').controller 'RecentTransactionsController', [
   'Transaction'
   'Transaction.recents'
   ($scope, Transaction) ->
-    $scope.recents = Transaction.recents
+    # properties
+    newTransactions = $scope.newTransactions = []
+    recents = $scope.recents = Transaction.recents
+
+    # relation from other controllers
+    $scope.$on 'Transaction::new', (e, transaction) -> newTransactions.push(transaction)
+
+    # actions
 ]
