@@ -41,7 +41,7 @@ angular.module('kake-bosan').controller 'AppController', [
     $scope.remove = (transaction) ->
       return unless confirm "本当に削除してよろしいですか？"
       transaction.$remove(
-        (data, res) -> $scope.transactions.splice(transactions.indexOf(transaction), 1)
+        (data, res) -> $rootScope.$broadcast 'Transaction::remove', transaction
         (err) -> alert "#{err.status}: #{err.statusText}"
       )
 ]
