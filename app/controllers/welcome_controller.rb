@@ -7,7 +7,7 @@ class WelcomeController < ApplicationController
         format.html
       end
     else
-      redirect_to "/topic/index"
+      redirect_to "/dashboard"
     end
   end
 end

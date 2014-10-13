@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     user = SessionsController.helpers.find_or_create_user(auth_params)
     session[:user_id] = user.id
 
-    redirect_to "/topic/index", :notice => "Signed In!"
+    redirect_to "/dashboard", :notice => "Signed In!"
   end
 
   def destroy
