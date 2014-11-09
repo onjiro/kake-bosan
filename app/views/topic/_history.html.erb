@@ -97,6 +97,7 @@
   </table>
   <div class="btn btn-info col-sm-12" ng-show="transactions.$resolved" ng-cloak
        ng-click="loadNextTransactions()" ng-disabled="transactions.appending">
+    <span class="glyphicon glyphicon-download"></span>
     <span>さらに読み込む<span>
   </div>
   <div class="loading well" ng-hide="transactions.$resolved">ロード中...</div>
