@@ -1,19 +1,20 @@
 #= require angular/modules/kake-bosan
 #= require angular/models/transaction
+#= require angular/models/transaction_history
 
 angular.module('kake-bosan').controller 'HistoryController', [
-  '$scope',
-  'Transaction',
-  (
-    $scope,
-    Transaction
-  ) ->
+  '$scope', 'TransactionHistory'
+  ($scope, TransactionHistory) ->
     # properties
-    transactions = $scope.transactions = Transaction.query()
+    history = $scope.history = new TransactionHistory({ days: 30 })
+    transactions = $scope.transactions = history.transactions
 
     # relation from other controllers
     $scope.$on 'Transaction::new', (event, newone) ->
-      transactions.push(newone)
+      ransactions.push(newone)
     $scope.$on 'Transaction::remove', (event, transaction) ->
       transactions.splice(transactions.indexOf(transaction), 1)
+
+    # actions
+    $scope.loadNextTransactions = () -> history.loadInNextTerm()
 ]

@@ -1,5 +1,5 @@
 <section class="history col-sm-12" ng-controller="RecentTransactionsController">
-  <table class="table" ng-show="recents.$resolved" ng-cloak>
+  <table class="table" ng-show="history.initialized" ng-cloak>
     <thead>
       <tr>
         <th><!-- expands --></th>
@@ -177,6 +177,6 @@
       </tr>
     </tbody>
   </table>
-  <div class="loading well" ng-show="recents.$resolved && recents.length === 0">直近のあれはありません</div>
-  <div class="loading well" ng-hide="recents.$resolved">ロード中...</div>
+  <div class="loading well" ng-show="history.initialized && recents.length === 0">直近のあれはありません</div>
+  <div class="loading well" ng-hide="history.initialized">ロード中...</div>
 </section>

@@ -6,10 +6,13 @@ class Accounting::Transaction < ActiveRecord::Base
   before_save :remove_empty_entry, unless: 'entries.nil?'
 
   def self.find_by_terms(user_id, from: Date.today, to: Date.today.next)
-    self
-      .where(user_id: user_id, date: from..to)
+    result = self
+      .where(user_id: user_id)
       .includes(entries: [:item])
       .joins(entries: [:item])
+    result = result.where('date >= ?', from) if from
+    result = result.where('date <= ?', to) if to
+    result
   end
 
   private
