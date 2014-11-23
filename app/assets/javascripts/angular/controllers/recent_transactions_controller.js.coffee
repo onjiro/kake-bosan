@@ -1,14 +1,13 @@
 #= require angular/modules/kake-bosan
-#= require angular/models/transaction_recents
+#= require angular/models/transaction_history
 
 angular.module('kake-bosan').controller 'RecentTransactionsController', [
-  '$scope',
-  'Transaction'
-  'Transaction.recents'
-  ($scope, Transaction) ->
+  '$scope', 'TransactionHistory',
+  ($scope, TransactionHistory) ->
     # properties
     newTransactions = $scope.newTransactions = []
-    recents = $scope.recents = Transaction.recents
+    history = $scope.history = new TransactionHistory({ days: 7 })
+    recents = $scope.recents = history.transactions
 
     # relation from other controllers
     $scope.$on 'Transaction::new', (e, transaction) ->
