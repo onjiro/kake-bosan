@@ -1,6 +1,8 @@
-<%= render :file => 'layouts/_entry_form.html.erb' %>
+<%= render file: 'layouts/_entry_form' %>
 
-<h3>▼履歴</h3>
+<h3 class="title">▼履歴</h3>
+
 <div class="row" style="min-height: 320px;" ng-controller="HistoryController">
-  <%= render file: 'histories/_history.html.erb' %>
+  <%= render file: 'histories/_sub_control' %>
+  <%= render file: 'histories/_history' %>
 </div>
