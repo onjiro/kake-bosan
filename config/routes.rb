@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   end
 
   get 'dashboard', to: 'dashboard#index'
-  get "topic/index"
+  get 'histories', to: 'histories#index'
 
   get "configs", to: 'configs#index'
   get 'inventories', to: 'inventories#index'
