@@ -1,17 +1,22 @@
 <div class="container-fluid">
-  <div class="row">
-    <section class="summaries-control">
+  <div class="row" ng-controller="SummariesController">
+    <section class="summaries-control col-md-12" style="margin-bottom: 24px;">
       <h3>期間集計</h3>
       <form class="form-inline">
         <label>集計期間</label>
-        <input type="date" name="from" class="form-control" placeholder="集計期間"/>
+        <input type="date" name="from" class="form-control" placeholder="集計期間"
+               ng-model="inputFrom" ng-change="onTermChanged(inputFrom, inputTo)"/>
         <span> 〜 </span>
-        <input type="date" name="to"   class="form-control" placeholder="集計期間"/>
+        <input type="date" name="to"   class="form-control" placeholder="集計期間"
+               ng-model="inputTo" ng-change="onTermChanged(inputFrom, inputTo)"/>
       </form>
     </section>
 
-    <h3>▼集計結果</h3>
-    <section class="summaries-table" ng-show="summaryAccounts.$resolved" ng-cloak>
+    <h3>
+      <span>▼集計結果</span>
+      <span ng-show="inputFrom && inputTo" ng-cloak>{{inputFrom |date:'yyyy-MM-dd' }} 〜 {{ inputTo | date:'yyyy-MM-dd'}}</span>
+    </h3>
+    <section class="summaries-table col-md-10" ng-show="summaryAccounts.$resolved" ng-cloak>
       <table class="table">
         <thead>
           <tr>
@@ -19,19 +24,15 @@
             <th>分類</th>
             <th>説明</th>
             <th class="amount">残高</th>
-            <th><!-- separator --></th>
-            <th><!-- コントロール --></th>
           </tr>
         </thead>
 
-        <tbody ng-repeat="account in summaryAccounts">
-          <tr>
+        <tbody>
+          <tr ng-repeat="account in summaryAccounts">
             <td>{{ account.item_id | itemName }}</td>
             <td>{{ account.item_id | itemType }}</td>
             <td>{{ account.description }}</td>
             <td>{{ account.amount | number:0 }}</td>
-            <td></td>
-            <td></td>
           </tr>
         </tbody>
       </table>

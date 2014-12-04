@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     resources :transactions
     resources :inventories
     resources :items
+    resources :summaries
   end
 
   get 'dashboard', to: 'dashboard#index'
