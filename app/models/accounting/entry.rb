@@ -4,6 +4,34 @@ class Accounting::Entry < ActiveRecord::Base
   belongs_to :side, class_name: 'Accounting::Side'
   belongs_to :item, class_name: 'Accounting::Item'
 
+  # 指定期間のユーザーの移動額を科目ごとに集計します
+  def self.summaries(user_id, from, to)
+    e = Accounting::Entry.arel_table
+    trx = Accounting::Transaction.arel_table
+    type = Accounting::Type.arel_table
+    i = Accounting::Item.arel_table
+
+    return Accounting::Item
+      .joins(:type)
+      .joins(i
+               .join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id])
+                                                     .and e[:user_id].eq(user_id))
+               .join(trx, Arel::Nodes::OuterJoin).on(e[:transaction_id].eq(trx[:id])
+                                                       .and trx[:date].in(from..to))
+               .join_sources
+             )
+      .where(i[:user_id].eq(user_id).and trx[:id].not_eq(nil))
+      .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
+          COALESCE(SUM(
+            CASE WHEN accounting_entries.side_id = accounting_types.side_id
+              THEN  accounting_entries.amount
+              ELSE -accounting_entries.amount
+            END
+          ), 0) AS amount
+        EOD_AMOUNT
+      .group(i[:id], type[:side_id])
+  end
+
   # 指定日付以前のユーザーの棚卸額を科目ごとに集計します
   def self.inventories(user_id, date)
     e = Accounting::Entry.arel_table
@@ -18,7 +46,7 @@ class Accounting::Entry < ActiveRecord::Base
                .join(trx, Arel::Nodes::OuterJoin).on(e[:transaction_id].eq(trx[:id]).and trx[:date].lt(date))
                .join_sources
              )
-      .where(i[:user_id].eq(user_id))
+      .where(i[:user_id].eq(user_id).and trx[:id])
       .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id

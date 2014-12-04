@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row" ng-controller="SummariesController">
+    <section class="summaries-control col-md-12" style="margin-bottom: 24px;">
+      <h3>期間集計</h3>
+      <form class="form-inline">
+        <label>集計期間</label>
+        <input type="date" name="from" class="form-control" placeholder="集計期間"
+               ng-model="inputFrom" ng-change="onTermChanged(inputFrom, inputTo)"/>
+        <span> 〜 </span>
+        <input type="date" name="to"   class="form-control" placeholder="集計期間"
+               ng-model="inputTo" ng-change="onTermChanged(inputFrom, inputTo)"/>
+      </form>
+    </section>
+
+    <h3>
+      <span>▼集計結果</span>
+      <span ng-show="inputFrom && inputTo" ng-cloak>{{inputFrom |date:'yyyy-MM-dd' }} 〜 {{ inputTo | date:'yyyy-MM-dd'}}</span>
+    </h3>
+    <section class="summaries-table col-md-10" ng-show="summaryAccounts.$resolved" ng-cloak>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class>科目名</th>
+            <th>分類</th>
+            <th>説明</th>
+            <th class="amount">残高</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="account in summaryAccounts">
+            <td>{{ account.item_id | itemName }}</td>
+            <td>{{ account.item_id | itemType }}</td>
+            <td>{{ account.description }}</td>
+            <td>{{ account.amount | number:0 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="loading well" ng-hide="summaryAccounts.$resolved">ロード中...</div>
+
+  </div>
+</div>
