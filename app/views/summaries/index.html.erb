@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+    <section class="summaries-control">
+      <h3>期間集計</h3>
+      <form class="form-inline">
+        <label>集計期間</label>
+        <input type="date" name="from" class="form-control" placeholder="集計期間"/>
+        <span> 〜 </span>
+        <input type="date" name="to"   class="form-control" placeholder="集計期間"/>
+      </form>
+    </section>
+
+    <h3>▼集計結果</h3>
+    <section class="summaries-table" ng-show="summaryAccounts.$resolved" ng-cloak>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class>科目名</th>
+            <th>分類</th>
+            <th>説明</th>
+            <th class="amount">残高</th>
+            <th><!-- separator --></th>
+            <th><!-- コントロール --></th>
+          </tr>
+        </thead>
+
+        <tbody ng-repeat="account in summaryAccounts">
+          <tr>
+            <td>{{ account.item_id | itemName }}</td>
+            <td>{{ account.item_id | itemType }}</td>
+            <td>{{ account.description }}</td>
+            <td>{{ account.amount | number:0 }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="loading well" ng-hide="summaryAccounts.$resolved">ロード中...</div>
+
+  </div>
+</div>
