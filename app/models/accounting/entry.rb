@@ -12,11 +12,8 @@ class Accounting::Entry < ActiveRecord::Base
     i = Accounting::Item.arel_table
 
     return Accounting::Item
-      .joins(:type)
-      .joins(i.join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id]) .and e[:user_id].eq(user_id))
-               .join(trx).on(e[:transaction_id].eq(trx[:id]) .and trx[:date].in(from..to))
-               .join_sources)
-      .where(i[:user_id].eq(user_id))
+      .joins(:type, entry: [:transaction_belongs_to],)
+      .where(i[:user_id].eq(user_id).and trx[:date].in(from..to))
       .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
@@ -37,7 +34,8 @@ class Accounting::Entry < ActiveRecord::Base
 
     all_items = Accounting::Item
       .joins(:type)
-      .select(i[:id].as('item_id'), type[:side_id], i[:description], i[:selectable], '0 AS amount')
+      .where(user_id: user_id)
+      .select(i[:id].as('item_id'), i[:name], type[:side_id], i[:description], i[:selectable], '0 AS amount')
 
     amount_by_item = Accounting::Item
       .joins(:type, entry: [:transaction_belongs_to])
