@@ -35,15 +35,14 @@ class Accounting::Entry < ActiveRecord::Base
     type = Accounting::Type.arel_table
     i = Accounting::Item.arel_table
 
-    return Accounting::Item
+    all_items = Accounting::Item
       .joins(:type)
-      .joins(i
-               .join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id]).and e[:user_id].eq(user_id))
-               .join(trx, Arel::Nodes::OuterJoin).on(e[:transaction_id].eq(trx[:id]).and trx[:date].lt(date))
-               .join_sources
-             )
+      .select(i[:id].as('item_id'), type[:side_id], i[:description], i[:selectable], '0 AS amount')
+
+    amount_by_item = Accounting::Item
+      .joins(:type, entry: [:transaction_belongs_to])
       .where(i[:user_id].eq(user_id).and trx[:id])
-      .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
+      .select(i[:id], <<-EOD_AMOUNT)
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
               THEN  accounting_entries.amount
@@ -51,7 +50,10 @@ class Accounting::Entry < ActiveRecord::Base
             END
           ), 0) AS amount
         EOD_AMOUNT
-      .group(i[:id], type[:side_id])
+      .group(i[:id])
+      .inject({}) {|hash, i| hash[i.id] = i.amount; hash }
+
+    all_items.each {|item| item.amount = amount_by_item[item.item_id] if amount_by_item.has_key?(item.item_id) }
   end
 
   def self.inventory(item_id, user_id, date)

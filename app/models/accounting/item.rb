@@ -1,6 +1,7 @@
 class Accounting::Item < ActiveRecord::Base
   belongs_to :user
   belongs_to :type
+  has_many :entry
 
   def self.inventory_fix_item_for(user_id, side)
     inventory_setting = InventorySetting
