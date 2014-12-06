@@ -13,14 +13,10 @@ class Accounting::Entry < ActiveRecord::Base
 
     return Accounting::Item
       .joins(:type)
-      .joins(i
-               .join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id])
-                                                     .and e[:user_id].eq(user_id))
-               .join(trx, Arel::Nodes::OuterJoin).on(e[:transaction_id].eq(trx[:id])
-                                                       .and trx[:date].in(from..to))
-               .join_sources
-             )
-      .where(i[:user_id].eq(user_id).and trx[:id].not_eq(nil))
+      .joins(i.join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id]) .and e[:user_id].eq(user_id))
+               .join(trx).on(e[:transaction_id].eq(trx[:id]) .and trx[:date].in(from..to))
+               .join_sources)
+      .where(i[:user_id].eq(user_id))
       .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
