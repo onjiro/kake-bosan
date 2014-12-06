@@ -11,7 +11,13 @@ angular.module('kake-bosan')
   .controller 'SummariesController', [
     '$scope', 'Summary'
     ($scope, Summary) ->
-      $scope.summaryAccounts = { $resolved: true }
+      today = new Date()
+      $scope.inputTo = today
+      $scope.inputFrom = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate())
+      $scope.summaryAccounts = Summary.query
+        from: $scope.inputFrom
+        to: $scope.inputTo
+
       $scope.onTermChanged = (from, to) ->
         return if !from || !to
         $scope.summaryAccounts = Summary.query
