@@ -39,7 +39,7 @@ class Accounting::Entry < ActiveRecord::Base
 
     amount_by_item = Accounting::Item
       .joins(:type, entry: [:transaction_belongs_to])
-      .where(i[:user_id].eq(user_id).and trx[:id])
+      .where(i[:user_id].eq(user_id).and trx[:date].lt(date))
       .select(i[:id], <<-EOD_AMOUNT)
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
