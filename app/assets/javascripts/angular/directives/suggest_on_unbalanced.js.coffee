@@ -10,14 +10,14 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         transaction = $parse(attrs.suggestOnUnbalanced)(scope)
         side = attrs.suggestSide
         disableCondition = attrs.suggestDisableOn
-        tooltip = angular.element('<div class="tooltip tooltip-suggestion right fade" role="tooltip" ng-click="applySuggest()"><div class="tooltip-arrow"></div><a href="#" class="tooltip-inner"></a></div>')
+        tooltip = angular.element('<div class="tooltip tooltip-suggestion left fade" role="tooltip" ng-click="applySuggest()"><div class="tooltip-arrow"></div><a href="#" class="tooltip-inner"></a></div>')
         tooltipInner = tooltip.find('.tooltip-inner')
         suggestAmount = 0
-        element.after tooltip
+        element.before tooltip
         $compile(tooltip)(scope)
         tooltip.css
           top: 0
-          right: 0
+          left: 0
           marginTop: '6px'
 
         # イベント関連
@@ -44,7 +44,7 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         showSuggestion = () ->
           tooltipInner.text("#{suggestAmount}?")
           tooltip.addClass('in')
-          tooltip.css('marginRight', "-#{tooltip.innerWidth() + 4}px")
+          tooltip.css('marginLeft', "-#{tooltip.innerWidth()}px")
 
         dismissSuggestion = () ->
           tooltip.removeClass('in')
