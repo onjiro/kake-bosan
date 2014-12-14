@@ -1,4 +1,9 @@
 .tooltip-suggestion {
+  visibility: hidden;
+  &.in {
+    visibility: visible;
+  }
+
   a {
     &:hover,
     &:focus,
