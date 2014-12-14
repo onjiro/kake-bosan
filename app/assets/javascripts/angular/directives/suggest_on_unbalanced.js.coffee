@@ -10,7 +10,7 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         transaction = $parse(attrs.suggestOnUnbalanced)(scope)
         side = attrs.suggestSide
         disableCondition = attrs.suggestDisableOn
-        tooltip = angular.element('<div class="tooltip tooltip-suggestion right fade" role="tooltip" ng-click="applySuggest()"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>')
+        tooltip = angular.element('<div class="tooltip tooltip-suggestion right fade" role="tooltip" ng-click="applySuggest()"><div class="tooltip-arrow"></div><a href="#" class="tooltip-inner"></a></div>')
         tooltipInner = tooltip.find('.tooltip-inner')
         suggestAmount = 0
         element.after tooltip
@@ -34,7 +34,6 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
           showSuggestion(suggestAmount)
 
         element.on 'keyup', (e) ->
-          console.log e.keyCode
           return unless (e.keyCode == 27)
           $rootScope.$broadcast 'suggestOnUnbalanced:clear', element
         scope.$on 'suggestOnUnbalanced:clear', (e, srcElement) ->
