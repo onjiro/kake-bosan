@@ -33,6 +33,13 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
           return if suggestAmount <= 0 || suggestAmount == ngModelController.$modelValue
           showSuggestion(suggestAmount)
 
+        element.on 'keyup', (e) ->
+          console.log e.keyCode
+          return unless (e.keyCode == 27)
+          $rootScope.$broadcast 'suggestOnUnbalanced:clear', element
+        scope.$on 'suggestOnUnbalanced:clear', (e, srcElement) ->
+          dismissSuggestion()
+
         # DOM 操作関連
         # サジェスト金額の表示と消去
         showSuggestion = () ->
