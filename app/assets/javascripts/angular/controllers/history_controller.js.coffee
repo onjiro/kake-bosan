@@ -11,7 +11,7 @@ angular.module('kake-bosan').controller 'HistoryController', [
 
     # relation from other controllers
     $scope.$on 'Transaction::new', (event, newone) ->
-      ransactions.push(newone)
+      transactions.push(newone)
     $scope.$on 'Transaction::remove', (event, transaction) ->
       transactions.splice(transactions.indexOf(transaction), 1)
 
