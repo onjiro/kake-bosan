@@ -1,0 +1,11 @@
+.tooltip-suggestion {
+  a {
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited {
+      color: white;
+      text-decolation: initial;
+    }
+  }
+}
