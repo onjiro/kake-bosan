@@ -56,6 +56,11 @@ angular.module('kake-bosan').factory 'Transaction', ['$resource', ($resource) ->
       item_id: src?.creditEntries()[0]?.item_id || 0,
       amount: null,
 
+  Transaction.prototype.suggestToBalance = (side) ->
+    debitSum = _.reduce(this.debitEntries(), entriesSumFn, 0)
+    creditSum = _.reduce(this.creditEntries(), entriesSumFn, 0)
+    return if (side == 1 || side == "debit") then creditSum - debitSum else debitSum - creditSum
+
   # 帳票フォーマットとして表示しやすい形に整える
   Transaction.prototype.toDisplayFormat = () ->
     {

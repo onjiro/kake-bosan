@@ -1,5 +1,8 @@
 <h3 class="hidden-xs">▼ 登録</h3>
-<form id="entry-form" ng-submit="addNewTransaction()" ng-wait-cursor-on="newTransaction.submitting" ng-cloak>
+<form id="entry-form" ng-cloak
+      ng-controller="EntryFormController"
+      ng-submit="addNewTransaction()"
+      ng-wait-cursor-on="newTransaction.submitting">
   <fieldset>
 
     <!-- トランザクションに1つ -->
@@ -50,7 +53,9 @@
                      type="number" placeholder="借方金額"
                      ng-disabled="newTransaction.submitting"
                      ng-model="row.debit.amount"
-                     ng-change="amountLinked && (row.credit.amount = row.debit.amount)"/>
+                     ng-change="amountLinked && (row.credit.amount = row.debit.amount)"
+                     suggest-on-unbalanced="newTransaction"
+                     suggest-side="debit" suggest-disable-on="amountLinked"/>
             </div>
           </td>
 
@@ -71,7 +76,9 @@
               <input name="credit-amount" class="form-control" style="text-align: right;"
                      type="number" placeholder="貸方金額"
                      ng-model="row.credit.amount"
-                     ng-disabled="amountLinked || newTransaction.submitting ">
+                     ng-disabled="amountLinked || newTransaction.submitting "
+                     suggest-on-unbalanced="newTransaction"
+                     suggest-side="credit" suggest-disable-on="amountLinked"/>
               <div class="input-group-addon" title="金額自動転記">
                 <input type="checkbox" disabled ng-checked="amountLinked">
                 <i class="glyphicon glyphicon-link"></i>
