@@ -34,7 +34,7 @@ class Accounting::Entry < ActiveRecord::Base
               THEN  accounting_entries.amount
               ELSE -accounting_entries.amount
             END
-          ), 0) AS amount
+          ), 0) AS offset_amount
         EOD_AMOUNT
       .group(i[:id], type[:side_id])
   end
