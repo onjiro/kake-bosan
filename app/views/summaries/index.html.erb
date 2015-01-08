@@ -23,7 +23,9 @@
             <th class>科目名</th>
             <th>分類</th>
             <th>説明</th>
-            <th class="amount">残高</th>
+            <th class="amount">借方</th>
+            <th class="amount">貸方</th>
+            <th class="amount">増減</th>
           </tr>
         </thead>
 
@@ -32,7 +34,9 @@
             <td>{{ account.item_id | itemName }}</td>
             <td>{{ account.item_id | itemType }}</td>
             <td>{{ account.description }}</td>
-            <td>{{ account.amount | number:0 }}</td>
+            <td class="amount">{{ account.debit_amount | number:0 }}</td>
+            <td class="amount">{{ account.credit_amount | number:0 }}</td>
+            <td class="amount">{{ account.amount | number:0 }}</td>
           </tr>
         </tbody>
       </table>

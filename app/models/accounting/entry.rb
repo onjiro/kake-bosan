@@ -14,7 +14,21 @@ class Accounting::Entry < ActiveRecord::Base
     return Accounting::Item
       .joins(:type, entry: [:transaction_belongs_to],)
       .where(i[:user_id].eq(user_id).and trx[:date].in(from..to))
-      .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
+      .select(i[:id].as('item_id'), type[:side_id], i[:description], <<-EOD_DEBIT_AMOUNT, <<-EOD_CREDIT_AMOUNT, <<-EOD_AMOUNT, i[:selectable])
+          COALESCE(SUM(
+            CASE WHEN accounting_entries.side_id = #{Accounting::Side::DEBIT.id}
+              THEN accounting_entries.amount
+              ELSE 0
+            END
+          ), 0) AS debit_amount
+        EOD_DEBIT_AMOUNT
+          COALESCE(SUM(
+            CASE WHEN accounting_entries.side_id = #{Accounting::Side::CREDIT.id}
+              THEN accounting_entries.amount
+              ELSE 0
+            END
+          ), 0) AS credit_amount
+        EOD_CREDIT_AMOUNT
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = accounting_types.side_id
               THEN  accounting_entries.amount
