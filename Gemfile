@@ -33,6 +33,8 @@ gem 'omniauth-twitter'
 # To use debugger
 # gem 'debugger'
 
+gem 'web-console', '~> 2.0', group: :development
+
 group :development, :test do
     # for js test
   gem "teaspoon"
