@@ -36,7 +36,8 @@ class Accounting::Entry < ActiveRecord::Base
             END
           ), 0) AS offset_amount
         EOD_AMOUNT
-      .group(i[:id], type[:side_id])
+      .group(i[:id], type[:side_id], type[:id])
+      .order(type[:side_id], type[:id])
   end
 
   # 指定日付以前のユーザーの棚卸額を科目ごとに集計します
