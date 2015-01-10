@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .
 //= require angular.min
-//= require_tree ./angular
+//= require ng-rails-csrf
+//= require_tree .
