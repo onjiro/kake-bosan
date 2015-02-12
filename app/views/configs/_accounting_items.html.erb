@@ -16,7 +16,7 @@
     </thead>
     <tbody ng-repeat="item in items | orderBy:'item_id'">
       <!-- 通常表示 -->
-      <tr ng-hide="item.editing">
+      <tr ng-hide="item.editing" ng-class="{success: item.new}">
         <td ng-class="{deleted: !item.selectable}">{{item.name}}</td>
         <td ng-class="{deleted: !item.selectable}">{{types[item.type_id - 1].name}}</td>
         <td ng-class="{deleted: !item.selectable}">{{item.description}}</td>

@@ -1,8 +1,8 @@
 #= require angular/modules/kake-bosan
 
 angular.module('kake-bosan').controller 'AccountItemAdditionFormController', [
-  '$scope', '$rootScope', 'Item',
-  ($scope, $rootScope, Item) ->
+  '$scope', '$rootScope', '$window', 'Item',
+  ($scope, $rootScope, $window, Item) ->
     resetInputs = () ->
       $scope.selected_type = $scope.types[0]
       $scope.name = ""
@@ -11,12 +11,14 @@ angular.module('kake-bosan').controller 'AccountItemAdditionFormController', [
       
     $scope.$on('Item::new', (item) -> resetInputs())
 
-    $scope.onSubmit = () -> Item.save
-      name: $scope.name
-      type_id: $scope.selected_type.id
-      description: $scope.description
-      (item) -> $rootScope.$broadcast('Item::new', item)
-      (err) -> onFailure(err)
+    $scope.onSubmit = () ->
+      return unless $window.confirm('一度追加した勘定科目は削除できません。追加してよろしいですか？')
+      Item.save
+        name: $scope.name
+        type_id: $scope.selected_type.id
+        description: $scope.description
+        (item) -> $rootScope.$broadcast('Item::new', item)
+        (err) -> onFailure(err)
 
     # initialize
     resetInputs()
