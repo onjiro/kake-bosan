@@ -13,6 +13,8 @@ angular.module('kake-bosan').controller 'AppController', [
     ]
     $scope.items = Item.query()
 
+    $scope.$on('Item::new', (e, item) -> $scope.items.push(item))
+
     $scope.remove = (transaction) ->
       return unless confirm "本当に削除してよろしいですか？"
       transaction.$remove(
