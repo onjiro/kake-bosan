@@ -6,4 +6,27 @@
   <div class="row">
     <%= render file: 'configs/_accounting_items' %>
   </div>
+
+  <div class="flash" ng-controller="FlashMessageController">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="alert alert-success" ng-style="{ display: (event) ? 'block': 'none' }">
+          勘定科目を登録しました。
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<style>
+  .flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1080;
+  padding-top: 45%;
+  background-color: black;
+  opacity: 0.2;
+  }
+</style>
