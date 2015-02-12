@@ -1,5 +1,10 @@
 <section class="account-items-configs" ng-controller="AccountingItemsConfigController">
   <h3>勘定科目設定</h3>
+
+  <%= render file: 'configs/_accounting_item_addition_form' %>
+
+  <div class="spacer" style="height: 20px;"></div>
+
   <table class="table" ng-show="items.$resolved" ng-cloak>
     <thead>
       <tr>
@@ -11,7 +16,7 @@
     </thead>
     <tbody ng-repeat="item in items | orderBy:'item_id'">
       <!-- 通常表示 -->
-      <tr ng-hide="item.editing">
+      <tr ng-hide="item.editing" ng-class="{success: item.new}">
         <td ng-class="{deleted: !item.selectable}">{{item.name}}</td>
         <td ng-class="{deleted: !item.selectable}">{{types[item.type_id - 1].name}}</td>
         <td ng-class="{deleted: !item.selectable}">{{item.description}}</td>
@@ -55,8 +60,9 @@
       </tr>
     </tbody>
   </table>
-  <div class="controls" ng-show="items.$resolved" ng-cloak>
-    controll
-  </div>
+
   <div class="loading well" ng-hide="items.$resolved">ロード中...</div>
+
+  <div class="spacer" style="height: 120px;">
+  </div>
 </section>
