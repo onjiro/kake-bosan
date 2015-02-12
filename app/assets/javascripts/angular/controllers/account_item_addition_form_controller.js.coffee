@@ -9,9 +9,8 @@ angular.module('kake-bosan').controller 'AccountItemAdditionFormController', [
     onFailure = (err) -> console.log(err)
       
     $scope.onSubmit = () -> Item.save
-      user_id: '' # todo
       name: $scope.newItemName
-      accounting_type: $scope.selected_type
+      type_id: $scope.selected_type.id
       description: null
       () -> resetInputs()
       () -> onFailure()

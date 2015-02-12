@@ -12,6 +12,19 @@ class Accounting::ItemsController < ApplicationController
     end
   end
 
+  def create
+    @item = Accounting::Item.new(create_params)
+
+    respond_to do |format|
+      if @item.save
+        logger.debug(@item)
+        format.json { render json: @item.to_json, status: :created, location: @item }
+      else
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PUT /accounting/items/1
   # PUT /accounting/items/1.json
   def update
@@ -28,6 +41,18 @@ class Accounting::ItemsController < ApplicationController
   end
 
   private
+
+  def create_params
+    {
+      user_id: @current_user.id,
+      name: params[:name],
+      type_id: params[:type_id],
+      description: params[:description],
+      selectable: true,
+      description: ''
+    }
+  end
+
   def update_params
     {
       name: params[:name],
