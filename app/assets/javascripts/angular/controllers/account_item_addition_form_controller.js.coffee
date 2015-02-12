@@ -5,13 +5,14 @@ angular.module('kake-bosan').controller 'AccountItemAdditionFormController', [
   ($scope, Item) ->
     resetInputs = () ->
       $scope.selected_type = $scope.types[0]
-      $scope.newItemName = ""
+      $scope.name = ""
+      $scope.description = ""
     onFailure = (err) -> console.log(err)
       
     $scope.onSubmit = () -> Item.save
-      name: $scope.newItemName
+      name: $scope.name
       type_id: $scope.selected_type.id
-      description: null
+      description: $scope.description
       () -> resetInputs()
       () -> onFailure()
 

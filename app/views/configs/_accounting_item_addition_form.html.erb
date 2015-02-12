@@ -3,6 +3,8 @@
       ng-controller="AccountItemAdditionFormController"
       ng-show="items.$resolved" ng-cloak>
   <div class="input-group">
+    <input name="name" type="text" class="form-control" placeholder="科目名"
+           ng-model="name" required maxlength="255"/>
     <div class="input-group-btn" ng-init="selected_type = types[0]">
       <button type="button" class="btn btn-default dropdown-toggle"
               data-toggle="dropdown"
@@ -15,9 +17,9 @@
         </li>
       </ul>
     </div>
-    <input name="newItemName" type="text" class="form-control" placeholder="科目名"
-           ng-model="newItemName" required/>
   </div>
+  <input name="description" type="text" class="form-control" placeholder="説明"
+         ng-model="description" size="76" maxlength="255" />
   <input type="submit" class="btn btn-primary" value="追加"
          ng-disabled="itemAdditionForm.$invalid"
          ng-click="onSubmit()" />
