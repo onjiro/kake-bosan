@@ -13,11 +13,3 @@ angular.module('kake-bosan').controller 'AccountingItemsConfigController', [
         (err) -> alert "#{err.status}: #{err.statusText}"
       ).finally () -> delete item.updating
 ]
-
-angular.module('kake-bosan').controller 'FlashMessageController', [
-  '$scope', '$timeout'
-  ($scope, $timeout) ->
-    $scope.$on('Item::new', (e) ->
-      $scope.event = e
-      $timeout (() -> delete $scope.event), 2000)
-]
