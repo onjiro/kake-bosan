@@ -6,16 +6,15 @@ gem 'responders', '~> 2.0'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'jquery-rails'
-gem 'less-rails'
+# gem 'less-rails'
 gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.1'
 gem 'bootstrap-sass', '~> 3.1.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'non-stupid-digest-assets'
 
-gem 'therubyracer'
+# gem 'therubyracer'
 gem 'omniauth'
 gem 'omniauth-twitter'
 
@@ -38,8 +37,14 @@ gem 'ng-rails-csrf'
 
 gem 'web-console', '~> 2.0', group: :development
 
+group :production do
+  gem 'pg'
+end
+
 group :development, :test do
-    # for js test
+  gem 'sqlite3'
+
+  # for js test
   gem "teaspoon"
   gem "guard-teaspoon"
   gem "mocha"
