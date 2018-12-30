@@ -24,3 +24,6 @@ production:
   encoding: unicode
   pool: 5
   timeout: 5000
+  username: postgres
+  password:
+  host: db
