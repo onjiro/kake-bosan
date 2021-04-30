@@ -1,4 +1,4 @@
-class CreateAccountingItems < ActiveRecord::Migration
+class CreateAccountingItems < ActiveRecord::Migration[4.2]
   def change
     create_table :accounting_items do |t|
       t.references :user

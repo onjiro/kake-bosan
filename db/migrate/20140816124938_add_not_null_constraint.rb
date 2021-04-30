@@ -1,4 +1,4 @@
-class AddNotNullConstraint < ActiveRecord::Migration
+class AddNotNullConstraint < ActiveRecord::Migration[4.2]
   def change
     change_column_null :users, :provider, false
     change_column_null :users, :uid, false
