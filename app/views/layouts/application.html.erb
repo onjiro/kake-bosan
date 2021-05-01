@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" ng-app="kake-bosan">
   <head>
-    <title>KakeBosan</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+      <%= "[#{Rails.env[0, 3]}]" unless Rails.env == 'production' %>
+      <%= content_for?(:title) ? yield(:title) : "家計簿さん" %>
+    </title>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_link_tag "application", media: "all" %>
   </head>
-
-  <body>
-    <%= yield %>
+  <body ng-controller="AppController">
+    <%= content_for?(:content) ? yield(:content): yield %>
   </body>
 </html>
