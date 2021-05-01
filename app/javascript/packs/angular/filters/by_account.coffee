@@ -1,5 +1,5 @@
-#= require angular/modules/kake-bosan
-#= require underscore
+import "../modules/kake-bosan"
+import "underscore"
 
 angular.module('kake-bosan').filter 'byAccount', [() ->
   (accountItems, accountTypes) ->

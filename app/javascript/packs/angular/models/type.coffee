@@ -1,4 +1,4 @@
-#= require angular/modules/kake-bosan
+import "../modules/kake-bosan"
 
 angular.module('kake-bosan').service 'Type', ['$resource', ($resource) ->
   this.ASSET     = { id: 1, side: 1, name: '資産' }

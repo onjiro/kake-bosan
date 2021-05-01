@@ -1,5 +1,5 @@
-#= require angular/modules/kake-bosan
-#= require angular/models/item
+import "../modules/kake-bosan"
+import "../models/item"
 
 angular.module('kake-bosan').controller 'AppController', [
   '$scope', '$rootScope', 'Item',

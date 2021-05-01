@@ -1,5 +1,5 @@
-#= require angular/modules/kake-bosan
-#= require angular/models/transaction
+import "../modules/kake-bosan"
+import "../models/transaction"
 
 angular.module('kake-bosan').controller 'EntryFormController', [
   '$scope', '$rootScope', 'Transaction',

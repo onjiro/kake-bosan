@@ -1,4 +1,4 @@
-#= require angular/modules/kake-bosan
+import "../modules/kake-bosan"
 
 angular.module('kake-bosan').factory 'Item', ['$resource', ($resource) ->
   return $resource '/accounting/items/:id.json', {

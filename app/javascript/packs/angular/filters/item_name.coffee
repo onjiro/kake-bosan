@@ -1,6 +1,6 @@
-#= require angular/modules/kake-bosan
-#= require angular/models/item
-#= require underscore
+import "../modules/kake-bosan"
+import "../models/item"
+import "underscore"
 
 angular.module('kake-bosan').filter 'itemName', ['Item', (Item) ->
   items = Item.query()

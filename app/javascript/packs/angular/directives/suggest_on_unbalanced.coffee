@@ -1,4 +1,4 @@
-#= require angular/modules/kake-bosan
+import "../modules/kake-bosan"
 
 angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
   '$parse', '$rootScope', '$compile',
@@ -13,7 +13,7 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         tooltip = angular.element('<div class="tooltip tooltip-suggestion left fade" role="tooltip" ng-click="applySuggest()"><div class="tooltip-arrow"></div><a href="#" class="tooltip-inner"></a></div>')
         tooltipInner = tooltip.find('.tooltip-inner')
         suggestAmount = 0
-        element.before tooltip
+        $(element).before tooltip
         $compile(tooltip)(scope)
         tooltip.css
           top: 0
@@ -26,11 +26,13 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         ngModelController.$viewChangeListeners.push () ->
           $rootScope.$broadcast 'suggestOnUnbalanced:changed', element
         scope.$on 'suggestOnUnbalanced:changed', (e, srcElement) ->
+          window.console.log("suggestOnUnbalanced")
           dismissSuggestion()
           return if element == srcElement
           return if $parse(disableCondition)(scope)
           suggestAmount = transaction.suggestToBalance(side) + ngModelController.$modelValue
           return if suggestAmount <= 0 || suggestAmount == ngModelController.$modelValue
+          window.console.log(suggestAmount)
           showSuggestion(suggestAmount)
 
         element.on 'keyup', (e) ->
@@ -41,10 +43,11 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
 
         # DOM 操作関連
         # サジェスト金額の表示と消去
-        showSuggestion = () ->
+        showSuggestion = (suggestAmount) ->
+          window.console.log(suggestAmount)
           tooltipInner.text("#{suggestAmount}?")
           tooltip.addClass('in')
-          tooltip.css('marginLeft', "-#{tooltip.innerWidth()}px")
+          tooltip.css('marginLeft', "-#{$(tooltip).innerWidth()}px")
 
         dismissSuggestion = () ->
           tooltip.removeClass('in')

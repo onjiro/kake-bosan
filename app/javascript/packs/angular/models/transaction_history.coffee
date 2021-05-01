@@ -1,4 +1,4 @@
-#= require angular/models/transaction
+import "../models/transaction"
 
 angular.module('kake-bosan').factory 'TransactionHistory', [
   'Transaction', 'ErrorHandler'

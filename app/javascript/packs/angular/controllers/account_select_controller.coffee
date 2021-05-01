@@ -1,4 +1,5 @@
-#= require angular/modules/kake-bosan
+import "../modules/kake-bosan"
+import "underscore"
 
 angular.module('kake-bosan').controller 'AccountSelectController', ['$scope', ($scope) ->
   $scope.type_filters = [
