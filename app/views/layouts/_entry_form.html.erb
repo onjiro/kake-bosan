@@ -36,7 +36,7 @@
             ng-focus-first-input-if="($index !== 0) && (formattedNewTransaction.rows.length === $index + 1)">
 
           <td class="debit-account">
-            <%= render file: 'layouts/_account_item_selection',
+            <%= render partial: 'layouts/account_item_selection',
                 locals: {
                   name: 'debit-account',
                   initial_filter: 'type_filters[1]',
@@ -60,7 +60,7 @@
           </td>
 
           <td class="credit-account">
-            <%= render file: 'layouts/_account_item_selection',
+            <%= render partial: 'layouts/account_item_selection',
                 locals: {
                   name: 'credit-account',
                   initial_filter: 'type_filters[0]',

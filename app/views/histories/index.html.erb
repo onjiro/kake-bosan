@@ -1,8 +1,8 @@
-<%= render file: 'layouts/_entry_form' %>
+<%= render 'layouts/entry_form' %>
 
 <h3 class="title">▼履歴</h3>
 
 <div class="row" style="min-height: 320px;" ng-controller="HistoryController">
-  <%= render file: 'histories/_sub_control' %>
-  <%= render file: 'histories/_history' %>
+  <%= render 'histories/sub_control' %>
+  <%= render 'histories/history' %>
 </div>

@@ -15,6 +15,21 @@
     <%= stylesheet_link_tag "application", media: "all" %>
   </head>
   <body ng-controller="AppController">
-    <%= content_for?(:content) ? yield(:content): yield %>
+    <%= render 'layouts/header.html.erb' %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- サイドバーメニュー -->
+        <!-- PCから見た場合のみサイドバーとして表示 -->
+        <section id="side-nav" class="nav col-sm-2 hidden-xs">
+          <%= render 'layouts/sidemenu.html.erb' %>
+        </section>
+
+        <!-- メイン表示部分 -->
+        <section id="side-nav" class="main col-sm-10 col-xs-12">
+          <%= yield %>
+        </section>
+      </div>
+    </div>
   </body>
 </html>
