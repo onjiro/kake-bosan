@@ -52,8 +52,9 @@
 
         <td class="history-column-separator"></td>
         <td class="history-column-transaction-controls">
-          <button type="button" class="delete-row pull-right"
-                  ng-click="$event.stopPropagation(); remove(transaction)">x</button>
+          <a href class="link-danger" ng-click="$event.preventDefault(); $event.stopPropagation(); remove(transaction)">
+            <%= bootstrap_icon "backspace" %>
+          </a>
         </td>
       </tr>
 
@@ -88,8 +89,9 @@
         <td class="history-column-separator"></td>
         <td>
           <span ng-show="$index === 0">
-            <button type="button" class="delete-row pull-right"
-                    ng-click="$event.stopPropagation(); remove(transaction)">x</button>
+            <a href class="link-danger" ng-click="$event.preventDefault(); $event.stopPropagation(); remove(transaction)">
+              <%= bootstrap_icon "backspace" %>
+            </a>
           </span>
         </td>
       </tr>
