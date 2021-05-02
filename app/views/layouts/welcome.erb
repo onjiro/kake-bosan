@@ -8,7 +8,7 @@
       <% if Rails.env.production? %>
         家計簿さん
       <% else %>
-        <%= "[#{Rails.env.substring(0, 3)}]家計簿さん" %>
+        <%= "[#{Rails.env.first(3)}]家計簿さん" %>
       <% end %>
     </title>
     <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
