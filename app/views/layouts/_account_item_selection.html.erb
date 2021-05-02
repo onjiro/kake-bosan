@@ -3,20 +3,18 @@
      ng-init="current_filter = <%== initial_filter %>">
   <div class="input-group">
     <!-- 科目フィルタ -->
-    <div class="input-group-btn">
+    <div class="dropdown">
       <!-- 通常表示されるボタン部分 -->
-      <button type="button" class="btn btn-default dropdown-toggle"
-              data-toggle="dropdown"
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle"
+              data-bs-toggle="dropdown"
               ng-disabled="newTransaction.submitting"
               ng-focus-on-change="current_filter">
-        <i class="glyphicon glyphicon-filter"></i>
-        {{current_filter.title}}
-        <span class="caret"></span>
+        <%= bootstrap_icon "filter" %> {{current_filter.title}}
       </button>
       <!-- ボタン押下時に展開されるメニュー -->
       <ul class="dropdown-menu" role="menu">
         <li ng-repeat="filter in type_filters">
-          <a href ng-click="setCurrentFilter(filter)">{{filter.title}}</a>
+          <a class="dropdown-item" href ng-click="setCurrentFilter(filter)">{{filter.title}}</a>
         </li>
       </ul>
     </div>

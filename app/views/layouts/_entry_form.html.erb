@@ -7,112 +7,92 @@
 
     <!-- トランザクションに1つ -->
     <!-- 取引時刻 -->
-    <div class="row">
-      <span class="col-sm-3">
-        <span class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+    <div class="row mb-2">
+      <div class="col-sm-4">
+        <div class="input-group">
+          <span class="input-group-text"><%= bootstrap_icon "clock" %></span>
           <input name="date" class="form-control"
-                 type="date" placeholder="日付"
-                 ng-model="newTransaction.date"
-                 ng-disabled="newTransaction.submitting"
-                 ng-focus-on-change="newTransaction.date"
-                 autofocus />
+                  type="date" placeholder="日付"
+                  ng-model="newTransaction.date"
+                  ng-disabled="newTransaction.submitting"
+                  ng-focus-on-change="newTransaction.date"
+                  autofocus />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-1"
+        ng-repeat="row in formattedNewTransaction.rows"
+        ng-focus-first-input-if="($index !== 0) && (formattedNewTransaction.rows.length === $index + 1)">
+
+      <span class="col-sm-4 debit-account">
+        <%= render partial: 'layouts/account_item_selection',
+            locals: {
+              name: 'debit-account',
+              initial_filter: 'type_filters[1]',
+              selection_model: 'row.debit.item_id',
+              selection_title: '【借方】',
+            }
+        %>
+      </span>
+
+      <span class="col-sm-2 debit-amount">
+        <span class="input-group">
+          <span class="input-group-text">&yen;</span>
+          <input name="debit-amount" class="form-control" style="text-align: right;"
+                  type="number" placeholder="借方金額"
+                  ng-disabled="newTransaction.submitting"
+                  ng-model="row.debit.amount"
+                  ng-change="amountLinked && (row.credit.amount = row.debit.amount)"
+                  suggest-on-unbalanced="newTransaction"
+                  suggest-side="debit" suggest-disable-on="amountLinked"/>
         </span>
+      </span>
+
+      <span class="col-sm-3 credit-account">
+        <%= render partial: 'layouts/account_item_selection',
+            locals: {
+              name: 'credit-account',
+              initial_filter: 'type_filters[0]',
+              selection_model: 'row.credit.item_id',
+              selection_title: '【貸方】',
+            }
+        %>
+      </span>
+
+      <span class="col-sm-2 credit-amount">
+        <span class="input-group">
+          <span class="input-group-text">&yen;</span>
+          <input name="credit-amount" class="form-control" style="text-align: right;"
+                  type="number" placeholder="貸方金額"
+                  ng-model="row.credit.amount"
+                  ng-disabled="amountLinked || newTransaction.submitting "
+                  suggest-on-unbalanced="newTransaction"
+                  suggest-side="credit" suggest-disable-on="amountLinked"/>
+        </span>
+      </span>
+
+      <!-- エントリーコントロール(未実装) -->
+      <span class="col-sm-1">
+        <button type="button" class="btn btn-link link-danger"
+                ng-disabled="formattedNewTransaction.rows.length === 1 || newTransaction.submitting">
+                  <%= bootstrap_icon "backspace", width: 24, height: 24 %>
+        </button>
       </span>
     </div>
 
-    <table class="table table-striped table-bordered">
-      <thead class="hidden">
-        <tr>
-          <th>借方</th>
-          <th class="hidden">借方金額</th>
-          <th>貸方</th>
-          <th>貸方金額</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr ng-repeat="row in formattedNewTransaction.rows"
-            ng-focus-first-input-if="($index !== 0) && (formattedNewTransaction.rows.length === $index + 1)">
-
-          <td class="debit-account">
-            <%= render partial: 'layouts/account_item_selection',
-                locals: {
-                  name: 'debit-account',
-                  initial_filter: 'type_filters[1]',
-                  selection_model: 'row.debit.item_id',
-                  selection_title: '【借方】',
-                }
-            %>
-          </td>
-
-          <td class="debit-amount">
-            <div class="input-group">
-              <div class="input-group-addon">&yen;</div>
-              <input name="debit-amount" class="form-control" style="text-align: right;"
-                     type="number" placeholder="借方金額"
-                     ng-disabled="newTransaction.submitting"
-                     ng-model="row.debit.amount"
-                     ng-change="amountLinked && (row.credit.amount = row.debit.amount)"
-                     suggest-on-unbalanced="newTransaction"
-                     suggest-side="debit" suggest-disable-on="amountLinked"/>
-            </div>
-          </td>
-
-          <td class="credit-account">
-            <%= render partial: 'layouts/account_item_selection',
-                locals: {
-                  name: 'credit-account',
-                  initial_filter: 'type_filters[0]',
-                  selection_model: 'row.credit.item_id',
-                  selection_title: '【貸方】',
-                }
-            %>
-          </td>
-
-          <td class="credit-amount">
-            <div class="input-group">
-              <div class="input-group-addon">&yen;</div>
-              <input name="credit-amount" class="form-control" style="text-align: right;"
-                     type="number" placeholder="貸方金額"
-                     ng-model="row.credit.amount"
-                     ng-disabled="amountLinked || newTransaction.submitting "
-                     suggest-on-unbalanced="newTransaction"
-                     suggest-side="credit" suggest-disable-on="amountLinked"/>
-              <div class="input-group-addon" title="金額自動転記">
-                <input type="checkbox" disabled ng-checked="amountLinked">
-                <i class="glyphicon glyphicon-link"></i>
-              </div>
-            </div>
-          </td>
-
-          <!-- エントリーコントロール -->
-          <td>
-            <button type="button" class="delete-row delete-row-with-form-control"
-                      ng-disabled="formattedNewTransaction.rows.length === 1 || newTransaction.submitting">x
-            </button>
-          </td>
-        </tr>
-
-        <!-- トランザクションコントロール1 -->
-        <tr>
-          <td colspan="5" >
-            <button class="btn btn-default col-sm-2" type="button"
-                    ng-click="newTransaction.addEmptyEntriesPair(); formattedNewTransaction = newTransaction.toDisplayFormat()"
-                    ng-disabled="newTransaction.submitting">
-              <i class="glyphicon glyphicon-plus"></i> 行を追加
-            </button>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-
-    <!-- トランザクションコントロール2 -->
-    <div id="entry-form-control" class="row">
-      <div class="col-sm-12">
+    <!-- トランザクションコントロール -->
+    <div class="row mt-2">
+      <div class="col-sm-9 d-grid">
+        <button class="btn btn-light" type="button"
+                ng-click="newTransaction.addEmptyEntriesPair(); formattedNewTransaction = newTransaction.toDisplayFormat()"
+                ng-disabled="newTransaction.submitting">
+          <%= bootstrap_icon "plus-circle" %> 行を追加
+        </button>
+      </div>
+      <div class="col-sm-2 d-grid">
         <button class="btn btn-primary" type="submit" ng-disabled="newTransaction.submitting">
-          <i class="glyphicon glyphicon-pencil"></i> 登録
+          <%= bootstrap_icon "pencil" %> 登録
         </button>
       </div>
     </div>

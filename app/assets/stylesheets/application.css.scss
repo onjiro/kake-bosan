@@ -18,43 +18,6 @@
   color: #aaa;
 }
 
-.delete-row {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  vertical-align: middle;
-  line-height: 1.2;
-  white-space: nowrap;
-  color: #888;
-  background-color: transparent;
-  border: none;
-
-  &:hover,
-  &:focus {
-    color: white;
-    background-color: #c9302c;
-  }
-
-  &:active {
-    color: white;
-    background-color: #a44;
-  }
-
-  &:disabled {
-    color: transparent;
-    background-color: transparent;
-  }
-}
-
-.delete-row-with-form-control {
-  margin-top: 4px;
-}
-
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
@@ -62,13 +25,6 @@
 .ng-cloak,
 .x-ng-cloak {
   display: none !important;
-}
-
-.caret.caret-right {
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-left: 4px solid;
 }
 
 .amount {
