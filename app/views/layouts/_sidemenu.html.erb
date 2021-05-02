@@ -7,7 +7,7 @@ links = [
   { name: '設定', icon: 'wrench', path: '/configs' },
 ]
 %>
-<nav class="nav flex-column">
+<nav class="nav nav-pills flex-column">
   <% links.each do |params| %>
     <a class="nav-link <%= 'active' if request.path.start_with?(params[:path]) %>" href="<%= params[:path] %>">
       <%= bootstrap_icon params[:icon] %> <%= params[:name] %>
