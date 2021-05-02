@@ -69,3 +69,5 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # migration againt CVE-2015-9284
 # @see https://github.com/cookpad/omniauth-rails_csrf_protection
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "bootstrap-icons-helper", "~> 1.0"

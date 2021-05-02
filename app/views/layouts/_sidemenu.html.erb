@@ -1,18 +1,16 @@
 <%
 links = [
-  { name: 'ダッシュボード', icon: 'glyphicon-dashboard', path: '/dashboard' },
-  { name: '履歴'          , icon: 'glyphicon-list-alt' , path: '/histories' },
-  { name: '棚卸し'        , icon: 'glyphicon-check'    , path: '/inventories' },
-  { name: '集計'          , icon: 'glyphicon-time'     , path: '/summaries' },
-  { name: '設定'          , icon: 'glyphicon-wrench'   , path: '/configs' },
+  { name: 'ダッシュボード', icon: 'award', path: '/dashboard' },
+  { name: '履歴', icon: 'card-list', path: '/histories' },
+  { name: '棚卸し', icon: 'check2-square', path: '/inventories' },
+  { name: '集計', icon: 'diagram-3', path: '/summaries' },
+  { name: '設定', icon: 'wrench', path: '/configs' },
 ]
 %>
-<ul class="nav nav-pills nav-stacked">
+<nav class="nav flex-column">
   <% links.each do |params| %>
-    <li  class="<%= 'active' if request.path.start_with?(params[:path]) %>">
-      <a href="<%= params[:path] %>">
-        <i class="glyphicon <%= params[:icon] %>"></i> <%= params[:name] %>
-      </a>
-    </li>
+    <a class="nav-link <%= 'active' if request.path.start_with?(params[:path]) %>" href="<%= params[:path] %>">
+      <%= bootstrap_icon params[:icon] %> <%= params[:name] %>
+    </a>
   <% end %>
-</ul>
+</nav>

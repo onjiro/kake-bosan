@@ -20,12 +20,12 @@
       <div class="row">
         <!-- サイドバーメニュー -->
         <!-- PCから見た場合のみサイドバーとして表示 -->
-        <section id="side-nav" class="nav col-sm-2 hidden-xs">
+        <section id="side-nav" class="col-sm-3 hidden-xs">
           <%= render 'layouts/sidemenu.html.erb' %>
         </section>
 
         <!-- メイン表示部分 -->
-        <section id="side-nav" class="main col-sm-10 col-xs-12">
+        <section id="main-contents" class="main col-sm-9 col-xs-12">
           <%= yield %>
         </section>
       </div>
