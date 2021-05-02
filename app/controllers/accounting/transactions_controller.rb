@@ -2,10 +2,10 @@ class Accounting::TransactionsController < ApplicationController
   # GET /accounting/transactions
   # GET /accounting/transactions.json
   def index
-    from = params[:from] ? DateTime.parse(params[:from]): nil
-    to   = params[:to]   ? DateTime.parse(params[:to]  ): nil
+    from = params[:from] ? DateTime.parse(params[:from]) : nil
+    to = params[:to] ? DateTime.parse(params[:to]) : nil
 
-    if from.nil? then
+    if from.nil?
       @accounting_transactions = Accounting::Transaction
         .where(user_id: @current_user.id)
         .includes(entries: [:item])
@@ -17,9 +17,8 @@ class Accounting::TransactionsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json do render json: @accounting_transactions, include: {
-          entries: { include: :item }
-        }
-      end
+                              entries: { include: :item },
+                            }       end
     end
   end
 
@@ -56,10 +55,10 @@ class Accounting::TransactionsController < ApplicationController
     @transaction = Accounting::Transaction.new(transaction_params)
 
     respond_to do |format|
+      logger.debug(@transaction.inspect)
+      logger.debug(@transaction.entries.inspect)
       if @transaction.save
-        logger.debug(@transaction.inspect)
-        logger.debug(@transaction.entries)
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.html { redirect_to @transaction, notice: "Transaction was successfully created." }
         format.json { render json: @transaction.to_json(:include => :entries), status: :created, location: @transaction }
       else
         format.html { render action: "new" }
@@ -75,7 +74,7 @@ class Accounting::TransactionsController < ApplicationController
 
     respond_to do |format|
       if @accounting_transaction.update_attributes(params[:accounting_transaction])
-        format.html { redirect_to @accounting_transaction, notice: 'Transaction was successfully updated.' }
+        format.html { redirect_to @accounting_transaction, notice: "Transaction was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -97,12 +96,14 @@ class Accounting::TransactionsController < ApplicationController
   end
 
   private
-  def transaction_params()
-    params[:user_id] = @current_user.id
-    params[:entries_attributes].each do |entry|
-      entry[:user_id] = @current_user.id
-    end
 
-    return params.permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
+  def transaction_params()
+    return params
+             .require(:transaction)
+             .permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
+             .tap do |params|
+             params[:user_id] = @current_user.id
+             params[:entries_attributes].each { |entry| entry[:user_id] = @current_user.id }
+           end
   end
 end
