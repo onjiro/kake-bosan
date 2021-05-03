@@ -12,6 +12,7 @@
 
     <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
     <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
   </head>
   <body ng-controller="AppController">
     <%= render 'layouts/header.html.erb' %>
@@ -31,5 +32,4 @@
       </div>
     </div>
   </body>
-  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 </html>

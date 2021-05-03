@@ -2,8 +2,8 @@ import "../modules/kake-bosan"
 import "../models/item"
 
 angular.module('kake-bosan').controller 'AppController', [
-  '$scope', '$rootScope', 'Item',
-  ($scope, $rootScope, Item) ->
+  '$scope', '$rootScope', '$compile', 'Item'
+  ($scope, $rootScope, $compile, Item) ->
     $scope.types = [
       { id: 1, name: "資産", side_id: 1 },
       { id: 2, name: "費用", side_id: 1 },
@@ -14,6 +14,9 @@ angular.module('kake-bosan').controller 'AppController', [
     $scope.items = Item.query()
 
     $scope.$on('Item::new', (e, item) -> $scope.items.push(angular.extend(item, { new: true })))
+    document.addEventListener("turbolinks:load", (() ->
+      $rootScope.$broadcast("$destroy")
+      $compile(document.body)($rootScope)), {once: true})
 
     $scope.remove = (transaction) ->
       return unless confirm "本当に削除してよろしいですか？"
