@@ -13,7 +13,8 @@ class Accounting::Entry < ApplicationRecord
 
     return Accounting::Item
              .joins(:type, entry: [:transaction_belongs_to])
-             .where(i[:user_id].eq(user_id).and trx[:date].in(from..to))
+             .where(i[:user_id].eq(user_id))
+             .where(trx[:date].gteq(from).and trx[:date].lteq(to))
              .select(i[:id].as("item_id"), type[:side_id], i[:description], <<-EOD_DEBIT_AMOUNT, <<-EOD_CREDIT_AMOUNT, <<-EOD_AMOUNT, i[:selectable])
           COALESCE(SUM(
             CASE WHEN accounting_entries.side_id = #{Accounting::Side::DEBIT.id}
