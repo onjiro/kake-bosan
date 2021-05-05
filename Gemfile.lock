@@ -109,7 +109,6 @@ GEM
       minitest
       power_assert (>= 1.1)
     msgpack (1.4.2)
-    ng-rails-csrf (0.1.0)
     nio4r (2.5.7)
     nokogiri (1.11.3-x86_64-darwin)
       racc (~> 1.4)
@@ -237,7 +236,6 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   minitest-power_assert
-  ng-rails-csrf
   omniauth
   omniauth-rails_csrf_protection (~> 1.0)
   omniauth-twitter
