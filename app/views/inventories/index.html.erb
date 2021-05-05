@@ -2,7 +2,7 @@
   <div class="row">
     <section class="inventories" ng-controller="InventoriesController">
       <h3>棚卸高</h3>
-      <table class="table" ng-show="inventories.$resolved" ng-cloak>
+      <table class="table mb-5" ng-show="inventories.$resolved" ng-cloak>
         <thead>
           <tr>
             <th>科目名</th>
@@ -49,7 +49,7 @@
             </td>
             <td class="inventory-column inventory-column-amount">
               <span class="input-group">
-                <span class="input-group-addon">&yen;</span>
+                <span class="input-group-text">&yen;</span>
                 <input class="form-control amount" name="amount" type="number"
                        ng-disabled="inventory.submitting"
                        ng-model="inventory.amount"
@@ -60,11 +60,11 @@
             <td class="inventory-column inventory-column-controller">
               <button class="btn btn-primary" type="submit"
                       ng-click="takeInventory(inventory)">
-                <i class="glyphicon glyphicon-ok"></i>
+                <%= bootstrap_icon "check" %>
               </button>
-              <button class="btn btn-default" type="button"
+              <button class="btn btn-secondary" type="button"
                       ng-click="inventory.editing = false; inventory.amount = inventory.original_amount">
-                <i class="glyphicon glyphicon-remove"></i>
+                <%= bootstrap_icon "x" %>
               </button>
             </td>
           </tr>
