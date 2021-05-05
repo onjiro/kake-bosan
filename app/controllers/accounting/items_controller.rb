@@ -13,7 +13,7 @@ class Accounting::ItemsController < ApplicationController
   end
 
   def create
-    @item = Accounting::Item.new(create_params)
+    @item = Accounting::Item.new(item_params)
 
     respond_to do |format|
       if @item.save
@@ -32,7 +32,7 @@ class Accounting::ItemsController < ApplicationController
     logger.info @accounting_item.inspect
 
     respond_to do |format|
-      if @accounting_item.update_attributes update_params
+      if @accounting_item.update(item_params)
         format.json { head :no_content }
       else
         format.json { render json: @accounting_item.errors, status: :unprocessable_entity }
@@ -42,22 +42,9 @@ class Accounting::ItemsController < ApplicationController
 
   private
 
-  def create_params
-    {
-      user_id: @current_user.id,
-      name: params[:name],
-      type_id: params[:type_id],
-      description: params[:description],
-      selectable: true,
-    }
-  end
-
-  def update_params
-    {
-      name: params[:name],
-      type_id: params[:type_id],
-      description: params[:description],
-      selectable: params[:selectable],
-    }
+  def item_params
+    params.require(:item)
+      .permit(:name, :type_id, :description, :selectable, :type_id)
+      .merge(user_id: @current_user.id)
   end
 end

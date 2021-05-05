@@ -1,4 +1,4 @@
-class CreateAccountingTransactions < ActiveRecord::Migration
+class CreateAccountingTransactions < ActiveRecord::Migration[4.2]
   def change
     create_table :accounting_transactions do |t|
       t.references :user

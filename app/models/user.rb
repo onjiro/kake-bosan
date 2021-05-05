@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_one :inventory_setting
 
   validates :provider, presence: :true
@@ -19,5 +19,4 @@ class User < ActiveRecord::Base
       end
     end
   end
-
 end

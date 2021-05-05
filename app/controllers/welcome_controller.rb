@@ -1,13 +1,8 @@
 class WelcomeController < ApplicationController
-  skip_before_filter :authorize
+  layout "welcome"
+  skip_before_action :authorize
 
   def index
-    if current_user.nil?
-      respond_to do |format|
-        format.html
-      end
-    else
-      redirect_to "/dashboard"
-    end
+    redirect_to "/dashboard" if current_user.present?
   end
 end

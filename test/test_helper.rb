@@ -1,17 +1,17 @@
-ENV["RAILS_ENV"] = "test"
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
+ENV['RAILS_ENV'] ||= 'test'
+require_relative "../config/environment"
+require "rails/test_help"
 require 'capybara/rails'
 
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 20
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  # fixtures :all
+  # Run tests in parallel with specified workers
+  parallelize(workers: :number_of_processors)
+
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  fixtures :all
 
   # Add more helper methods to be used by all tests here...
 end

@@ -1,22 +1,16 @@
-<div class="nav">
-  <div class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <div class="nav navbar-header">
-        <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-home"></i> 家計簿さん</a>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">家計簿さん</a>
 
-      <% if current_user  %>
-      <ul class="nav navbar-nav navbar-right">
+    <% if current_user  %>
+      <ul class="navbar-nav">
         <li class="current-user dropdown">
-          <a href="#" data-toggle="dropdown">ログイン中: <%= current_user.name %> <span class="caret"></span></a>
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">ログイン中: <%= current_user.name %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li class="logout"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/sessions/destroy" %></li>
+            <li class="dropdown-item logout"><%= link_to sanitize('<i class="icon-signout"></i> ログアウト'), "/sessions/destroy" %></li>
           </ul>
         </li>
       </ul>
-      <% end %>
-
-    </div>
+    <% end %>
   </div>
-</div>
-
+</nav>

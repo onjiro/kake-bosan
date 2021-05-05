@@ -1,69 +1,30 @@
 /*
-* This is a manifest file that'll be compiled into application.css, which will include all the files
-* listed below.
-*
-* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
-* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
-*
-* You're free to add application-wide styles to this file and they'll appear at the top of the
-* compiled file, but it's generally better to create a new file per style scope.
-*
-*= require_self
-*= require_tree .
-*/
-@import "bootstrap";
-
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
 .deleted {
   text-decoration: line-through;
   color: #aaa;
 }
 
-.delete-row {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  vertical-align: middle;
-  line-height: 1.2;
-  white-space: nowrap;
-  color: #888;
-  background-color: transparent;
-  border: none;
-
-  &:hover,
-  &:focus {
-    color: white;
-    background-color: #c9302c;
-  }
-
-  &:active {
-    color: white;
-    background-color: #a44;
-  }
-
-  &:disabled {
-    color: transparent;
-    background-color: transparent;
-  }
-}
-
-.delete-row-with-form-control {
-  margin-top: 4px;
-}
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
   display: none !important;
-}
-
-.caret.caret-right {
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-left: 4px solid;
 }
 
 .amount {

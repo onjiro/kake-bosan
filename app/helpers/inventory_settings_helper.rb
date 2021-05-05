@@ -1,2 +1,0 @@
-module InventorySettingsHelper
-end

@@ -1,4 +1,4 @@
-class RecreateAccountingTypes < ActiveRecord::Migration
+class RecreateAccountingTypes < ActiveRecord::Migration[4.2]
   def change
     drop_table :accounting_types
     create_table :accounting_types do |t|
