@@ -5,7 +5,7 @@ angular.module('kake-bosan').factory 'InventorySetting', ['$resource', ($resourc
   },
   {
     query:  { method: 'GET', isArray: false, cache: true }
-    update: { method: 'PUT' }
+    update: { method: 'PUT', transformRequest: (data) -> (JSON.stringify({debit_item_id: data.debit_item_id, credit_item_id: data.credit_item_id})) }
   }
   return InventorySetting
 ]

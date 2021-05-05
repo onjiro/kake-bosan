@@ -14,9 +14,19 @@ angular.module('kake-bosan').controller 'AppController', [
     $scope.items = Item.query()
 
     $scope.$on('Item::new', (e, item) -> $scope.items.push(angular.extend(item, { new: true })))
-    document.addEventListener("turbolinks:load", (() ->
-      $rootScope.$broadcast("$destroy")
-      $compile(document.body)($rootScope)), {once: true})
+
+    # turbolinksとangular1を同居させるための暫定の仕組み
+    #
+    # turbolinksではページ遷移時にbodyだけを差し替えてしまう。
+    # 通常angular1はこれを検知できないので、AppController以下は動作しない状態になる。
+    # これを回避するため、tubolinksでページ遷移をした場合にbody以下を$compileしている。
+    # 初回のページ表示時に$compileが動いてしまうとイベントが二重に設定されるなど想定しない事態が発生する。
+    # これを避けるため、turbolinks:request-start後のturbolinks:loadでのみ動作するようにイベントを設定した。
+    # この方法で概ねうまく動くような気がするけど、うまく動かないパターンもあるかもしれない
+    document.addEventListener("turbolinks:request-start", ((event, url, prev_url) ->
+      document.addEventListener("turbolinks:load", ((event) ->
+        $rootScope.$broadcast("$destroy")
+        $compile(document.body)($rootScope)), { once: true })), { once: true })
 
     $scope.remove = (transaction) ->
       return unless confirm "本当に削除してよろしいですか？"
