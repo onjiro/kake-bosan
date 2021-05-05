@@ -47,8 +47,8 @@
           <input type="text" class="form-control" ng-model="item.name" ng-focus-on-change="item.editing"/>
         </td>
         <td>
-          <select class="form-control" ng-model="item.type_id">
-            <option ng-repeat="type in types" value="{{type.id}}">{{type.name}}</option>
+          <select class="form-control" ng-model="item.type_id"
+            ng-options="type.id as type.name for type in types">
           </select>
         </td>
         <td>

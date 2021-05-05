@@ -10,6 +10,6 @@ angular.module('kake-bosan').factory 'Item', ['$resource', ($resource) ->
   },
   {
     query: {method: 'GET', isArray: true, cache: true},
-    update: { method: 'PUT' },
+    update: { method: 'PUT', transformRequest: (data) -> (JSON.stringify({name: data.name, selctable: data.selectable, description: data.description, type_id: data.type_id})) },
   }
 ]
