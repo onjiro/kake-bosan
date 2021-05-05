@@ -1,7 +1,4 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer unless Rails.env.production?
-  provider :twitter, Rails.application.secrets.twitter_key, Rails.application.secrets.twitter_secret,
-  {
-    display: 'popup'
-  }
+  provider :github, ENV["GITHUB_KEY"], ENV["GITHUB_SECRET"]
 end

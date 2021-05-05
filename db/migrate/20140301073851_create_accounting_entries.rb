@@ -1,4 +1,4 @@
-class CreateAccountingEntries < ActiveRecord::Migration
+class CreateAccountingEntries < ActiveRecord::Migration[4.2]
   def change
     create_table :accounting_entries do |t|
       t.references :user

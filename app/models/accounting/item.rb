@@ -1,4 +1,4 @@
-class Accounting::Item < ActiveRecord::Base
+class Accounting::Item < ApplicationRecord
   belongs_to :user
   belongs_to :type
   has_many :entry
@@ -9,6 +9,6 @@ class Accounting::Item < ActiveRecord::Base
       .includes(:debit_item, :credit_item)
       .joins(:debit_item, :credit_item)
       .first
-    return (side == Accounting::Side::CREDIT) ? inventory_setting.credit_item: inventory_setting.debit_item
+    return (side == Accounting::Side::CREDIT) ? inventory_setting.credit_item : inventory_setting.debit_item
   end
 end

@@ -52,8 +52,9 @@
 
         <td class="history-column-separator"></td>
         <td class="history-column-transaction-controls">
-          <button type="button" class="delete-row pull-right"
-                  ng-click="$event.stopPropagation(); remove(transaction)">x</button>
+          <a href class="link-danger" ng-click="$event.preventDefault(); $event.stopPropagation(); remove(transaction)">
+            <%= bootstrap_icon "backspace" %>
+          </a>
         </td>
       </tr>
 
@@ -88,16 +89,17 @@
         <td class="history-column-separator"></td>
         <td>
           <span ng-show="$index === 0">
-            <button type="button" class="delete-row pull-right"
-                    ng-click="$event.stopPropagation(); remove(transaction)">x</button>
+            <a href class="link-danger" ng-click="$event.preventDefault(); $event.stopPropagation(); remove(transaction)">
+              <%= bootstrap_icon "backspace" %>
+            </a>
           </span>
         </td>
       </tr>
     </tbody>
   </table>
-  <div class="btn btn-info col-sm-12" ng-show="history.initialized" ng-cloak
+  <div class="btn btn-primary col-sm-12" ng-show="history.initialized" ng-cloak
        ng-click="loadNextTransactions()" ng-disabled="transactions.appending">
-    <span class="glyphicon glyphicon-download"></span>
+    <%= bootstrap_icon "download" %>
     <span>さらに読み込む ({{history.nextTerm.to | date:'yyyy/MM/dd' }} 〜 {{history.nextTerm.from | date:'yyyy/MM/dd' }})<span>
   </div>
   <div class="loading well" ng-hide="history.initialized">ロード中...</div>

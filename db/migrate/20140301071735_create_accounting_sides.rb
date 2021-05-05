@@ -1,4 +1,4 @@
-class CreateAccountingSides < ActiveRecord::Migration
+class CreateAccountingSides < ActiveRecord::Migration[4.2]
   def change
     create_table :accounting_sides, id: false do |t|
       t.integer :id, :options => 'PRIMARY KEY'

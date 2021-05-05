@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authorize, :verify_authenticity_token
+  skip_before_action :authorize, :verify_authenticity_token
 
   def create
     user = SessionsController.helpers.find_or_create_user(auth_params)

@@ -1,4 +1,4 @@
-class CreateInventorySettings < ActiveRecord::Migration
+class CreateInventorySettings < ActiveRecord::Migration[4.2]
   def change
     create_table :inventory_settings, id: false do |t|
       t.column     :user_id, 'INTEGER PRIMARY KEY'

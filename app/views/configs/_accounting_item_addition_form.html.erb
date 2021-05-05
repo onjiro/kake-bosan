@@ -1,26 +1,29 @@
 <!-- 新規追加 -->
-<form name="itemAdditionForm" class="form form-inline"
+<form name="itemAdditionForm" class="form form-inline row"
       ng-controller="AccountItemAdditionFormController"
       ng-show="items.$resolved" ng-cloak>
-  <div class="input-group">
-    <input name="name" type="text" class="form-control" placeholder="科目名"
-           ng-model="name" required maxlength="255"/>
-    <div class="input-group-btn" ng-init="selected_type = types[0]">
-      <button type="button" class="btn btn-default dropdown-toggle"
-              data-toggle="dropdown"
+  <div class="col-md-4">
+    <div class="input-group">
+      <input name="name" type="text" class="form-control" placeholder="科目名"
+            ng-model="name" required maxlength="255"/>
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle"
+              data-bs-toggle="dropdown"
               ng-focus-on-change="selected_type">
-        <span class="glyphicon glyphicon-filter"></span> {{selected_type.name}} <span class="caret"></span>
+        <%= bootstrap_icon "filter" %> {{selected_type.name}}</span>
       </button>
-      <ul class="dropdown-menu" role="menu">
-        <li ng-repeat="type in types">
-          <a href ng-click="$parent.selected_type = type">{{type.name}}</a>
-        </li>
-      </ul>
+      <div class="dropdown-menu" role="menu">
+        <a ng-repeat="type in types"
+          class="dropdown-item" href ng-click="$parent.selected_type = type">{{type.name}}</a>
+      </div>
     </div>
   </div>
-  <input name="description" type="text" class="form-control" placeholder="説明"
-         ng-model="description" size="76" maxlength="255" />
-  <input type="submit" class="btn btn-primary" value="追加"
-         ng-disabled="itemAdditionForm.$invalid"
-         ng-click="onSubmit()" />
+  <div class="col-md-6">
+    <input name="description" type="text" class="form-control" placeholder="説明"
+          ng-model="description" size="76" maxlength="255" />
+  </div>
+  <div class="col-md-2">
+    <input type="submit" class="btn btn-primary" value="追加"
+          ng-disabled="itemAdditionForm.$invalid"
+          ng-click="onSubmit()" />
+  </div>
 </form>

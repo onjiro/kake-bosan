@@ -1,8 +1,8 @@
-class Accounting::Side < ActiveRecord::Base
+class Accounting::Side < ApplicationRecord
   self.primary_key = :id
 
-  DEBIT  = Accounting::Side.new({id: 1, name: '借方'}, without_protection: true)
-  CREDIT = Accounting::Side.new({id: 2, name: '貸方'}, without_protection: true)
+  DEBIT  = Accounting::Side.new(id: 1, name: '借方')
+  CREDIT = Accounting::Side.new(id: 2, name: '貸方')
 
   def flip
     self == DEBIT ? CREDIT: DEBIT
