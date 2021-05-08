@@ -1,0 +1,8 @@
+.rspec
+log
+tmp
+db/*.sqlite3
+public/packs
+node_modules
+screenshots
+test

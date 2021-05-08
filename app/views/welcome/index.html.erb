@@ -7,9 +7,10 @@
       <p class="small" style="font-size: 0.82em">現金や電子マネー、クレジットカードなどの支払いと残高をまとめて管理できます。</p>
 
       <p>
-        <%= link_to "開発者としてログイン", "/auth/developer", class: "btn btn-primary", method: :post %>
-        <%= link_to "Twitterでログイン", "/auth/twitter", class: "btn btn-primary", method: :post %>
-
+        <% if Rails.env.development? %>
+          <%= link_to "開発者としてログイン", "/auth/developer", class: "btn btn-primary", method: :post %>
+        <% end %>
+        <%= link_to "GitHubでログイン", "/auth/github", class: "btn btn-primary", method: :post %>
       </p>
     </div>
   </div>

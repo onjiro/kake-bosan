@@ -1,1 +1,23 @@
 @import "~bootstrap/scss/bootstrap.scss";
+@import "./layout/entry_form.css.scss";
+@import "./history.css.scss";
+@import "./inventories.css.scss";
+@import "./tooltip.css.scss";
+
+.deleted {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+
+.amount {
+  text-align: right;
+}
