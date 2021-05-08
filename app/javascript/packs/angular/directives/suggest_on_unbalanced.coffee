@@ -10,7 +10,7 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         transaction = $parse(attrs.suggestOnUnbalanced)(scope)
         side = attrs.suggestSide
         disableCondition = attrs.suggestDisableOn
-        tooltip = angular.element('<div class="tooltip tooltip-suggestion left fade" role="tooltip" ng-click="applySuggest()"><div class="tooltip-arrow"></div><a href="#" class="tooltip-inner"></a></div>')
+        tooltip = $(angular.element('<div class="tooltip tooltip-suggestion bs-tooltip-start fade" role="tooltip" ng-click="applySuggest($event)"><div class="tooltip-arrow"></div><a href="#" class="tooltip-inner"></a></div>'))
         tooltipInner = tooltip.find('.tooltip-inner')
         suggestAmount = 0
         $(element).before tooltip
@@ -26,13 +26,11 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         ngModelController.$viewChangeListeners.push () ->
           $rootScope.$broadcast 'suggestOnUnbalanced:changed', element
         scope.$on 'suggestOnUnbalanced:changed', (e, srcElement) ->
-          window.console.log("suggestOnUnbalanced")
           dismissSuggestion()
           return if element == srcElement
           return if $parse(disableCondition)(scope)
           suggestAmount = transaction.suggestToBalance(side) + ngModelController.$modelValue
           return if suggestAmount <= 0 || suggestAmount == ngModelController.$modelValue
-          window.console.log(suggestAmount)
           showSuggestion(suggestAmount)
 
         element.on 'keyup', (e) ->
@@ -44,15 +42,15 @@ angular.module('kake-bosan').directive 'suggestOnUnbalanced', [
         # DOM 操作関連
         # サジェスト金額の表示と消去
         showSuggestion = (suggestAmount) ->
-          window.console.log(suggestAmount)
           tooltipInner.text("#{suggestAmount}?")
-          tooltip.addClass('in')
+          tooltip.addClass('show')
           tooltip.css('marginLeft', "-#{$(tooltip).innerWidth()}px")
 
         dismissSuggestion = () ->
-          tooltip.removeClass('in')
+          tooltip.removeClass('show')
 
-        scope.applySuggest = () ->
+        scope.applySuggest = ($event) ->
+          $event.preventDefault();
           ngModelController.$setViewValue(suggestAmount, 'onUpdate')
           ngModelController.$render()
           $rootScope.$broadcast 'suggestOnUnbalanced:changed', element

@@ -5,6 +5,6 @@ angular.module('kake-bosan').directive 'ngFocusFirstInputIf', ['$timeout', ($tim
         # use $timeout for avoid "Error: [$rootScope: inprog]"
         # https://docs.angularjs.org/error/$rootScope/inprog?p0=$digest
         if condition then $timeout () ->
-          element.find("input, select, button, checkbox")[0]?.focus()
+          $(element).find("input, select, button, checkbox")[0]?.focus()
   }
 ]

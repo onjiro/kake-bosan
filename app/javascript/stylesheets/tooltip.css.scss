@@ -1,16 +1,6 @@
 .tooltip-suggestion {
-  visibility: hidden;
-  &.in {
-    visibility: visible;
-  }
-
   a {
-    &:hover,
-    &:focus,
-    &:active,
-    &:visited {
-      color: white;
-      text-decolation: initial;
-    }
+    text-decoration: none;
+    color: white;
   }
 }
