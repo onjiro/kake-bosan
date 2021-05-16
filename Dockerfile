@@ -39,7 +39,10 @@ COPY app/assets app/assets
 COPY vendor/assets vendor/assets
 COPY bin bin
 COPY config config
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+ARG SECRET_KEY_BASE
+ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+ENV RAILS_ENV=production
+RUN bundle exec rails assets:precompile
 
 # 最終的に生成されるイメージ
 FROM ruby:3.0.1-alpine3.12
