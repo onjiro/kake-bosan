@@ -103,6 +103,7 @@ class Accounting::TransactionsController < ApplicationController
              .permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
              .tap do |params|
              params[:user_id] = @current_user.id
+             params[:entries_attributes] = params[:entries_attributes].reject { |entry_params| entry_params[:amount].blank? }
              params[:entries_attributes].each { |entry| entry[:user_id] = @current_user.id }
            end
   end
