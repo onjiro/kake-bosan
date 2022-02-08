@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+ActiveRecord::Base.transaction do
+  Accounting::Side.delete_all()
+  Accounting::Side::DEBIT.save
+  Accounting::Side::CREDIT.save()
+
+  Accounting::Type.delete_all()
+  Accounting::Type::ASSET.save()
+  Accounting::Type::EXPENSE.save()
+  Accounting::Type::LIABILITY.save()
+  Accounting::Type::CAPITAL.save()
+  Accounting::Type::INCOME.save()
+end
