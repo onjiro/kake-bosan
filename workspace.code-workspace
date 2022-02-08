@@ -5,6 +5,10 @@
 		},
 		{
 			"path": "old"
+		},
+		{
+			"path": ".",
+			"name": "."
 		}
 	],
 	"settings": {}
