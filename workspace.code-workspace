@@ -1,15 +1,21 @@
 {
-	"folders": [
-		{
-			"path": "api"
-		},
-		{
-			"path": "old"
-		},
-		{
-			"path": ".",
-			"name": "."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "name": "web",
+      "path": "web"
+    },
+    {
+      "name": "api",
+      "path": "api"
+    },
+    {
+      "name": "old",
+      "path": "old"
+    },
+    {
+      "name": ".",
+      "path": "."
+    }
+  ],
+  "settings": {}
 }
