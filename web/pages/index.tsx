@@ -1,4 +1,23 @@
 import Head from "next/head";
+import { Row, Col, Container, Button } from "react-bootstrap";
+import styled from "styled-components";
+
+const StyledContainer = styled(Container)`
+  margin-top: 3rem;
+`;
+const StyledCol = styled(Col)`
+  background: rgb(248, 249, 250);
+  border-radius: 8px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+`;
+const HeadingText = styled.h1``;
+const SubHeadingText = styled.h3`
+  font-size: 0.875em;
+`;
+const DescriptionText = styled.p`
+  font-size: 0.875em;
+`;
 
 export default function Home(): JSX.Element {
   return (
@@ -6,37 +25,39 @@ export default function Home(): JSX.Element {
       <Head>
         <title>家計簿さん</title>
       </Head>
-      <section className="container mt-5">
-        <div className="row">
-          <div className="col-8 bg-light pt-4 pb-4" style={{ borderRadius: 8 }}>
-            <h1>家計簿さん</h1>
+      <StyledContainer>
+        <Row>
+          <StyledCol lg={8}>
+            <HeadingText>家計簿さん</HeadingText>
             <p>複式簿記で家計簿を！</p>
-            <h3 className="small">複式簿記なら...</h3>
-            <small className="small">
+            <SubHeadingText>複式簿記なら...</SubHeadingText>
+            <DescriptionText>
               現金や電子マネー、クレジットカードなどの支払いと残高をまとめて管理できます。
-            </small>
+            </DescriptionText>
             <p>
-              <span className="btn btn-primary">開発者としてログイン</span>
-              <span className="btn btn-primary">GitHubでログイン</span>
+              <Button variant="primary">開発者としてログイン</Button>
+              <Button variant="primary">GitHubでログイン</Button>
             </p>
-          </div>
-        </div>
-      </section>
-      <footer className="container">
-        <p className="row">
-          <span className="pull-right">
-            &copy;{" "}
-            <a
-              href="https://twitter.com/onjiro_mohyahya"
-              target="_blank"
-              rel="noreferrer"
-            >
-              @onjiro_mohyahya
-            </a>{" "}
-            2013-2021
-          </span>
-        </p>
-      </footer>
+          </StyledCol>
+        </Row>
+      </StyledContainer>
+      <Container>
+        <Row>
+          <Col>
+            <p>
+              &copy;{" "}
+              <a
+                href="https://twitter.com/onjiro_mohyahya"
+                target="_blank"
+                rel="noreferrer"
+              >
+                @onjiro_mohyahya
+              </a>{" "}
+              2013-2022
+            </p>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

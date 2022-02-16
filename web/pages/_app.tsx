@@ -1,5 +1,6 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // @see https://zenn.dev/anozon/articles/ts-nextjs-pages
 const App = ({ Component, pageProps }: AppProps) => (
