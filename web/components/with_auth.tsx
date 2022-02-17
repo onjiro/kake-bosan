@@ -1,23 +1,22 @@
 import React, { Component, ComponentProps } from "react";
-import RedirectToLogin from "./redirect_to_login";
+import Redirect from "./redirect";
+import { fetchUser } from "../lib/user";
 
 export default function withAuth(InnerComponent) {
   type Props = { currentUser: any };
   return class Authenticated extends Component<Props> {
-    static async getInitialProps(ctx) {
-      // TODO ユーザー情報を取得する
+    static async getInitialProps({ req }) {
+      const currentUser = await fetchUser();
       return {
-        currentUser: {
-          /* TODO */
-        },
+        currentUser,
       };
     }
     constructor(props) {
       super(props);
     }
     render() {
-      if (!this.props.currentUser) {
-        return <RedirectToLogin />;
+      if (this.props.currentUser?.error) {
+        return <Redirect page="/">Signing in...</Redirect>;
       }
 
       return (

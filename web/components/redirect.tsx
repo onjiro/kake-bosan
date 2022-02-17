@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Router from "next/router";
 
-export default class RedirectToLogin extends Component {
+export default class Redirect extends Component<{ page }> {
   componentDidMount(): void {
-    Router.replace("/");
+    Router.replace(this.props.page);
   }
   render() {
     return (
       <>
-        <span>Signing you in...</span>
+        <span>{this.props.children}</span>
       </>
     );
   }

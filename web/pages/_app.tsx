@@ -1,10 +1,11 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserProvider } from "@auth0/nextjs-auth0";
 
 // @see https://zenn.dev/anozon/articles/ts-nextjs-pages
 const App = ({ Component, pageProps }: AppProps) => (
-  <>
+  <UserProvider>
     <Head>
       <meta
         name="viewport"
@@ -14,7 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => (
       {/* <link rel="manifest" href="/manifest.json" /> */}
     </Head>
     <Component {...pageProps} />
-  </>
+  </UserProvider>
 );
 
 export default App;

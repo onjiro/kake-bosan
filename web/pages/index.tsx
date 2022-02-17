@@ -1,6 +1,9 @@
 import Head from "next/head";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import styled from "styled-components";
+import LoginButton from "../components/login_button";
+import { useUser } from "@auth0/nextjs-auth0";
+import Redirect from "../components/redirect";
 
 const StyledContainer = styled(Container)`
   margin-top: 3rem;
@@ -20,6 +23,11 @@ const DescriptionText = styled.p`
 `;
 
 export default function Home(): JSX.Element {
+  const { user, error, isLoading } = useUser();
+  if (user) {
+    return <Redirect page="dashboard">Signing in...</Redirect>;
+  }
+
   return (
     <>
       <Head>
@@ -35,8 +43,7 @@ export default function Home(): JSX.Element {
               現金や電子マネー、クレジットカードなどの支払いと残高をまとめて管理できます。
             </DescriptionText>
             <p>
-              <Button variant="primary">開発者としてログイン</Button>
-              <Button variant="primary">GitHubでログイン</Button>
+              <LoginButton>ログイン</LoginButton>
             </p>
           </StyledCol>
         </Row>
