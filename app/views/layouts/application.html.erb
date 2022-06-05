@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>
-      <%= "[#{Rails.env[0, 3]}]" unless Rails.env == 'production' %>
+      <%= "[#{Rails.env[0, 3]}]" unless Rails.env == "production" %>
       <%= content_for?(:title) ? yield(:title) : "家計簿さん" %>
     </title>
     <%= csrf_meta_tags %>
@@ -15,14 +15,14 @@
     <%= stylesheet_link_tag "application" %>
   </head>
   <body ng-controller="AppController">
-    <%= render 'layouts/header.html.erb' %>
+    <%= render "layouts/header" %>
 
     <div class="container-fluid">
       <div class="row">
         <!-- サイドバーメニュー -->
         <!-- PCから見た場合のみサイドバーとして表示 -->
         <section id="side-nav" class="col-sm-2 hidden-xs pt-4 pb-5">
-          <%= render 'layouts/sidemenu.html.erb' %>
+          <%= render "layouts/sidemenu" %>
         </section>
 
         <!-- メイン表示部分 -->
