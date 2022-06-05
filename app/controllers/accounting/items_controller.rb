@@ -1,4 +1,6 @@
 class Accounting::ItemsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   # GET /accounting/items
   # GET /accounting/items.json
   def index
