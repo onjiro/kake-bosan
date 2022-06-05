@@ -18,6 +18,7 @@ class ActionDispatch::IntegrationTest
   private
 
   def sign_in(user = "user", email = "")
+    OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:development] = OmniAuth::AuthHash.new
     {
       provider: "development",
@@ -27,10 +28,13 @@ class ActionDispatch::IntegrationTest
         email: email,
       },
     }
-    visit "/auth/developer"
+    post "/auth/developer"
+    follow_redirect!
+
+    @current_user = User.find(session[:user_id])
   end
 
   def sign_out()
-    visit "/sessions/destroy"
+    get "/sessions/destroy"
   end
 end

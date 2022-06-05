@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_one :inventory_setting
+  has_many :items, class_name: "Accounting::Item"
+  has_many :transactions, class_name: "Accounting::Transaction"
 
   validates :provider, presence: :true
   validates :uid, presence: :true

@@ -4,6 +4,9 @@ class Accounting::Entry < ApplicationRecord
   belongs_to :side, class_name: "Accounting::Side"
   belongs_to :item, class_name: "Accounting::Item"
 
+  scope :debits, -> { where(side: Accounting::Side::DEBIT) }
+  scope :credits, -> { where(side: Accounting::Side::CREDIT) }
+
   # 指定期間のユーザーの移動額を科目ごとに集計します
   def self.summaries(user_id, from, to)
     e = Accounting::Entry.arel_table
