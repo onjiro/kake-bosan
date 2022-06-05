@@ -1,5 +1,8 @@
 #= require angular/modules/kake-bosan
 #= require angular/models/transaction_history
+import React from 'react'
+import * as ReactDOM from 'react-dom/client'
+import TranasctionHistory from '../../TransactionHistory'
 
 angular.module('kake-bosan').controller 'RecentTransactionsController', [
   '$scope', 'TransactionHistory',
@@ -8,6 +11,14 @@ angular.module('kake-bosan').controller 'RecentTransactionsController', [
     newTransactions = $scope.newTransactions = []
     history = $scope.history = new TransactionHistory({ days: 7 })
     recents = $scope.recents = history.transactions
+    
+    root = ReactDOM.createRoot(document.querySelector('#react-list-container'));
+    root.render(React.createElement(TranasctionHistory, { transactions: $scope.recents }));
+    $scope.$watch(
+      () => ($scope.recents),
+      () => (root.render(React.createElement(TranasctionHistory, { transactions: $scope.recents }))),
+      true
+    );
 
     # relation from other controllers
     $scope.$on 'Transaction::new', (e, transaction) ->
