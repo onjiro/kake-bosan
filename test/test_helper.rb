@@ -1,10 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
-require "capybara/rails"
-
-Capybara.default_driver = :selenium
-Capybara.default_max_wait_time = 20
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -17,9 +13,6 @@ class ActiveSupport::TestCase
 end
 
 class ActionDispatch::IntegrationTest
-  # Make the Capybara DSL available in all integration tests
-  include Capybara::DSL
-
   load "#{Rails.root}/db/seeds.rb"
 
   private
