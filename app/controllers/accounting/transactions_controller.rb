@@ -1,4 +1,6 @@
 class Accounting::TransactionsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   # GET /accounting/transactions
   # GET /accounting/transactions.json
   def index
