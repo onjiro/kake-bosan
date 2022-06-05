@@ -68,3 +68,5 @@ end
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 
 gem "cssbundling-rails", "~> 1.1"
+
+gem "bootstrap-icons-helper", "~> 2.0"
