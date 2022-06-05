@@ -36,4 +36,15 @@ class TransactionTest < ActionDispatch::IntegrationTest
     assert_equal 1, subject.entries.credits.size
     assert_equal @current_user.items.last.id, subject.entries.credits.first.item.id
   end
+
+  test "取引を削除できること" do
+    subject = @current_user.transactions.create!(date: "2022-05-10", entries: [
+                                                   Accounting::Entry.new(side: Accounting::Side::DEBIT, item: @current_user.items.first, amount: 100, user: @current_user),
+                                                   Accounting::Entry.new(side: Accounting::Side::CREDIT, item: @current_user.items.last, amount: 100, user: @current_user),
+                                                 ])
+    delete "/accounting/transactions/#{subject.id}.json"
+
+    assert_response :success
+    assert_raises(ActiveRecord::RecordNotFound) { subject.reload }
+  end
 end
