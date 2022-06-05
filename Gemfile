@@ -62,8 +62,6 @@ gem "omniauth-github"
 # @see https://github.com/cookpad/omniauth-rails_csrf_protection
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 
-gem "jsbundling-rails", "~> 1.0"
-
 gem "cssbundling-rails", "~> 1.1"
 
 gem "bootstrap-icons-helper", "~> 2.0"
