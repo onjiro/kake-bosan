@@ -1,10 +1,11 @@
 module Accounting::SessionsHelper
   def find_or_create_user(auth_params)
     return User.find_by_provider_and_uid(auth_params["provider"], auth_params["uid"]) ||
-      ActiveRecord::Base.transaction { create_user_account(auth_params) }
+             ActiveRecord::Base.transaction { create_user_account(auth_params) }
   end
 
   private
+
   def create_user_account(auth_params)
     user = User.create_with_omniauth(auth_params)
     items = create_initial_asset_datas(user)
@@ -72,9 +73,7 @@ module Accounting::SessionsHelper
     EOD
     initial_assets.inject({}) do |result, (accounting_type_id, items)|
       result[accounting_type_id] = items.map do |item|
-        item = Accounting::Item.new(item.merge(user_id: user.id, type_id: accounting_type_id))
-        item.save()
-        item
+        Accounting::Item.create!(item.merge(user_id: user.id, type_id: accounting_type_id))
       end
       result
     end
@@ -82,11 +81,11 @@ module Accounting::SessionsHelper
 
   def create_inventory_setting(user, items)
     inventoryDifferenceItem = items[Accounting::Type::EXPENSE.id].find do |item|
-      item.name == '棚卸差額'
+      item.name == "棚卸差額"
     end
 
-    setting = InventorySetting::create(user_id:        user.id,
-                                       debit_item_id:  inventoryDifferenceItem.id,
+    setting = InventorySetting::create(user_id: user.id,
+                                       debit_item_id: inventoryDifferenceItem.id,
                                        credit_item_id: inventoryDifferenceItem.id)
   end
 end

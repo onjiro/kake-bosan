@@ -26,9 +26,6 @@ gem "jbuilder", "~> 2.7"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
 
-gem "omniauth"
-gem "omniauth-github"
-
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem "sqlite3", "~> 1.4"
@@ -63,9 +60,13 @@ group :production do
   gem "tzinfo-data"
 end
 
+gem "omniauth"
+gem "omniauth-github"
 # migration againt CVE-2015-9284
 # @see https://github.com/cookpad/omniauth-rails_csrf_protection
 gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "jsbundling-rails", "~> 1.0"
 
 gem "cssbundling-rails", "~> 1.1"
 
