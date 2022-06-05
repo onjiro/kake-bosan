@@ -8,9 +8,9 @@
 
       <p>
         <% if Rails.env.development? %>
-          <%= link_to "開発者としてログイン", "/auth/developer", class: "btn btn-primary", method: :post %>
+          <%= button_to "開発者としてログイン", "/auth/developer", class: "btn btn-primary", method: :post %>
         <% end %>
-        <%= link_to "GitHubでログイン", "/auth/github", class: "btn btn-primary", method: :post %>
+        <%= button_to "GitHubでログイン", "/auth/github", class: "btn btn-primary", method: :post %>
       </p>
     </div>
   </div>
