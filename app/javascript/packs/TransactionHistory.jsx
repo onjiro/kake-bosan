@@ -6,7 +6,7 @@ export default (props) => {
       {props.transactions.map((t) => (
         <a
           key={t.id}
-          href="#"
+          onClick={() => props.openEditModal(t)}
           className="list-group-item list-group-item-action"
         >
           <div style={{ fontSize: "xx-small" }}>
@@ -19,18 +19,20 @@ export default (props) => {
                 .map((e) => e.item.name)
                 .join(",")}
             </span>
-            <span style={{ fontSize: "xx-small" }}>
-              &nbsp;⇦&nbsp;
-              {t.entries
-                .filter((e) => e.side_id === 2)
-                .map((e) => e.item.name)
-                .join(",")}
-            </span>
             <span className="float-end">
-              &yen;
-              {t.entries
-                .filter((e) => e.side_id === 1)
-                .reduce((sum, e) => sum + e.amount, 0)}
+              <span style={{ fontSize: "xx-small" }}>
+                {t.entries
+                  .filter((e) => e.side_id === 2)
+                  .map((e) => e.item.name)
+                  .join(",")}
+                &nbsp;
+              </span>
+              <span>
+                &yen;
+                {t.entries
+                  .filter((e) => e.side_id === 1)
+                  .reduce((sum, e) => sum + e.amount, 0)}
+              </span>
             </span>
           </div>
         </a>

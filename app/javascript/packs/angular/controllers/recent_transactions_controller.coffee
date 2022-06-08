@@ -2,6 +2,7 @@
 #= require angular/models/transaction_history
 import React from 'react'
 import * as ReactDOM from 'react-dom/client'
+import EditModal from '../../EditModal'
 import TranasctionHistory from '../../TransactionHistory'
 
 angular.module('kake-bosan').controller 'RecentTransactionsController', [
@@ -12,11 +13,25 @@ angular.module('kake-bosan').controller 'RecentTransactionsController', [
     history = $scope.history = new TransactionHistory({ days: 7 })
     recents = $scope.recents = history.transactions
     
-    root = ReactDOM.createRoot(document.querySelector('#react-list-container'));
-    root.render(React.createElement(TranasctionHistory, { transactions: $scope.recents }));
+    currentTransaction = null
+    modalRoot = ReactDOM.createRoot(document.querySelector('#react-modal-container'));
+    renderModal = () => (modalRoot.render(React.createElement(EditModal, {
+      transaction: currentTransaction,
+      onClose: () =>
+        currentTransaction = null;
+        renderModal();
+    })));
+
+    historyRoot = ReactDOM.createRoot(document.querySelector('#react-list-container'));
+    renderHistory = () => (historyRoot.render(React.createElement(TranasctionHistory, {
+      transactions: $scope.recents,
+      openEditModal: (transaction) =>
+        currentTransaction = transaction;
+        renderModal();
+    })));
     $scope.$watch(
-      () => ($scope.recents),
-      () => (root.render(React.createElement(TranasctionHistory, { transactions: $scope.recents }))),
+      () => $scope.recents,
+      renderHistory,
       true
     );
 
