@@ -1,10 +1,12 @@
 import React from "react";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 export default (props) => {
   return (
-    <div className="list-group list-group-flush">
+    <ListGroup variant="flush">
       {props.transactions.map((t) => (
-        <a
+        <ListGroupItem
+          action
           key={t.id}
           onClick={() => props.openEditModal(t)}
           className="list-group-item list-group-item-action"
@@ -35,8 +37,8 @@ export default (props) => {
               </span>
             </span>
           </div>
-        </a>
+        </ListGroupItem>
       ))}
-    </div>
+    </ListGroup>
   );
 };
