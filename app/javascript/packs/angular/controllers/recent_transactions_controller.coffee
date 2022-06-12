@@ -17,6 +17,15 @@ angular.module('kake-bosan').controller 'RecentTransactionsController', [
     modalRoot = ReactDOM.createRoot(document.querySelector('#react-modal-container'));
     renderModal = () => (modalRoot.render(React.createElement(EditModal, {
       transaction: currentTransaction,
+      onDelete: () =>
+        return unless confirm('本当に削除してよろしいですか？')
+        currentTransaction.$remove(
+          (data, res) ->
+            $rootScope.$broadcast 'Transaction::remove', currentTransaction
+            currentTransaction = null;
+            renderModal();
+          (err) -> alert "#{err.status}: #{err.statusText}"
+        )
       onClose: () =>
         currentTransaction = null;
         renderModal();
