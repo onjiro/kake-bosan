@@ -2,6 +2,8 @@ import React from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 export default (props) => {
+  if (props.transactions == null) return null;
+
   return (
     <ListGroup variant="flush">
       {props.transactions.map((t) => (

@@ -29,7 +29,6 @@ import "./angular/controllers/account_item_addition_form_controller";
 import "./angular/controllers/accounting_items_config_controller";
 import "./angular/controllers/entry_form_controller";
 import "./angular/controllers/history_controller";
-import "./angular/controllers/recent_transactions_controller";
 import "./angular/controllers/account_select_controller";
 import "./angular/controllers/inventories_controller";
 import "./angular/controllers/inventory_opposite_items_config_controller";
@@ -40,6 +39,7 @@ import "./angular/filters/item_name";
 import "./angular/filters/item_type";
 import "./angular/services/error-handler";
 import "../stylesheets/application";
+import "./boot";
 
 Rails.start();
 Turbolinks.start();
