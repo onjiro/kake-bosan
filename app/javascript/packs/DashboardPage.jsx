@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { Row, Spinner } from "react-bootstrap";
 import useTransitions from "./useTransactions";
 import useTransactionModal from "./useTransactionModal";
