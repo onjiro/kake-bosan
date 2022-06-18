@@ -14,14 +14,12 @@ export default () => {
   };
 
   const ModalWrapper = useCallback(
-    (_props) => {
+    ({ onSubmit }) => {
       return (
         <TransactionModal
           transaction={transaction}
           onClose={close}
-          onDelete={() => {
-            console.log("onDeelete");
-          }}
+          onSubmit={onSubmit}
         />
       );
     },

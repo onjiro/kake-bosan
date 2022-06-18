@@ -6,7 +6,7 @@ import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "./useItems";
 
-export default ({ transaction, onClose, onDelete }) => {
+export default ({ transaction, onClose, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -61,7 +61,22 @@ export default ({ transaction, onClose, onDelete }) => {
     const data = await response.text();
 
     onClose();
+    onSubmit();
   });
+
+  const remove = async () => {
+    const response = await fetch(
+      `/accounting/transactions/${transaction.id}.json`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await response.text();
+
+    onClose();
+    onSubmit();
+  };
 
   return (
     <Modal
@@ -162,7 +177,7 @@ export default ({ transaction, onClose, onDelete }) => {
 
           {transaction.id ? (
             <div className="d-grid gap-2">
-              <Button variant="danger" onClick={onDelete}>
+              <Button variant="danger" onClick={remove}>
                 削除
               </Button>
             </div>

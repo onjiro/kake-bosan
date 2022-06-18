@@ -11,7 +11,7 @@ export default (_props) => {
   const today = new Date();
   const from = format(subDays(today, 7), "yyyy-MM-dd");
   const to = format(today, "yyyy-MM-dd");
-  const { transactions, error } = useTransitions({ from, to });
+  const { transactions, error, mutate } = useTransitions({ from, to });
   const [TransactionModal, openModal] = useTransactionModal();
 
   return (
@@ -41,10 +41,7 @@ export default (_props) => {
             });
           }}
         />
-        <TransactionModal
-          onSubmit={() => console.log("submit")}
-          onDelete={() => console.log("delete")}
-        />
+        <TransactionModal onSubmit={mutate} />
       </Suspense>
     </>
   );
