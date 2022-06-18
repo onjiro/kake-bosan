@@ -16,7 +16,7 @@ export default ({ items, placeholder, initialFilter }) => {
   );
   const filteredItems = useMemo(
     () =>
-      [{ name: placeholder }].concat(
+      [{ id: null, name: placeholder }].concat(
         items.filter((item) => filter.typeIds.includes(item.type_id))
       ),
     [items, filter]
