@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { Row, Spinner } from "react-bootstrap";
 import useTransitions from "./useTransactions";
-import EditModal from "./EditModal";
+import useTransactionModal from "./useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
 import { format } from "date-fns";
 import subDays from "date-fns/subDays";
@@ -12,7 +12,7 @@ export default (_props) => {
   const from = format(subDays(today, 7), "yyyy-MM-dd");
   const to = format(today, "yyyy-MM-dd");
   const { transactions, error } = useTransitions({ from, to });
-  const [currentTransaction, setCurrentTransaction] = useState(null);
+  const [TransactionModal, openModal] = useTransactionModal();
 
   return (
     <>
@@ -27,25 +27,21 @@ export default (_props) => {
         <Row>
           <TranasctionHistory
             transactions={transactions}
-            openEditModal={(transaction) => setCurrentTransaction(transaction)}
+            openEditModal={(transaction) => openModal(transaction)}
           />
-          {currentTransaction ? (
-            <EditModal
-              transaction={currentTransaction}
-              onClose={() => setCurrentTransaction(null)}
-              onDelete={() => {
-                console.log("onDeelete");
-              }}
-            />
-          ) : null}
         </Row>
         <Footer
           onClickNewButton={() => {
-            setCurrentTransaction({
+            openModal({
               date: format(today, "yyyy-MM-dd"),
               entries: [],
             });
           }}
+        />
+
+        <TransactionModal
+          onSubmit={() => console.log("submit")}
+          onDelete={() => console.log("delete")}
         />
       </Suspense>
     </>

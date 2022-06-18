@@ -10,6 +10,9 @@ import {
 import { BsClock } from "react-icons/bs";
 
 export default (props) => {
+  if (!props.transaction) {
+    return null;
+  }
   return (
     <Modal
       show={props.transaction}
