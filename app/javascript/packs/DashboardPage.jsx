@@ -5,6 +5,7 @@ import EditModal from "./EditModal";
 import TranasctionHistory from "./TransactionHistory";
 import { format } from "date-fns";
 import subDays from "date-fns/subDays";
+import Footer from "./Footer";
 
 export default (_props) => {
   const today = new Date();
@@ -38,6 +39,14 @@ export default (_props) => {
             />
           ) : null}
         </Row>
+        <Footer
+          onClickNewButton={() => {
+            setCurrentTransaction({
+              date: format(today, "yyyy-MM-dd"),
+              entries: [],
+            });
+          }}
+        />
       </Suspense>
     </>
   );
