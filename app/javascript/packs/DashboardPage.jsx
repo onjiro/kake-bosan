@@ -1,8 +1,9 @@
 import React, { Suspense } from "react";
-import { Row, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import useTransitions from "./useTransactions";
 import useTransactionModal from "./useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
+import TransactionHistoryItem from "./TransactionHistoryItem";
 import { format } from "date-fns";
 import subDays from "date-fns/subDays";
 import Footer from "./Footer";
@@ -24,13 +25,17 @@ export default (_props) => {
         }
       >
         <h3>▼直近７日間の履歴</h3>
-        <Row>
-          <TranasctionHistory
-            transactions={transactions}
-            onClickItem={openModal}
-          />
-        </Row>
+        <TranasctionHistory>
+          {transactions?.map((t) => (
+            <TransactionHistoryItem
+              key={t.id}
+              transaction={t}
+              onClick={openModal}
+            />
+          ))}
+        </TranasctionHistory>
         <Footer onClickNewButton={openModal} />
+
         <TransactionModal onSubmit={mutate} />
       </Suspense>
     </>

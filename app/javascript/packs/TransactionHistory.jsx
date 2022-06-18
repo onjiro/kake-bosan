@@ -1,19 +1,10 @@
 import React from "react";
-import { ListGroup } from "react-bootstrap";
-import TransactionHistoryItem from "./TransactionHistoryItem";
+import { ListGroup, Row } from "react-bootstrap";
 
-export default ({ transactions, onClickItem }) => {
-  if (transactions == null) return null;
-
+export default (props) => {
   return (
-    <ListGroup variant="flush">
-      {transactions.map((t) => (
-        <TransactionHistoryItem
-          key={t.id}
-          transaction={t}
-          onClick={onClickItem}
-        />
-      ))}
-    </ListGroup>
+    <Row>
+      <ListGroup variant="flush">{props.children}</ListGroup>
+    </Row>
   );
 };
