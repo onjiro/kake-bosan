@@ -27,7 +27,7 @@ export default (_props) => {
         <Row>
           <TranasctionHistory
             transactions={transactions}
-            openEditModal={(transaction) => openModal(transaction)}
+            onClickItem={(transaction) => openModal(transaction)}
           />
         </Row>
         <Footer
@@ -38,7 +38,6 @@ export default (_props) => {
             });
           }}
         />
-
         <TransactionModal
           onSubmit={() => console.log("submit")}
           onDelete={() => console.log("delete")}
