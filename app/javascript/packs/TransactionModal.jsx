@@ -64,7 +64,9 @@ export default ({ transaction, onClose, onDelete }) => {
                 <Form.Select>
                   <option>【借方】</option>
                   {items.map((item) => (
-                    <option value={item.id}>{item.name}</option>
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
                   ))}
                 </Form.Select>
               </InputGroup>
@@ -95,7 +97,9 @@ export default ({ transaction, onClose, onDelete }) => {
                 <Form.Select>
                   <option>【借方】</option>
                   {items.map((item) => (
-                    <option value={item.id}>{item.name}</option>
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
                   ))}
                 </Form.Select>
               </InputGroup>
