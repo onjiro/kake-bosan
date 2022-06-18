@@ -1,42 +1,31 @@
 import React, { useMemo, useState } from "react";
-import {
-  Button,
-  Modal,
-  Form,
-  InputGroup,
-  Dropdown,
-  Row,
-} from "react-bootstrap";
+import { Button, Modal, Form, InputGroup, Row } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "./useItems";
 
 export default ({ transaction, onClose, onDelete }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { items, error } = useItems();
-  const itemFilters = [
-    { key: "資産・負債", typeIds: [1, 3] },
-    { key: "費用", typeIds: [2] },
-    { key: "利益", typeIds: [5] },
-    { key: "資本", typeIds: [4] },
-    { key: "フィルタなし", typeIds: [1, 2, 3, 4, 5] },
-  ];
-  const [debitItemFilter, setDebitItemFilter] = useState(itemFilters[1]);
-  const [creditItemFilter, setCreditItemFilter] = useState(itemFilters[0]);
 
   if (!transaction || !items) {
     return null;
   }
+  const debits = useMemo(
+    () => transaction.entries.filter((e) => e.side_id === 1),
+    transaction.entries
+  );
+  const credits = useMemo(
+    () => transaction.entries.filter((e) => e.side_id === 2),
+    transaction.entries
+  );
 
-  const debitItems = useMemo(
-    () =>
-      items.filter((item) => debitItemFilter.typeIds.includes(item.type_id)),
-    [items, debitItemFilter]
-  );
-  const creditItems = useMemo(
-    () =>
-      items.filter((item) => creditItemFilter.typeIds.includes(item.type_id)),
-    [items, creditItemFilter]
-  );
+  const save = handleSubmit((data) => console.log(data));
 
   return (
     <Modal
@@ -46,12 +35,17 @@ export default ({ transaction, onClose, onDelete }) => {
       keyboard={false}
       fullscreen={true}
     >
-      <Modal.Header closeButton>
-        <Modal.Title>編集</Modal.Title>
-      </Modal.Header>
+      <Form onSubmit={save}>
+        <Modal.Header closeButton>
+          <Modal.Title>{transaction.id ? "編集" : "新規"}</Modal.Title>
+        </Modal.Header>
 
-      <Modal.Body>
-        <Form>
+        <Modal.Body>
+          <input
+            type="hidden"
+            {...register("id")}
+            defaultValue={transaction.id}
+          />
           <Row className="mb-2">
             <Form.Group>
               <InputGroup>
@@ -60,51 +54,81 @@ export default ({ transaction, onClose, onDelete }) => {
                 </InputGroup.Text>
                 <Form.Control
                   type="date"
-                  value={transaction.date}
-                ></Form.Control>
+                  {...register("date")}
+                  defaultValue={transaction.date}
+                />
               </InputGroup>
             </Form.Group>
           </Row>
 
           <Row className="mb-2">
-            <ItemSelector
-              placeholder="【借方】"
-              items={items}
-              initialFilter="費用"
-            />
-            <Form.Group>
-              <InputGroup>
-                <InputGroup.Text>&yen;</InputGroup.Text>
-                <Form.Control type="number"></Form.Control>
-              </InputGroup>
-            </Form.Group>
+            {debits.map((e, index) => {
+              return (
+                <div key={index}>
+                  <ItemSelector
+                    placeholder="【借方】"
+                    items={items}
+                    initialFilter="費用"
+                    {...register(`debits[${index}].item_id`)}
+                    defaultValue={e.item_id}
+                  />
+                  <Form.Group>
+                    <InputGroup>
+                      <InputGroup.Text>&yen;</InputGroup.Text>
+                      <Form.Control
+                        type="number"
+                        {...register(`debits[${index}].amount`)}
+                        defaultValue={e.amount}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </div>
+              );
+            })}
 
-            <ItemSelector
-              placeholder="【貸方】"
-              items={items}
-              initialFilter="資産, 負債"
-            />
-            <Form.Group>
-              <InputGroup>
-                <InputGroup.Text>&yen;</InputGroup.Text>
-                <Form.Control type="number"></Form.Control>
-              </InputGroup>
-            </Form.Group>
+            {credits.map((e, index) => {
+              return (
+                <div key={index}>
+                  <ItemSelector
+                    placeholder="【貸方】"
+                    items={items}
+                    initialFilter="資産, 負債"
+                    {...register(`credits[${index}].item_id`)}
+                    defaultValue={e.item_id}
+                  />
+                  <Form.Group>
+                    <InputGroup>
+                      <InputGroup.Text>&yen;</InputGroup.Text>
+                      <Form.Control
+                        type="number"
+                        {...register(`credits[${index}].amount`)}
+                        defaultValue={e.amount}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                </div>
+              );
+            })}
           </Row>
-        </Form>
-        <div className="d-grid gap-2">
-          <Button variant="danger" onClick={onDelete}>
-            削除
-          </Button>
-        </div>
-      </Modal.Body>
 
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => onClose()}>
-          Close
-        </Button>
-        <Button variant="primary">Save changes</Button>
-      </Modal.Footer>
+          {transaction.id ? (
+            <div className="d-grid gap-2">
+              <Button variant="danger" onClick={onDelete}>
+                削除
+              </Button>
+            </div>
+          ) : null}
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            キャンセル
+          </Button>
+          <Button variant="primary" type="submit">
+            保存
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 };

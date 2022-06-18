@@ -34,7 +34,10 @@ export default (_props) => {
           onClickNewButton={() => {
             openModal({
               date: format(today, "yyyy-MM-dd"),
-              entries: [],
+              entries: [
+                { side_id: 1, amount: 0 },
+                { side_id: 2, amount: 0 },
+              ],
             });
           }}
         />
