@@ -8,6 +8,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { BsClock } from "react-icons/bs";
+import ItemSelector from "./ItemSelector";
 import useItems from "./useItems";
 
 export default ({ transaction, onClose, onDelete }) => {
@@ -66,35 +67,11 @@ export default ({ transaction, onClose, onDelete }) => {
           </Row>
 
           <Row className="mb-2">
-            {/* 借方 */}
-            <Form.Group>
-              <InputGroup>
-                <Dropdown>
-                  <Dropdown.Toggle variant="outline-secondary">
-                    {debitItemFilter["key"]}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {itemFilters.map(({ key, typeIds }) => (
-                      <Dropdown.Item
-                        key={key}
-                        onClick={() => setDebitItemFilter({ key, typeIds })}
-                      >
-                        {key}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Form.Select>
-                  <option>【借方】</option>
-                  {debitItems.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </Form.Select>
-              </InputGroup>
-            </Form.Group>
-
+            <ItemSelector
+              placeholder="【借方】"
+              items={items}
+              initialFilter="費用"
+            />
             <Form.Group>
               <InputGroup>
                 <InputGroup.Text>&yen;</InputGroup.Text>
@@ -102,35 +79,11 @@ export default ({ transaction, onClose, onDelete }) => {
               </InputGroup>
             </Form.Group>
 
-            {/* 貸方 */}
-            <Form.Group>
-              <InputGroup>
-                <Dropdown>
-                  <Dropdown.Toggle variant="outline-secondary">
-                    {creditItemFilter["key"]}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {itemFilters.map(({ key, typeIds }) => (
-                      <Dropdown.Item
-                        key={key}
-                        onClick={() => setCreditItemFilter({ key, typeIds })}
-                      >
-                        {key}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Form.Select>
-                  <option>【借方】</option>
-                  {creditItems.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </Form.Select>
-              </InputGroup>
-            </Form.Group>
-
+            <ItemSelector
+              placeholder="【貸方】"
+              items={items}
+              initialFilter="資産, 負債"
+            />
             <Form.Group>
               <InputGroup>
                 <InputGroup.Text>&yen;</InputGroup.Text>
