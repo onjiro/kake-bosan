@@ -27,7 +27,7 @@ export default (_props) => {
         <Row>
           <TranasctionHistory
             transactions={transactions}
-            onClickItem={(transaction) => openModal(transaction)}
+            onClickItem={openModal}
           />
         </Row>
         <Footer

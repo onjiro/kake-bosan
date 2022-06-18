@@ -73,9 +73,10 @@ class Accounting::TransactionsController < ApplicationController
   # PUT /accounting/transactions/1.json
   def update
     @accounting_transaction = Accounting::Transaction.find(params[:id])
+    @accounting_transaction.entries = Accounting::Entry.none
 
     respond_to do |format|
-      if @accounting_transaction.update_attributes(params[:accounting_transaction])
+      if @accounting_transaction.update(transaction_params)
         format.html { redirect_to @accounting_transaction, notice: "Transaction was successfully updated." }
         format.json { head :no_content }
       else
@@ -100,13 +101,13 @@ class Accounting::TransactionsController < ApplicationController
   private
 
   def transaction_params()
-    return params
-             .require(:transaction)
-             .permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
-             .tap do |params|
-             params[:user_id] = @current_user.id
-             params[:entries_attributes] = params[:entries_attributes].reject { |entry_params| entry_params[:amount].blank? }
-             params[:entries_attributes].each { |entry| entry[:user_id] = @current_user.id }
-           end
+    params
+      .require(:transaction)
+      .permit(:user_id, :date, entries_attributes: [:user_id, :side_id, :item_id, :amount])
+      .tap do |params|
+        params[:user_id] = @current_user.id
+        params[:entries_attributes] = params[:entries_attributes].reject { |entry_params| entry_params[:amount].blank? }
+        params[:entries_attributes].each { |entry| entry[:user_id] = @current_user.id }
+      end
   end
 end

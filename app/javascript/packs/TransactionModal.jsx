@@ -1,3 +1,4 @@
+import { format } from "date-fns/esm";
 import React, { useMemo } from "react";
 import { Button, Modal, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -16,6 +17,7 @@ export default ({ transaction, onClose, onDelete }) => {
   if (!transaction || !items) {
     return null;
   }
+
   const debits = useMemo(
     () => transaction.entries.filter((e) => e.side_id === 1),
     transaction.entries
@@ -56,7 +58,7 @@ export default ({ transaction, onClose, onDelete }) => {
         }),
       }
     );
-    const data = await response.json();
+    const data = await response.text();
 
     onClose();
   });
@@ -89,7 +91,10 @@ export default ({ transaction, onClose, onDelete }) => {
                 <Form.Control
                   type="date"
                   {...register("date")}
-                  defaultValue={transaction.date}
+                  defaultValue={format(
+                    new Date(transaction.date),
+                    "yyyy-MM-dd"
+                  )}
                 />
               </InputGroup>
             </Form.Group>

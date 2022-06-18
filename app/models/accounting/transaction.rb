@@ -1,6 +1,6 @@
 class Accounting::Transaction < ApplicationRecord
   belongs_to :user
-  has_many :entries, class_name: "Accounting::Entry", dependent: :delete_all, inverse_of: "transaction_belongs_to"
+  has_many :entries, class_name: "Accounting::Entry", dependent: :delete_all, inverse_of: "transaction_belongs_to", autosave: true
   accepts_nested_attributes_for :entries
 
   before_save :remove_empty_entry, unless: -> { entries.empty? }

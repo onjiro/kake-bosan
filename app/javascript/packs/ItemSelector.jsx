@@ -2,7 +2,10 @@ import React, { useMemo, useState } from "react";
 import { Form, InputGroup, Dropdown } from "react-bootstrap";
 
 export default React.forwardRef(
-  ({ items, placeholder, initialFilter, onChange, onBlur, name }, ref) => {
+  (
+    { items, placeholder, initialFilter, defaultValue, onChange, onBlur, name },
+    ref
+  ) => {
     if (!items) return null;
 
     const filters = [
@@ -46,6 +49,7 @@ export default React.forwardRef(
             name={name}
             onChange={onChange}
             onBlur={onBlur}
+            defaultValue={defaultValue}
           >
             {filteredItems.map((item) => (
               <option key={item.id} value={item.id}>
