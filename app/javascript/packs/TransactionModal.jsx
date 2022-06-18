@@ -25,7 +25,41 @@ export default ({ transaction, onClose, onDelete }) => {
     transaction.entries
   );
 
-  const save = handleSubmit((data) => console.log(data));
+  const save = handleSubmit(async (formData) => {
+    console.log(formData);
+    formData.debits = formData.debits.filter((e) => e.item_id);
+    formData.credits = formData.credits.filter((e) => e.item_id);
+    const debitSum = formData.debits.reduce(
+      (sum, e) => sum + Number(e.amount),
+      0
+    );
+    const creditSum = formData.credits.reduce(
+      (sum, e) => sum + Number(e.amount),
+      0
+    );
+    if (debitSum !== creditSum || debitSum === 0 || creditSum === 0) {
+      console.log("合計額がダメ", debitSum, creditSum);
+      return;
+    }
+
+    const response = await fetch(
+      formData.id
+        ? `/accounting/transactions/${formData.id}.json`
+        : "/accounting/transactions.json",
+      {
+        method: formData.id ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: formData.id ? Number(formData.id) : null,
+          date: formData.date,
+          entries_attributes: formData.debits.concat(formData.credits),
+        }),
+      }
+    );
+    const data = await response.json();
+
+    onClose();
+  });
 
   return (
     <Modal
@@ -65,6 +99,11 @@ export default ({ transaction, onClose, onDelete }) => {
             {debits.map((e, index) => {
               return (
                 <div key={index}>
+                  <input
+                    type="hidden"
+                    {...register(`debits[${index}].side_id`)}
+                    defaultValue={e.side_id}
+                  />
                   <ItemSelector
                     placeholder="【借方】"
                     items={items}
@@ -89,6 +128,11 @@ export default ({ transaction, onClose, onDelete }) => {
             {credits.map((e, index) => {
               return (
                 <div key={index}>
+                  <input
+                    type="hidden"
+                    {...register(`credits[${index}].side_id`)}
+                    defaultValue={e.side_id}
+                  />
                   <ItemSelector
                     placeholder="【貸方】"
                     items={items}
