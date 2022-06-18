@@ -8,15 +8,19 @@ import {
   Row,
 } from "react-bootstrap";
 import { BsClock } from "react-icons/bs";
+import useItems from "./useItems";
 
-export default (props) => {
-  if (!props.transaction) {
+export default ({ transaction, onClose, onDelete }) => {
+  const { items, error } = useItems();
+
+  if (!transaction || !items) {
     return null;
   }
+
   return (
     <Modal
-      show={props.transaction}
-      onHide={props.onClose}
+      show={transaction}
+      onHide={onClose}
       backdrop="static"
       keyboard={false}
       fullscreen={true}
@@ -35,7 +39,7 @@ export default (props) => {
                 </InputGroup.Text>
                 <Form.Control
                   type="date"
-                  value={props.transaction.date}
+                  value={transaction.date}
                 ></Form.Control>
               </InputGroup>
             </Form.Group>
@@ -59,6 +63,9 @@ export default (props) => {
                 </Dropdown>
                 <Form.Select>
                   <option>【借方】</option>
+                  {items.map((item) => (
+                    <option value={item.id}>{item.name}</option>
+                  ))}
                 </Form.Select>
               </InputGroup>
             </Form.Group>
@@ -87,6 +94,9 @@ export default (props) => {
                 </Dropdown>
                 <Form.Select>
                   <option>【借方】</option>
+                  {items.map((item) => (
+                    <option value={item.id}>{item.name}</option>
+                  ))}
                 </Form.Select>
               </InputGroup>
             </Form.Group>
@@ -100,14 +110,14 @@ export default (props) => {
           </Row>
         </Form>
         <div className="d-grid gap-2">
-          <Button variant="danger" onClick={props.onDelete}>
+          <Button variant="danger" onClick={onDelete}>
             削除
           </Button>
         </div>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => props.onClose()}>
+        <Button variant="secondary" onClick={() => onClose()}>
           Close
         </Button>
         <Button variant="primary">Save changes</Button>
