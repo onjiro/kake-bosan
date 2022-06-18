@@ -30,17 +30,7 @@ export default (_props) => {
             onClickItem={openModal}
           />
         </Row>
-        <Footer
-          onClickNewButton={() => {
-            openModal({
-              date: format(today, "yyyy-MM-dd"),
-              entries: [
-                { side_id: 1, amount: 0 },
-                { side_id: 2, amount: 0 },
-              ],
-            });
-          }}
-        />
+        <Footer onClickNewButton={openModal} />
         <TransactionModal onSubmit={mutate} />
       </Suspense>
     </>
