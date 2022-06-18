@@ -8,7 +8,11 @@ export default ({ transactions, onClickItem }) => {
   return (
     <ListGroup variant="flush">
       {transactions.map((t) => (
-        <TransactionHistoryItem transaction={t} onClick={onClickItem} />
+        <TransactionHistoryItem
+          key={t.id}
+          transaction={t}
+          onClick={onClickItem}
+        />
       ))}
     </ListGroup>
   );
