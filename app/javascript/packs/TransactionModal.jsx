@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import {
   Button,
   Modal,
@@ -12,10 +12,30 @@ import useItems from "./useItems";
 
 export default ({ transaction, onClose, onDelete }) => {
   const { items, error } = useItems();
+  const itemFilters = [
+    { key: "資産・負債", typeIds: [1, 3] },
+    { key: "費用", typeIds: [2] },
+    { key: "利益", typeIds: [5] },
+    { key: "資本", typeIds: [4] },
+    { key: "フィルタなし", typeIds: [1, 2, 3, 4, 5] },
+  ];
+  const [debitItemFilter, setDebitItemFilter] = useState(itemFilters[1]);
+  const [creditItemFilter, setCreditItemFilter] = useState(itemFilters[0]);
 
   if (!transaction || !items) {
     return null;
   }
+
+  const debitItems = useMemo(
+    () =>
+      items.filter((item) => debitItemFilter.typeIds.includes(item.type_id)),
+    [items, debitItemFilter]
+  );
+  const creditItems = useMemo(
+    () =>
+      items.filter((item) => creditItemFilter.typeIds.includes(item.type_id)),
+    [items, creditItemFilter]
+  );
 
   return (
     <Modal
@@ -51,19 +71,22 @@ export default ({ transaction, onClose, onDelete }) => {
               <InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle variant="outline-secondary">
-                    費用
+                    {debitItemFilter["key"]}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item>資産・負債</Dropdown.Item>
-                    <Dropdown.Item>費用</Dropdown.Item>
-                    <Dropdown.Item>利益</Dropdown.Item>
-                    <Dropdown.Item>資本</Dropdown.Item>
-                    <Dropdown.Item>フィルタなし</Dropdown.Item>
+                    {itemFilters.map(({ key, typeIds }) => (
+                      <Dropdown.Item
+                        key={key}
+                        onClick={() => setDebitItemFilter({ key, typeIds })}
+                      >
+                        {key}
+                      </Dropdown.Item>
+                    ))}
                   </Dropdown.Menu>
                 </Dropdown>
                 <Form.Select>
                   <option>【借方】</option>
-                  {items.map((item) => (
+                  {debitItems.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
                     </option>
@@ -84,19 +107,22 @@ export default ({ transaction, onClose, onDelete }) => {
               <InputGroup>
                 <Dropdown>
                   <Dropdown.Toggle variant="outline-secondary">
-                    費用
+                    {creditItemFilter["key"]}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item>資産・負債</Dropdown.Item>
-                    <Dropdown.Item>費用</Dropdown.Item>
-                    <Dropdown.Item>利益</Dropdown.Item>
-                    <Dropdown.Item>資本</Dropdown.Item>
-                    <Dropdown.Item>フィルタなし</Dropdown.Item>
+                    {itemFilters.map(({ key, typeIds }) => (
+                      <Dropdown.Item
+                        key={key}
+                        onClick={() => setCreditItemFilter({ key, typeIds })}
+                      >
+                        {key}
+                      </Dropdown.Item>
+                    ))}
                   </Dropdown.Menu>
                 </Dropdown>
                 <Form.Select>
                   <option>【借方】</option>
-                  {items.map((item) => (
+                  {creditItems.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
                     </option>
