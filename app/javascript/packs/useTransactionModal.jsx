@@ -1,3 +1,4 @@
+import { format } from "date-fns/esm";
 import React, { useCallback, useState } from "react";
 import TransactionModal from "./TransactionModal";
 
@@ -6,7 +7,7 @@ export default () => {
   const open = (transaction) => {
     setTransaction(
       transaction || {
-        date: format(today, "yyyy-MM-dd"),
+        date: format(new Date(), "yyyy-MM-dd"),
         entries: [
           { side_id: 1, amount: 0 },
           { side_id: 2, amount: 0 },

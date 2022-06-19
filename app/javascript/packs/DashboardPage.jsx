@@ -34,7 +34,7 @@ export default (_props) => {
             />
           ))}
         </TranasctionHistory>
-        <Footer onClickNewButton={openModal} />
+        <Footer onClickNewButton={() => openModal()} />
 
         <TransactionModal onSubmit={mutate} />
       </Suspense>
