@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Spinner } from "react-bootstrap";
+import { Alert, Container, Spinner } from "react-bootstrap";
 import useTransitions from "./useTransactions";
 import useTransactionModal from "./useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
@@ -37,6 +37,9 @@ export default (_props) => {
         <Footer onClickNewButton={() => openModal()} />
 
         <TransactionModal onSubmit={mutate} />
+        <Container className="position-fixed top-0 start-0 mt-2">
+          <Alert variant="success">アラートだよ</Alert>
+        </Container>
       </Suspense>
     </>
   );
