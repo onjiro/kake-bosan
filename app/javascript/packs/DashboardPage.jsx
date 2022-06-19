@@ -39,11 +39,11 @@ export default (_props) => {
       <TransactionModal
         onSubmit={() => {
           success("取引を保存しました。");
-          mutate;
+          mutate();
         }}
         onDelete={() => {
           success("取引を削除しました。");
-          mutate;
+          mutate();
         }}
       />
     </>

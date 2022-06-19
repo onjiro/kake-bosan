@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "./useItems";
+import { remove, save } from "./useTransactions";
 
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const {
@@ -33,7 +34,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
     transaction.entries
   );
 
-  const save = handleSubmit(async (formData) => {
+  const saveTransaction = handleSubmit(async (formData) => {
     console.log(formData);
     formData.debits = formData.debits.filter((e) => e.item_id);
     formData.credits = formData.credits.filter((e) => e.item_id);
@@ -50,36 +51,19 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
       return;
     }
 
-    const response = await fetch(
-      formData.id
-        ? `/accounting/transactions/${formData.id}.json`
-        : "/accounting/transactions.json",
-      {
-        method: formData.id ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: formData.id ? Number(formData.id) : null,
-          date: formData.date,
-          entries_attributes: formData.debits.concat(formData.credits),
-        }),
-      }
-    );
-    const data = await response.text();
-
+    const _response = await save({
+      id: formData.id ? Number(formData.id) : null,
+      date: formData.date,
+      entries: formData.debits.concat(formData.credits),
+    });
+    // TODO エラー時の対応
     onClose();
     onSubmit();
   });
 
-  const remove = async () => {
-    const response = await fetch(
-      `/accounting/transactions/${transaction.id}.json`,
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    const data = await response.text();
-
+  const deleteTransaction = async () => {
+    const _response = await remove(transaction);
+    // TODO エラー時の対応
     onClose();
     onDelete();
   };
@@ -92,7 +76,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
       keyboard={false}
       fullscreen={true}
     >
-      <Form onSubmit={save}>
+      <Form onSubmit={saveTransaction}>
         <Modal.Header closeButton>
           <Modal.Title>{transaction.id ? "編集" : "新規"}</Modal.Title>
         </Modal.Header>
@@ -185,7 +169,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
 
           {transaction.id ? (
             <div className="d-grid gap-2">
-              <Button variant="danger" onClick={remove}>
+              <Button variant="danger" onClick={deleteTransaction}>
                 削除
               </Button>
             </div>
