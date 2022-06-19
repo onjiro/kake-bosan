@@ -136,6 +136,7 @@ export default ({ transaction, onClose, onSubmit }) => {
                       <InputGroup.Text>&yen;</InputGroup.Text>
                       <Form.Control
                         type="number"
+                        className="text-end"
                         {...register(`debits[${index}].amount`)}
                         defaultValue={e.amount}
                       />
@@ -165,6 +166,7 @@ export default ({ transaction, onClose, onSubmit }) => {
                       <InputGroup.Text>&yen;</InputGroup.Text>
                       <Form.Control
                         type="number"
+                        className="text-end"
                         {...register(`credits[${index}].amount`)}
                         defaultValue={e.amount}
                       />
