@@ -1,18 +1,24 @@
 import { format } from "date-fns/esm";
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { Button, Modal, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "./useItems";
 
-export default ({ transaction, onClose, onSubmit }) => {
+export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const { items, error } = useItems();
+  useEffect(
+    () =>
+      error &&
+      danger(`設定の取得に失敗しました。リロードしてください。\n${error}`),
+    [error]
+  );
 
   if (!transaction || !items) {
     return null;
@@ -75,7 +81,7 @@ export default ({ transaction, onClose, onSubmit }) => {
     const data = await response.text();
 
     onClose();
-    onSubmit();
+    onDelete();
   };
 
   return (

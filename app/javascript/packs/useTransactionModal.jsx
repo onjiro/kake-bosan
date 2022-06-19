@@ -23,12 +23,12 @@ export default () => {
   };
 
   const ModalWrapper = useCallback(
-    ({ onSubmit }) => {
+    (props) => {
       return (
         <TransactionModal
           transaction={transaction}
           onClose={close}
-          onSubmit={onSubmit}
+          {...props}
         />
       );
     },

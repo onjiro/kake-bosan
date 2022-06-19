@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useTransitions from "./useTransactions";
 import useTransactionModal from "./useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
@@ -6,7 +6,7 @@ import TransactionHistoryItem from "./TransactionHistoryItem";
 import { format } from "date-fns";
 import subDays from "date-fns/subDays";
 import Footer from "./Footer";
-import useAlert, { AlertOutlet } from "./useAlert";
+import useAlert from "./useAlert";
 
 export default (_props) => {
   const today = new Date();
@@ -14,11 +14,17 @@ export default (_props) => {
   const to = format(today, "yyyy-MM-dd");
   const { transactions, error, mutate } = useTransitions({ from, to });
   const [TransactionModal, openModal] = useTransactionModal();
-  const { success } = useAlert();
+  const { success, danger } = useAlert();
+  useEffect(
+    () =>
+      error &&
+      danger(`取引の取得に失敗しました。リロードしてください。\n${error}`),
+    [error]
+  );
 
   return (
     <>
-      <h3 onClick={() => success("hogehoge")}>▼直近７日間の履歴</h3>
+      <h3>▼直近７日間の履歴</h3>
       <TranasctionHistory>
         {transactions?.map((t) => (
           <TransactionHistoryItem
@@ -30,7 +36,16 @@ export default (_props) => {
       </TranasctionHistory>
       <Footer onClickNewButton={() => openModal()} />
 
-      <TransactionModal onSubmit={mutate} />
+      <TransactionModal
+        onSubmit={() => {
+          success("取引を保存しました。");
+          mutate;
+        }}
+        onDelete={() => {
+          success("取引を削除しました。");
+          mutate;
+        }}
+      />
     </>
   );
 };
