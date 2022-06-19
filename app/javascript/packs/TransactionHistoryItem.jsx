@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroupItem } from "react-bootstrap";
 
-export default ({ transaction, onClick }) => {
+export default ({ transaction, onClick, highlighted }) => {
   const formattedDate = new Date(transaction.date)
     .toISOString()
     .substring(0, 10);
@@ -23,6 +23,7 @@ export default ({ transaction, onClick }) => {
       key={transaction.id}
       onClick={() => onClick(transaction)}
       className="list-group-item list-group-item-action"
+      variant={highlighted ? "success" : null}
     >
       <div style={{ fontSize: "xx-small" }}>{formattedDate}</div>
       <div>

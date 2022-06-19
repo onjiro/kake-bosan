@@ -3,7 +3,7 @@ import useTransitions from "./useTransactions";
 import useTransactionModal from "./useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
 import TransactionHistoryItem from "./TransactionHistoryItem";
-import { format } from "date-fns";
+import { differenceInMilliseconds, format } from "date-fns";
 import subDays from "date-fns/subDays";
 import Footer from "./Footer";
 import useAlert from "./useAlert";
@@ -31,6 +31,10 @@ export default (_props) => {
             key={t.id}
             transaction={t}
             onClick={openModal}
+            highlighted={
+              differenceInMilliseconds(new Date(), new Date(t.updated_at)) <
+              60000
+            }
           />
         ))}
       </TranasctionHistory>
