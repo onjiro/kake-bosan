@@ -1,14 +1,29 @@
-import React, { useId } from "react";
-import { useCallback, useContext, useState } from "react";
+import React, { useReducer, useCallback, useContext } from "react";
 import { Alert, Container } from "react-bootstrap";
 
-const AlertContext = React.createContext({ alerts: [], setAlerts: () => {} });
+const AlertContext = React.createContext({ alerts: [], dispatch: () => {} });
 
 const AlertContextProvider = (props) => {
-  const [alerts, setAlerts] = useState([]);
+  const [alerts, dispatch] = useReducer((state, { type, payload }) => {
+    switch (type) {
+      case "ADD":
+        const id = new Date().valueOf();
+        setTimeout(
+          () => dispatch({ type: "DELETE", payload: { id } }),
+          payload.timeout
+        );
+        return [...state, { id, ...payload }];
+
+      case "DELETE":
+        return state.filter((alert) => alert.id !== payload.id);
+
+      default:
+        throw new Exception(`Unknown type "${type}"`);
+    }
+  }, []);
 
   return (
-    <AlertContext.Provider value={{ alerts, setAlerts }}>
+    <AlertContext.Provider value={{ alerts, dispatch }}>
       {props.children}
     </AlertContext.Provider>
   );
@@ -18,8 +33,8 @@ const AlertOutlet = () => (
   <AlertContext.Consumer>
     {({ alerts }) => (
       <Container className="position-fixed top-0 start-0 mt-2">
-        {alerts?.map(({ id, message }) => (
-          <Alert key={id} variant="success">
+        {alerts?.map(({ id, message, type }) => (
+          <Alert key={id} variant={type}>
             {message}
           </Alert>
         ))}
@@ -31,11 +46,20 @@ const AlertOutlet = () => (
 export { AlertContextProvider, AlertOutlet };
 
 export default () => {
-  const { alerts, setAlerts } = useContext(AlertContext);
+  const { dispatch } = useContext(AlertContext);
 
   return {
     success: useCallback((message) => {
-      setAlerts([...alerts, { message, id: new Date().valueOf() }]);
+      dispatch({
+        type: "ADD",
+        payload: { type: "success", message, timeout: 2000 },
+      });
+    }),
+    dangeer: useCallback((message) => {
+      dispatch({
+        type: "ADD",
+        payload: { type: "danger", message, timeout: 30000 },
+      });
     }),
   };
 };
