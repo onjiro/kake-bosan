@@ -11,6 +11,8 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm();
   const { items, error } = useItems();
@@ -67,6 +69,18 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
     onClose();
     onDelete();
   };
+
+  const hasSinglePair = useMemo(
+    () => debits.length === 1 && credits.length === 1,
+    [debits, credits]
+  );
+  // 貸借が1対1の場合、自動で貸借をバランスさせる
+  useEffect(() => {
+    if (!hasSinglePair) {
+      return;
+    }
+    setValue("credits[0].amount", watch("debits[0].amount"));
+  }, [watch("debits[0].amount"), hasSinglePair]);
 
   return (
     <Modal
@@ -159,6 +173,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                         className="text-end"
                         {...register(`credits[${index}].amount`)}
                         defaultValue={e.amount}
+                        disabled={hasSinglePair}
                       />
                     </InputGroup>
                   </Form.Group>
