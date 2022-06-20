@@ -8,13 +8,7 @@ import useItems from "./useItems";
 import { remove, save } from "./useTransactions";
 
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, watch, setValue, formState } = useForm();
   const { items, error } = useItems();
   useEffect(
     () =>
@@ -82,6 +76,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
     setValue("credits[0].amount", watch("debits[0].amount"));
   }, [watch("debits[0].amount"), hasSinglePair]);
 
+  useEffect(() => console.log(formState.errors), [formState]);
   return (
     <Modal
       show={transaction}
@@ -109,11 +104,12 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                 </InputGroup.Text>
                 <Form.Control
                   type="date"
-                  {...register("date")}
+                  {...register("date", { required: true, valueAsDate: true })}
                   defaultValue={format(
                     new Date(transaction.date),
                     "yyyy-MM-dd"
                   )}
+                  isInvalid={formState.errors.date}
                 />
               </InputGroup>
             </Form.Group>
@@ -132,8 +128,11 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                     placeholder="【借方】"
                     items={items}
                     initialFilter="費用"
-                    {...register(`debits[${index}].item_id`)}
+                    {...register(`debits[${index}].item_id`, {
+                      required: true,
+                    })}
                     defaultValue={e.item_id}
+                    isInvalid={formState.errors.debits?.[index]?.item_id}
                   />
                   <Form.Group>
                     <InputGroup>
@@ -141,8 +140,11 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                       <Form.Control
                         type="number"
                         className="text-end"
-                        {...register(`debits[${index}].amount`)}
+                        {...register(`debits[${index}].amount`, {
+                          required: true,
+                        })}
                         defaultValue={e.amount}
+                        isInvalid={formState.errors.debits?.[index]?.amount}
                       />
                     </InputGroup>
                   </Form.Group>
@@ -162,8 +164,11 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                     placeholder="【貸方】"
                     items={items}
                     initialFilter="資産, 負債"
-                    {...register(`credits[${index}].item_id`)}
+                    {...register(`credits[${index}].item_id`, {
+                      required: true,
+                    })}
                     defaultValue={e.item_id}
+                    isInvalid={formState.errors.credits?.[index]?.item_id}
                   />
                   <Form.Group>
                     <InputGroup>
@@ -171,9 +176,12 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                       <Form.Control
                         type="number"
                         className="text-end"
-                        {...register(`credits[${index}].amount`)}
+                        {...register(`credits[${index}].amount`, {
+                          required: true,
+                        })}
                         defaultValue={e.amount}
                         disabled={hasSinglePair}
+                        isInvalid={formState.errors.credits?.[index]?.amount}
                       />
                     </InputGroup>
                   </Form.Group>

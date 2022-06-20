@@ -3,7 +3,16 @@ import { Form, InputGroup, Dropdown } from "react-bootstrap";
 
 export default React.forwardRef(
   (
-    { items, placeholder, initialFilter, defaultValue, onChange, onBlur, name },
+    {
+      items,
+      placeholder,
+      initialFilter,
+      defaultValue,
+      isInvalid,
+      onChange,
+      onBlur,
+      name,
+    },
     ref
   ) => {
     if (!items) return null;
@@ -20,7 +29,7 @@ export default React.forwardRef(
     );
     const filteredItems = useMemo(
       () =>
-        [{ id: null, name: placeholder }].concat(
+        [{ id: "", name: placeholder }].concat(
           items.filter((item) => filter.typeIds.includes(item.type_id))
         ),
       [items, filter]
@@ -50,6 +59,7 @@ export default React.forwardRef(
             onChange={onChange}
             onBlur={onBlur}
             defaultValue={defaultValue}
+            isInvalid={isInvalid}
           >
             {filteredItems.map((item) => (
               <option key={item.id} value={item.id}>
