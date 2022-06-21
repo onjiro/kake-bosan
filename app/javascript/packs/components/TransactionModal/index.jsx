@@ -7,6 +7,7 @@ import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
 import { remove, save } from "../../hooks/useTransactions";
 import DateInput from "./DateInput";
+import AmountInput from "./AmountInput";
 
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const { register, handleSubmit, watch, setValue, formState } = useForm();
@@ -125,23 +126,18 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                     defaultValue={e.item_id}
                     isInvalid={formState.errors.debits?.[index]?.item_id}
                   />
-                  <Form.Group>
-                    <InputGroup>
-                      <InputGroup.Text>&yen;</InputGroup.Text>
-                      <Form.Control
-                        type="number"
-                        className="text-end"
-                        {...register(`debits[${index}].amount`, {
-                          required: true,
-                          validate: {
-                            nonzero: (v) => parseInt(v, 10) !== 0,
-                          },
-                        })}
-                        defaultValue={e.amount}
-                        isInvalid={formState.errors.debits?.[index]?.amount}
-                      />
-                    </InputGroup>
-                  </Form.Group>
+                  <AmountInput
+                    type="number"
+                    className="text-end"
+                    {...register(`debits[${index}].amount`, {
+                      required: true,
+                      validate: {
+                        nonzero: (v) => parseInt(v, 10) !== 0,
+                      },
+                    })}
+                    defaultValue={e.amount}
+                    isInvalid={formState.errors.debits?.[index]?.amount}
+                  />
                 </div>
               );
             })}
@@ -164,24 +160,19 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                     defaultValue={e.item_id}
                     isInvalid={formState.errors.credits?.[index]?.item_id}
                   />
-                  <Form.Group>
-                    <InputGroup>
-                      <InputGroup.Text>&yen;</InputGroup.Text>
-                      <Form.Control
-                        type="number"
-                        className="text-end"
-                        {...register(`credits[${index}].amount`, {
-                          required: true,
-                          validate: {
-                            nonzero: (v) => parseInt(v, 10) !== 0,
-                          },
-                        })}
-                        defaultValue={e.amount}
-                        disabled={hasSinglePair}
-                        isInvalid={formState.errors.credits?.[index]?.amount}
-                      />
-                    </InputGroup>
-                  </Form.Group>
+                  <AmountInput
+                    type="number"
+                    className="text-end"
+                    {...register(`credits[${index}].amount`, {
+                      required: true,
+                      validate: {
+                        nonzero: (v) => parseInt(v, 10) !== 0,
+                      },
+                    })}
+                    defaultValue={e.amount}
+                    disabled={hasSinglePair}
+                    isInvalid={formState.errors.credits?.[index]?.amount}
+                  />
                 </div>
               );
             })}
