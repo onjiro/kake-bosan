@@ -1,8 +1,7 @@
 import { format } from "date-fns/esm";
 import React, { useMemo, useEffect } from "react";
-import { Button, Modal, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Modal, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
 import { remove, save } from "../../hooks/useTransactions";
