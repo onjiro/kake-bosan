@@ -6,6 +6,7 @@ import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
 import { remove, save } from "../../hooks/useTransactions";
+import DateInput from "./DateInput";
 
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const { register, handleSubmit, watch, setValue, formState } = useForm();
@@ -97,22 +98,12 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
             defaultValue={transaction.id}
           />
           <Row className="mb-2">
-            <Form.Group>
-              <InputGroup>
-                <InputGroup.Text>
-                  <BsClock></BsClock>
-                </InputGroup.Text>
-                <Form.Control
-                  type="date"
-                  {...register("date", { required: true, valueAsDate: true })}
-                  defaultValue={format(
-                    new Date(transaction.date),
-                    "yyyy-MM-dd"
-                  )}
-                  isInvalid={formState.errors.date}
-                />
-              </InputGroup>
-            </Form.Group>
+            <DateInput
+              type="date"
+              {...register("date", { required: true, valueAsDate: true })}
+              defaultValue={format(new Date(transaction.date), "yyyy-MM-dd")}
+              isInvalid={formState.errors.date}
+            />
           </Row>
 
           <Row className="mb-2">
