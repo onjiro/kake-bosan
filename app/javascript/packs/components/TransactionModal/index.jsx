@@ -4,8 +4,8 @@ import { Button, Modal, Form, InputGroup, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { BsClock } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
-import useItems from "./useItems";
-import { remove, save } from "./useTransactions";
+import useItems from "../../hooks/useItems";
+import { remove, save } from "../../hooks/useTransactions";
 
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const { register, handleSubmit, watch, setValue, formState } = useForm();

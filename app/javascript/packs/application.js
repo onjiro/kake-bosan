@@ -12,7 +12,6 @@ window.$ = $;
 import _ from "underscore";
 window._ = _;
 import "bootstrap";
-import "./TransactionHistory";
 import "./angular/modules/kake-bosan";
 import "./angular/directives/ng_focus_first_input_if";
 import "./angular/directives/ng_focus_on_change";

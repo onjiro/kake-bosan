@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import fetcher from "./fetcher";
+import fetcher from "../utils/fetcher";
 
 const save = async (transaction) => {
   const response = await fetch(

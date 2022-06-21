@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import useTransitions from "./useTransactions";
-import useTransactionModal from "./useTransactionModal";
+import useTransitions from "../hooks/useTransactions";
+import useTransactionModal from "../hooks/useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
 import TransactionHistoryItem from "./TransactionHistoryItem";
 import { differenceInMilliseconds, format } from "date-fns";
 import subDays from "date-fns/subDays";
 import Footer from "./Footer";
-import useAlert from "./useAlert";
+import useAlert from "../hooks/useAlert";
 
 export default (_props) => {
   const today = new Date();

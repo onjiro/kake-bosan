@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Spinner } from "react-bootstrap";
 import DashboardPage from "./DashboardPage";
-import { AlertContextProvider, AlertOutlet } from "./useAlert";
+import { AlertContextProvider, AlertOutlet } from "../hooks/useAlert";
 
 export default (_props) => {
   return (

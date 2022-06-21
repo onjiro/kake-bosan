@@ -1,6 +1,6 @@
 import { format } from "date-fns/esm";
 import React, { useCallback, useState } from "react";
-import TransactionModal from "./TransactionModal";
+import TransactionModal from "../components/TransactionModal";
 
 export default () => {
   const [transaction, setTransaction] = useState(null);
