@@ -1,6 +1,6 @@
 import { format } from "date-fns/esm";
 import React, { useMemo, useEffect } from "react";
-import { Button, Modal, Form, Row } from "react-bootstrap";
+import { Button, Modal, Form, Row, Col, FormLabel } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
@@ -97,7 +97,8 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
             {...register("id")}
             defaultValue={transaction.id}
           />
-          <Row className="mb-2">
+          <Row className="mb-2 row-cols-1 row-cols-md-2">
+            <FormLabel className="mt-3 mb-0">日付</FormLabel>
             <DateInput
               type="date"
               {...register("date", { required: true, valueAsDate: true })}
@@ -106,75 +107,89 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
             />
           </Row>
 
-          <Row className="mb-2">
-            {debits.map((e, index) => {
-              return (
-                <div key={index}>
-                  <input
-                    type="hidden"
-                    {...register(`debits[${index}].side_id`)}
-                    defaultValue={e.side_id}
-                  />
-                  <ItemSelector
-                    placeholder="【借方】"
-                    items={items}
-                    initialFilter="費用"
-                    {...register(`debits[${index}].item_id`, {
-                      required: true,
-                    })}
-                    defaultValue={e.item_id}
-                    isInvalid={formState.errors.debits?.[index]?.item_id}
-                  />
-                  <AmountInput
-                    type="number"
-                    className="text-end"
-                    {...register(`debits[${index}].amount`, {
-                      required: true,
-                      validate: {
-                        nonzero: (v) => parseInt(v, 10) !== 0,
-                      },
-                    })}
-                    defaultValue={e.amount}
-                    isInvalid={formState.errors.debits?.[index]?.amount}
-                  />
-                </div>
-              );
-            })}
+          <Row className="mb-4 row-cols-1 row-cols-md-2">
+            <Col>
+              <FormLabel className="mt-3 mb-0">借方</FormLabel>
+              {debits.map((e, index) => {
+                return (
+                  <Row key={index}>
+                    <input
+                      type="hidden"
+                      {...register(`debits[${index}].side_id`)}
+                      defaultValue={e.side_id}
+                    />
+                    <Col className="col-8">
+                      <ItemSelector
+                        placeholder="【借方】"
+                        items={items}
+                        initialFilter="費用"
+                        {...register(`debits[${index}].item_id`, {
+                          required: true,
+                        })}
+                        defaultValue={e.item_id}
+                        isInvalid={formState.errors.debits?.[index]?.item_id}
+                      />
+                    </Col>
+                    <Col className="col-4">
+                      <AmountInput
+                        type="number"
+                        className="text-end"
+                        {...register(`debits[${index}].amount`, {
+                          required: true,
+                          validate: {
+                            nonzero: (v) => parseInt(v, 10) !== 0,
+                          },
+                        })}
+                        defaultValue={e.amount}
+                        isInvalid={formState.errors.debits?.[index]?.amount}
+                      />
+                    </Col>
+                  </Row>
+                );
+              })}
+            </Col>
 
-            {credits.map((e, index) => {
-              return (
-                <div key={index}>
-                  <input
-                    type="hidden"
-                    {...register(`credits[${index}].side_id`)}
-                    defaultValue={e.side_id}
-                  />
-                  <ItemSelector
-                    placeholder="【貸方】"
-                    items={items}
-                    initialFilter="資産, 負債"
-                    {...register(`credits[${index}].item_id`, {
-                      required: true,
-                    })}
-                    defaultValue={e.item_id}
-                    isInvalid={formState.errors.credits?.[index]?.item_id}
-                  />
-                  <AmountInput
-                    type="number"
-                    className="text-end"
-                    {...register(`credits[${index}].amount`, {
-                      required: true,
-                      validate: {
-                        nonzero: (v) => parseInt(v, 10) !== 0,
-                      },
-                    })}
-                    defaultValue={e.amount}
-                    disabled={hasSinglePair}
-                    isInvalid={formState.errors.credits?.[index]?.amount}
-                  />
-                </div>
-              );
-            })}
+            <Col>
+              <FormLabel className="mt-3 mb-0">貸方</FormLabel>
+              {credits.map((e, index) => {
+                return (
+                  <Row key={index}>
+                    <input
+                      type="hidden"
+                      {...register(`credits[${index}].side_id`)}
+                      defaultValue={e.side_id}
+                    />
+                    <Col className="col-8">
+                      <ItemSelector
+                        placeholder="【貸方】"
+                        items={items}
+                        initialFilter="資産, 負債"
+                        {...register(`credits[${index}].item_id`, {
+                          required: true,
+                        })}
+                        defaultValue={e.item_id}
+                        isInvalid={formState.errors.credits?.[index]?.item_id}
+                      />
+                    </Col>
+                    <Col className="col-4">
+                      <AmountInput
+                        type="number"
+                        className="text-end"
+                        {...register(`credits[${index}].amount`, {
+                          required: true,
+                          validate: {
+                            nonzero: (v) => parseInt(v, 10) !== 0,
+                          },
+                        })}
+                        defaultValue={e.amount}
+                        disabled={hasSinglePair}
+                        isInvalid={formState.errors.credits?.[index]?.amount}
+                      />
+                    </Col>
+                  </Row>
+                );
+              })}
+            </Col>
           </Row>
 
           {transaction.id ? (
