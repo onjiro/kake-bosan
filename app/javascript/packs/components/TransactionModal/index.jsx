@@ -1,50 +1,49 @@
 import { format } from "date-fns/esm";
-import React, { useMemo, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Form, Row, Col, FormLabel } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { BsPlusCircle } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
-import { remove, save } from "../../hooks/useTransactions";
 import DateInput from "./DateInput";
 import AmountInput from "./AmountInput";
+import { remove, save } from "../../hooks/useTransactions";
+import useAlert from "../../hooks/useAlert";
 
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const { register, handleSubmit, watch, setValue, formState } = useForm();
   const { items, error } = useItems();
+  const { danger } = useAlert();
   useEffect(
     () =>
       error &&
       danger(`設定の取得に失敗しました。リロードしてください。\n${error}`),
     [error]
   );
-
   if (!transaction || !items) {
     return null;
   }
 
-  const debits = useMemo(
-    () => transaction.entries.filter((e) => e.side_id === 1),
-    transaction.entries
-  );
-  const credits = useMemo(
-    () => transaction.entries.filter((e) => e.side_id === 2),
-    transaction.entries
-  );
+  const [entries, setEntries] = useState([...transaction.entries]);
+  const debits = entries.filter((e) => e.side_id === 1);
+  const credits = entries.filter((e) => e.side_id === 2);
+  const hasSinglePair = debits.length === 1 && credits.length === 1;
 
-  const saveTransaction = handleSubmit(async (formData) => {
-    console.log(formData);
-    formData.debits = formData.debits.filter((e) => e.item_id);
-    formData.credits = formData.credits.filter((e) => e.item_id);
-    const debitSum = formData.debits.reduce(
-      (sum, e) => sum + Number(e.amount),
-      0
-    );
-    const creditSum = formData.credits.reduce(
-      (sum, e) => sum + Number(e.amount),
-      0
-    );
-    if (debitSum !== creditSum || debitSum === 0 || creditSum === 0) {
-      console.log("合計額がダメ", debitSum, creditSum);
+  // 貸借が1対1の場合、自動で貸借をバランスさせる
+  useEffect(() => {
+    if (!hasSinglePair) {
+      return;
+    }
+    setValue("credits[0].amount", watch("debits[0].amount"));
+  }, [watch("debits[0].amount"), hasSinglePair]);
+
+  const saveTransaction = handleSubmit(async (formData, e) => {
+    e.preventDefault();
+    if (
+      formData.debits.reduce((sum, e) => sum + Number(e.amount), 0) !==
+      formData.credits.reduce((sum, e) => sum + Number(e.amount), 0)
+    ) {
+      danger("金額がバランスしていません");
       return;
     }
 
@@ -65,19 +64,6 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
     onDelete();
   };
 
-  const hasSinglePair = useMemo(
-    () => debits.length === 1 && credits.length === 1,
-    [debits, credits]
-  );
-  // 貸借が1対1の場合、自動で貸借をバランスさせる
-  useEffect(() => {
-    if (!hasSinglePair) {
-      return;
-    }
-    setValue("credits[0].amount", watch("debits[0].amount"));
-  }, [watch("debits[0].amount"), hasSinglePair]);
-
-  useEffect(() => console.log(formState.errors), [formState]);
   return (
     <Modal
       show={transaction}
@@ -98,18 +84,31 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
             defaultValue={transaction.id}
           />
           <Row className="mb-2 row-cols-1 row-cols-md-2">
-            <FormLabel className="mt-3 mb-0">日付</FormLabel>
-            <DateInput
-              type="date"
-              {...register("date", { required: true, valueAsDate: true })}
-              defaultValue={format(new Date(transaction.date), "yyyy-MM-dd")}
-              isInvalid={formState.errors.date}
-            />
+            <Col>
+              <FormLabel className="mt-3 mb-0">日付</FormLabel>
+              <DateInput
+                type="date"
+                {...register("date", { required: true, valueAsDate: true })}
+                defaultValue={format(new Date(transaction.date), "yyyy-MM-dd")}
+                isInvalid={formState.errors.date}
+              />
+            </Col>
           </Row>
 
           <Row className="mb-4 row-cols-1 row-cols-md-2">
             <Col>
-              <FormLabel className="mt-3 mb-0">借方</FormLabel>
+              <FormLabel className="mt-3 mb-1">
+                借方{" "}
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setEntries([...entries, { side_id: 1, amount: 0 }]);
+                  }}
+                >
+                  <BsPlusCircle></BsPlusCircle>
+                </a>
+              </FormLabel>
               {debits.map((e, index) => {
                 return (
                   <Row key={index}>
@@ -150,7 +149,18 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
             </Col>
 
             <Col>
-              <FormLabel className="mt-3 mb-0">貸方</FormLabel>
+              <FormLabel className="mt-3 mb-1">
+                貸方{" "}
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setEntries([...entries, { side_id: 2, amount: 0 }]);
+                  }}
+                >
+                  <BsPlusCircle></BsPlusCircle>
+                </a>
+              </FormLabel>
               {credits.map((e, index) => {
                 return (
                   <Row key={index}>

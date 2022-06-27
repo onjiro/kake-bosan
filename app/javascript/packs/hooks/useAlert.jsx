@@ -32,7 +32,10 @@ const AlertContextProvider = (props) => {
 const AlertOutlet = () => (
   <AlertContext.Consumer>
     {({ alerts }) => (
-      <Container className="position-fixed top-0 start-0 mt-2">
+      <Container
+        className="position-fixed top-0 start-0 mt-2"
+        style={{ zindex: 1080 }}
+      >
         {alerts?.map(({ id, message, type }) => (
           <Alert key={id} variant={type}>
             {message}
@@ -55,7 +58,7 @@ export default () => {
         payload: { type: "success", message, timeout: 2000 },
       });
     }),
-    dangeer: useCallback((message) => {
+    danger: useCallback((message) => {
       dispatch({
         type: "ADD",
         payload: { type: "danger", message, timeout: 30000 },
