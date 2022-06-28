@@ -13,7 +13,7 @@ import useAlert from "../../hooks/useAlert";
 export default ({ transaction, onClose, onSubmit, onDelete }) => {
   const { register, handleSubmit, watch, setValue, formState } = useForm();
   const { items, error } = useItems();
-  const { danger } = useAlert();
+  const { warning, danger } = useAlert();
   useEffect(
     () =>
       error &&
@@ -43,7 +43,11 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
       formData.debits.reduce((sum, e) => sum + Number(e.amount), 0) !==
       formData.credits.reduce((sum, e) => sum + Number(e.amount), 0)
     ) {
-      danger("金額がバランスしていません");
+      warning("金額がバランスしていません");
+      return;
+    }
+
+    if (formData.debits.every((e) => Number(e.amount) === 0)) {
       return;
     }
 
@@ -135,9 +139,6 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                         className="text-end"
                         {...register(`debits[${index}].amount`, {
                           required: true,
-                          validate: {
-                            nonzero: (v) => parseInt(v, 10) !== 0,
-                          },
                         })}
                         defaultValue={e.amount}
                         isInvalid={formState.errors.debits?.[index]?.amount}
@@ -187,9 +188,6 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                         className="text-end"
                         {...register(`credits[${index}].amount`, {
                           required: true,
-                          validate: {
-                            nonzero: (v) => parseInt(v, 10) !== 0,
-                          },
                         })}
                         defaultValue={e.amount}
                         disabled={hasSinglePair}

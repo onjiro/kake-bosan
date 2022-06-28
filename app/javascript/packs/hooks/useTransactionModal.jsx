@@ -32,7 +32,7 @@ export default () => {
         />
       );
     },
-    [transaction, close]
+    [transaction]
   );
 
   return [ModalWrapper, open, close, isOpen];

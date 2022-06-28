@@ -34,7 +34,7 @@ const AlertOutlet = () => (
     {({ alerts }) => (
       <Container
         className="position-fixed top-0 start-0 mt-2"
-        style={{ zindex: 1080 }}
+        style={{ zIndex: 1080 }}
       >
         {alerts?.map(({ id, message, type }) => (
           <Alert key={id} variant={type}>
@@ -52,17 +52,23 @@ export default () => {
   const { dispatch } = useContext(AlertContext);
 
   return {
-    success: useCallback((message) => {
+    success: (message) => {
       dispatch({
         type: "ADD",
         payload: { type: "success", message, timeout: 2000 },
       });
-    }),
-    danger: useCallback((message) => {
+    },
+    warning: (message) => {
+      dispatch({
+        type: "ADD",
+        payload: { type: "warning", message, timeout: 2000 },
+      });
+    },
+    danger: (message) => {
       dispatch({
         type: "ADD",
         payload: { type: "danger", message, timeout: 30000 },
       });
-    }),
+    },
   };
 };
