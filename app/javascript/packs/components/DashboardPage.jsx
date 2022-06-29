@@ -1,53 +1,54 @@
-import React, { useEffect } from "react";
-import useTransitions from "../hooks/useTransactions";
+import React, { useState } from "react";
 import useTransactionModal from "../hooks/useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
-import TransactionHistoryItem from "./TransactionHistoryItem";
-import { differenceInMilliseconds, format } from "date-fns";
-import subDays from "date-fns/subDays";
+import { format, subDays, addDays } from "date-fns";
 import Footer from "./Footer";
 import useAlert from "../hooks/useAlert";
+import { Button } from "react-bootstrap";
+import TransactionHistoryPage from "./TransactionHistoryPage";
 
 export default (_props) => {
-  const today = new Date();
-  const from = format(subDays(today, 7), "yyyy-MM-dd");
-  const to = format(today, "yyyy-MM-dd");
-  const { transactions, error, mutate } = useTransitions({ from, to });
+  const { success } = useAlert();
   const [TransactionModal, openModal] = useTransactionModal();
-  const { success, danger } = useAlert();
-  useEffect(
-    () =>
-      error &&
-      danger(`取引の取得に失敗しました。リロードしてください。\n${error}`),
-    [error]
-  );
+
+  const thirtyDaysTo = (date) => ({
+    from: subDays(date, 31),
+    to: subDays(date, 1),
+  });
+  const [ranges, setRanges] = useState([thirtyDaysTo(addDays(new Date(), 1))]);
+  const more = () => {
+    setRanges((state) => [
+      ...state,
+      thirtyDaysTo(state[state.length - 1].from),
+    ]);
+  };
 
   return (
     <>
-      <h3>▼直近７日間の履歴</h3>
+      <h3>一覧</h3>
       <TranasctionHistory>
-        {transactions?.map((t) => (
-          <TransactionHistoryItem
-            key={t.id}
-            transaction={t}
+        {ranges.map((range) => (
+          <TransactionHistoryPage
+            key={range.from}
+            range={{
+              from: format(range.from, "yyyy-MM-dd"),
+              to: format(range.to, "yyyy-MM-dd"),
+            }}
             onClick={openModal}
-            highlighted={
-              differenceInMilliseconds(new Date(), new Date(t.updated_at)) <
-              60000
-            }
           />
         ))}
       </TranasctionHistory>
+      <div className="d-grid gap-2">
+        <Button onClick={more}>さらに読み込む</Button>
+      </div>
       <Footer onClickNewButton={() => openModal()} />
 
       <TransactionModal
         onSubmit={() => {
           success("取引を保存しました。");
-          mutate();
         }}
         onDelete={() => {
           success("取引を削除しました。");
-          mutate();
         }}
       />
     </>
