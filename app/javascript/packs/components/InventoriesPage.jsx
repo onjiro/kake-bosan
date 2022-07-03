@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { addDays } from "date-fns/esm";
-import React from "react";
+import React, { useCallback } from "react";
 import { ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import useInventories from "../hooks/useInventories";
 
@@ -9,6 +9,9 @@ export default () => {
   const { inventories, error } = useInventories({
     date: format(tomorrow, "yyyy-MM-dd"),
   });
+  const showDetail = useCallback((inentory) => {
+    /* TODO */
+  }, []);
 
   return (
     <>
