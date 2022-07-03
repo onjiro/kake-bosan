@@ -26,7 +26,7 @@ export default ({ transaction, onClick, highlighted }) => {
       variant={highlighted ? "success" : null}
     >
       <div style={{ fontSize: "xx-small" }}>{formattedDate}</div>
-      <div>
+      <div className="clearfix">
         <span>{debitItemNames}</span>
         <span className="float-end">
           <span style={{ fontSize: "xx-small" }}>{creditItemNames}&nbsp;</span>

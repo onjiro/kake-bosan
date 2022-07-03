@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import {
-  BsAward,
   BsCardList,
   BsCheck2Square,
   BsDiagram3,
@@ -15,10 +14,10 @@ export default (props) => {
     <>
       <Navbar fixed="bottom" bg="light">
         <Container>
-          <FooterItem href="/histories" icon={<BsCardList />}>
+          <FooterItem to="/dashboard" icon={<BsCardList />}>
             一覧
           </FooterItem>
-          <FooterItem href="/inventories" icon={<BsCheck2Square />}>
+          <FooterItem to="/inventories" icon={<BsCheck2Square />}>
             棚卸し
           </FooterItem>
           <FooterItem href="/summaries" icon={<BsDiagram3 />}>
