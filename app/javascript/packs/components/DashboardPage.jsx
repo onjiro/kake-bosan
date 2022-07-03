@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import useTransactionModal from "../hooks/useTransactionModal";
 import TranasctionHistory from "./TransactionHistory";
 import { format, subDays, addDays } from "date-fns";
-import Footer from "./Footer";
-import useAlert from "../hooks/useAlert";
 import { Button } from "react-bootstrap";
 import TransactionHistoryPage from "./TransactionHistoryPage";
 
-export default (_props) => {
-  const { success } = useAlert();
-  const [TransactionModal, openModal] = useTransactionModal();
-
+export default ({ openModal }) => {
   const thirtyDaysTo = (date) => ({
     from: subDays(date, 31),
     to: subDays(date, 1),
@@ -41,16 +35,6 @@ export default (_props) => {
       <div className="d-grid gap-2">
         <Button onClick={more}>さらに読み込む</Button>
       </div>
-      <Footer onClickNewButton={() => openModal()} />
-
-      <TransactionModal
-        onSubmit={() => {
-          success("取引を保存しました。");
-        }}
-        onDelete={() => {
-          success("取引を削除しました。");
-        }}
-      />
     </>
   );
 };
