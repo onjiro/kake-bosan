@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
-import { Spinner } from "react-bootstrap";
-import DashboardPage from "./DashboardPage";
-import useAlert, { AlertContextProvider, AlertOutlet } from "../hooks/useAlert";
-import useTransactionModal from "../hooks/useTransactionModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import InventoriesPage from "./InventoriesPage";
-import Footer from "./Footer";
+import { Spinner } from "react-bootstrap";
+import useAlert, { AlertContextProvider, AlertOutlet } from "./hooks/useAlert";
+import useTransactionModal from "./hooks/useTransactionModal";
+import DashboardPage from "./pages/DashboardPage";
+import InventoriesPage from "./pages/InventoriesPage";
+import Footer from "./components/Footer";
 
 export default () => {
   const { success } = useAlert();

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import TranasctionHistory from "./TransactionHistory";
+import TranasctionHistory from "../components/TransactionHistory";
 import { format, subDays, addDays } from "date-fns";
 import { Button } from "react-bootstrap";
-import TransactionHistoryPage from "./TransactionHistoryPage";
+import TransactionHistoryPage from "../components/TransactionHistoryPage";
 
 export default ({ openModal }) => {
   const thirtyDaysTo = (date) => ({
