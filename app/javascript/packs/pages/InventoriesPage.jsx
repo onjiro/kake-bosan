@@ -20,12 +20,12 @@ export default () => {
         <ListGroup variant="flush">
           {inventories?.map((i) => (
             <ListGroupItem
-              key={i.item_id}
+              key={i.item.id}
               onClick={() => showDetail(i)}
               className="list-group-item list-group-item-action"
             >
               <div className="clearfix">
-                <span>{i.name}</span>
+                <span>{i.item.name}</span>
                 <span className="float-end">
                   <span style={{ fontSize: "larger" }}>&yen;{i.amount}</span>
                 </span>

@@ -4,8 +4,21 @@ class Accounting::Entry < ApplicationRecord
   belongs_to :side, class_name: "Accounting::Side"
   belongs_to :item, class_name: "Accounting::Item"
 
+  scope :belonging, -> (user_id) { where(user_id: user_id) }
   scope :debits, -> { where(side: Accounting::Side::DEBIT) }
   scope :credits, -> { where(side: Accounting::Side::CREDIT) }
+  scope :at, -> (range) { joins(:transaction_belongs_to).where(transaction_belongs_to: { date: range }) }
+  scope :sum_by_items, -> () do
+    joins(item: [:type])
+      .group(:item_id)
+      .sum(<<~EOF)
+        CASE
+          WHEN accounting_entries.side_id = accounting_types.side_id
+          THEN amount
+          ELSE -amount
+        END
+      EOF
+  end
 
   # 指定期間のユーザーの移動額を科目ごとに集計します
   def self.summaries(user_id, from, to)
@@ -46,31 +59,9 @@ class Accounting::Entry < ApplicationRecord
 
   # 指定日付以前のユーザーの棚卸額を科目ごとに集計します
   def self.inventories(user_id, date)
-    e = Accounting::Entry.arel_table
-    trx = Accounting::Transaction.arel_table
-    type = Accounting::Type.arel_table
-    i = Accounting::Item.arel_table
+    amounts = Accounting::Entry.belonging(user_id).at(...date).sum_by_items
 
-    all_items = Accounting::Item
-      .joins(:type)
-      .where(user_id: user_id)
-      .select(i[:id].as("item_id"), i[:name], type[:side_id], i[:description], i[:selectable], "0 AS amount")
-
-    amount_by_item = Accounting::Item
-      .joins(:type, entry: [:transaction_belongs_to])
-      .where(i[:user_id].eq(user_id).and trx[:date].lt(date))
-      .select(i[:id], <<-EOD_AMOUNT)
-          COALESCE(SUM(
-            CASE WHEN accounting_entries.side_id = accounting_types.side_id
-              THEN  accounting_entries.amount
-              ELSE -accounting_entries.amount
-            END
-          ), 0) AS amount
-        EOD_AMOUNT
-      .group(i[:id])
-      .inject({}) { |hash, i| hash[i.id] = i.amount; hash }
-
-    all_items.each { |item| item.amount = amount_by_item[item.item_id] if amount_by_item.has_key?(item.item_id) }
+    Accounting::Item.includes(:type).where(user_id: user_id).map { |item| Accounting::Inventory.new(item, amounts[item.id] || 0) }
   end
 
   def self.inventory(item_id, user_id, date)
