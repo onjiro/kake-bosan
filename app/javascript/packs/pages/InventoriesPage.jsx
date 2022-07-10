@@ -9,6 +9,10 @@ export default () => {
   const { inventories, error } = useInventories({
     date: format(tomorrow, "yyyy-MM-dd"),
   });
+  const assetInventories =
+    inventories?.filter(({ item }) => item.type_id === 1) || [];
+  const liabilityInventories =
+    inventories?.filter(({ item }) => item.type_id === 3) || [];
   const showDetail = useCallback((inentory) => {
     /* TODO */
   }, []);
@@ -18,7 +22,7 @@ export default () => {
       <Row>
         <h3>棚卸高</h3>
         <ListGroup variant="flush">
-          {inventories?.map((i) => (
+          {[...assetInventories, ...liabilityInventories].map((i) => (
             <ListGroupItem
               key={i.item.id}
               onClick={() => showDetail(i)}
