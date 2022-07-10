@@ -1,21 +1,21 @@
 import { format } from "date-fns";
-import { addDays } from "date-fns/esm";
-import React, { useCallback } from "react";
+import React from "react";
 import { ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import useAlert from "../hooks/useAlert";
 import useInventories from "../hooks/useInventories";
+import useInventoryModal from "../hooks/useInventoryModal";
 
 export default () => {
-  const tomorrow = addDays(new Date(), 1);
+  const [InventoryModal, openModal] = useInventoryModal();
+  const { success } = useAlert();
+
   const { inventories, error } = useInventories({
-    date: format(tomorrow, "yyyy-MM-dd"),
+    date: format(new Date(), "yyyy-MM-dd"),
   });
   const assetInventories =
     inventories?.filter(({ item }) => item.type_id === 1) || [];
   const liabilityInventories =
     inventories?.filter(({ item }) => item.type_id === 3) || [];
-  const showDetail = useCallback((inentory) => {
-    /* TODO */
-  }, []);
 
   return (
     <>
@@ -25,19 +25,27 @@ export default () => {
           {[...assetInventories, ...liabilityInventories].map((i) => (
             <ListGroupItem
               key={i.item.id}
-              onClick={() => showDetail(i)}
+              onClick={() =>
+                openModal({
+                  date: format(new Date(), "yyyy-MM-dd"),
+                  amount: i.amount,
+                  item: i.item,
+                })
+              }
               className="list-group-item list-group-item-action"
             >
               <div className="clearfix">
                 <span>{i.item.name}</span>
                 <span className="float-end">
-                  <span style={{ fontSize: "larger" }}>&yen;{i.amount}</span>
+                  <span>&yen;{i.amount}</span>
                 </span>
               </div>
             </ListGroupItem>
           ))}
         </ListGroup>
       </Row>
+
+      <InventoryModal onSubmit={() => success("棚卸額を登録しました。")} />
     </>
   );
 };

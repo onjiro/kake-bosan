@@ -59,43 +59,17 @@ class Accounting::Entry < ApplicationRecord
 
   # 指定日付以前のユーザーの棚卸額を科目ごとに集計します
   def self.inventories(user_id, date)
-    amounts = Accounting::Entry.belonging(user_id).at(...date).sum_by_items
-
+    amounts = Accounting::Entry.belonging(user_id).at(...(date.end_of_day)).sum_by_items
     Accounting::Item.includes(:type).where(user_id: user_id).map { |item| Accounting::Inventory.new(item, amounts[item.id] || 0) }
   end
 
   def self.inventory(item_id, user_id, date)
-    e = Accounting::Entry.arel_table
-    trx = Accounting::Transaction.arel_table
-    type = Accounting::Type.arel_table
-    i = Accounting::Item.arel_table
-
-    return Accounting::Item
-             .joins(:type)
-             .joins(i
-               .join(e, Arel::Nodes::OuterJoin).on(i[:id].eq(e[:item_id]).and e[:user_id].eq(user_id))
-               .join(trx, Arel::Nodes::OuterJoin).on(e[:transaction_id].eq(trx[:id]).and trx[:date].lt(date))
-               .join_sources)
-             .where(i[:user_id].eq(user_id).and i[:id].eq(item_id))
-             .select(i[:id].as("item_id"), type[:side_id], i[:description], <<-EOD_AMOUNT, i[:selectable])
-          COALESCE(SUM(
-            CASE WHEN accounting_entries.side_id = accounting_types.side_id
-              THEN  accounting_entries.amount
-              ELSE -accounting_entries.amount
-            END
-          ), 0) AS amount
-        EOD_AMOUNT
-             .group(i[:id], type[:side_id])
-             .first
+    amount = Accounting::Entry.belonging(user_id).at(...(date.end_of_day)).where(item_id: item_id).sum_by_items[item_id.to_i]
+    Accounting::Inventory.new(Accounting::Item.find(item_id), amount || 0)
   end
 
   def self.take_inventory(item_id, user_id, date, amount_to_be)
-    item = Accounting::Item
-      .where(id: item_id, user_id: user_id)
-      .joins(type: [:side])
-      .includes(type: [:side])
-      .first
-    raise Exception.new("No item found for item_id: #{item_id}") unless item
+    item = User.find(user_id).items.find(item_id)
 
     inventory = self.inventory(item_id, user_id, date)
     entry_amount = amount_to_be - inventory.amount
@@ -104,22 +78,11 @@ class Accounting::Entry < ApplicationRecord
     entry_side = (entry_amount > 0) ? item.type.side : item.type.side.flip
     opposite_account_item = Accounting::Item.inventory_fix_item_for(user_id, entry_side.flip)
 
-    Accounting::Transaction.create user_id: user_id, date: date, entries_attributes: [
-                                     {
-                                       user_id: user_id,
-                                       side_id: entry_side.id,
-                                       item_id: item.id,
-                                       amount: entry_amount.abs,
-                                     },
-                                     {
-                                       user_id: user_id,
-                                       side_id: entry_side.flip.id,
-                                       item_id: opposite_account_item.id,
-                                       amount: entry_amount.abs,
-                                     },
-                                   ]
+    Accounting::Transaction.create! user_id: user_id, date: date, entries_attributes: [
+      { user_id: user_id, side_id: entry_side.id, item_id: item.id, amount: entry_amount.abs },
+      { user_id: user_id, side_id: entry_side.flip.id, item_id: opposite_account_item.id, amount: entry_amount.abs },
+    ]
 
-    inventory.amount = amount_to_be
-    return inventory
+    Accounting::Inventory.new(item, amount_to_be)
   end
 end

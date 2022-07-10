@@ -136,6 +136,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                       <AmountInput
                         {...register(`debits[${index}].amount`, {
                           required: true,
+                          valueAsNumber: true,
                         })}
                         defaultValue={e.amount}
                         isInvalid={formState.errors.debits?.[index]?.amount}
@@ -183,6 +184,7 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                       <AmountInput
                         {...register(`credits[${index}].amount`, {
                           required: true,
+                          valueAsNumber: true,
                         })}
                         defaultValue={e.amount}
                         disabled={hasSinglePair}
