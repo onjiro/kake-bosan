@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { BsPlusCircle } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
-import DateInput from "./DateInput";
+import DateInput from "../common/DateInput";
 import AmountInput from "../common/AmountInput";
 import { remove, save } from "../../hooks/useTransactions";
 import useAlert from "../../hooks/useAlert";
