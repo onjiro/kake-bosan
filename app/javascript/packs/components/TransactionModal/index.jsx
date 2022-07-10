@@ -6,7 +6,7 @@ import { BsPlusCircle } from "react-icons/bs";
 import ItemSelector from "./ItemSelector";
 import useItems from "../../hooks/useItems";
 import DateInput from "./DateInput";
-import AmountInput from "./AmountInput";
+import AmountInput from "../common/AmountInput";
 import { remove, save } from "../../hooks/useTransactions";
 import useAlert from "../../hooks/useAlert";
 
@@ -91,7 +91,6 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
             <Col>
               <FormLabel className="mt-3 mb-0">日付</FormLabel>
               <DateInput
-                type="date"
                 {...register("date", { required: true, valueAsDate: true })}
                 defaultValue={format(new Date(transaction.date), "yyyy-MM-dd")}
                 isInvalid={formState.errors.date}
@@ -135,8 +134,6 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                     </Col>
                     <Col className="col-4">
                       <AmountInput
-                        type="number"
-                        className="text-end"
                         {...register(`debits[${index}].amount`, {
                           required: true,
                         })}
@@ -184,8 +181,6 @@ export default ({ transaction, onClose, onSubmit, onDelete }) => {
                     </Col>
                     <Col className="col-4">
                       <AmountInput
-                        type="number"
-                        className="text-end"
                         {...register(`credits[${index}].amount`, {
                           required: true,
                         })}
