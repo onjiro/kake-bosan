@@ -9,16 +9,29 @@ import {
   Button,
   Form,
   InputGroup,
+  Nav,
 } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { BsCalendarRange, BsClock, BsDash } from "react-icons/bs";
+import { BsCalendarRange, BsDash } from "react-icons/bs";
 import useSummaries from "../hooks/useSummaries";
+
+const ACCOUNTING_TYPES = [
+  { id: 1, key: "asset", label: "資産" },
+  { id: 2, key: "expense", label: "費用" },
+  { id: 3, key: "liability", label: "負債" },
+  { id: 4, key: "capital", label: "資本" },
+  { id: 5, key: "income", label: "収益" },
+];
 
 export default () => {
   const [searchRange, setSearchRange] = useState({
     from: format(subDays(new Date(), 30), "yyyy-MM-dd"),
     to: format(new Date(), "yyyy-MM-dd"),
   });
+  const [selectedType, setSelectedType] = useState(
+    ACCOUNTING_TYPES.find((type) => type.key === "expense")
+  );
+
   const { summaries, error } = useSummaries(searchRange);
   const { register, handleSubmit, watch, setValue, formState } = useForm();
   const search = handleSubmit((formData, e) => {
@@ -75,9 +88,22 @@ export default () => {
         </h4>
       </Row>
       <Row>
+        <Nav fill variant="tabs" defaultActiveKey={selectedType.key}>
+          {ACCOUNTING_TYPES.map((type) => (
+            <Nav.Item key={type.key}>
+              <Nav.Link
+                eventKey={type.key}
+                onClick={() => setSelectedType(type)}
+              >
+                {type.label}
+              </Nav.Link>
+            </Nav.Item>
+          ))}
+        </Nav>
         <ListGroup variant="flush">
           {summaries
-            ?.filter((i) => i.amount !== 0)
+            ?.filter((i) => i.item.type_id === selectedType.id)
+            .filter((i) => i.amount !== 0)
             .map((i) => (
               <ListGroupItem
                 key={i.item.id}
