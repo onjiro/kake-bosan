@@ -20,7 +20,7 @@ export default (props) => {
           <FooterItem to="/inventories" icon={<BsCheck2Square />}>
             棚卸し
           </FooterItem>
-          <FooterItem href="/summaries" icon={<BsDiagram3 />}>
+          <FooterItem to="/summaries" icon={<BsDiagram3 />}>
             集計
           </FooterItem>
           <FooterItem href="/configs" icon={<BsWrench />}>

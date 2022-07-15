@@ -6,6 +6,7 @@ import useTransactionModal from "./hooks/useTransactionModal";
 import DashboardPage from "./pages/DashboardPage";
 import InventoriesPage from "./pages/InventoriesPage";
 import Footer from "./components/Footer";
+import SummariesPage from "./pages/SummariesPage";
 
 export default () => {
   const { success } = useAlert();
@@ -27,6 +28,7 @@ export default () => {
               element={<DashboardPage openModal={openModal} />}
             />
             <Route path="/inventories" element={<InventoriesPage />} />
+            <Route path="/summaries" element={<SummariesPage />} />
           </Routes>
           <Footer onClickNewButton={() => openModal()} />
 
