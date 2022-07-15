@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   end
 
   get 'dashboard', to: 'dashboard#index'
-  get 'histories', to: 'histories#index'
-  get 'summaries', to: 'summaries#index'
+  get 'histories', to: 'dashboard#index'
+  get 'inventories', to: 'dashboard#index'
+  get 'summaries', to: 'dashboard#index'
 
   get "configs", to: 'configs#index'
-  get 'inventories', to: 'inventories#index'
 
   get "sessions/destroy"
 
