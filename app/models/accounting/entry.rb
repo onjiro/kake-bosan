@@ -20,41 +20,9 @@ class Accounting::Entry < ApplicationRecord
       EOF
   end
 
-  # 指定期間のユーザーの移動額を科目ごとに集計します
-  def self.summaries(user_id, from, to)
-    e = Accounting::Entry.arel_table
-    trx = Accounting::Transaction.arel_table
-    type = Accounting::Type.arel_table
-    i = Accounting::Item.arel_table
-
-    return Accounting::Item
-             .joins(:type, entry: [:transaction_belongs_to])
-             .where(i[:user_id].eq(user_id))
-             .where(trx[:date].gteq(from).and trx[:date].lteq(to))
-             .select(i[:id].as("item_id"), type[:side_id], i[:description], <<-EOD_DEBIT_AMOUNT, <<-EOD_CREDIT_AMOUNT, <<-EOD_AMOUNT, i[:selectable])
-          COALESCE(SUM(
-            CASE WHEN accounting_entries.side_id = #{Accounting::Side::DEBIT.id}
-              THEN accounting_entries.amount
-              ELSE 0
-            END
-          ), 0) AS debit_amount
-        EOD_DEBIT_AMOUNT
-          COALESCE(SUM(
-            CASE WHEN accounting_entries.side_id = #{Accounting::Side::CREDIT.id}
-              THEN accounting_entries.amount
-              ELSE 0
-            END
-          ), 0) AS credit_amount
-        EOD_CREDIT_AMOUNT
-          COALESCE(SUM(
-            CASE WHEN accounting_entries.side_id = accounting_types.side_id
-              THEN  accounting_entries.amount
-              ELSE -accounting_entries.amount
-            END
-          ), 0) AS offset_amount
-        EOD_AMOUNT
-             .group(i[:id], type[:side_id], type[:id])
-             .order(type[:side_id], type[:id])
+  def self.summaries(user_id, date_from, date_to)
+    amounts = Accounting::Entry.belonging(user_id).at((date_from.beginning_of_day)...(date_to.end_of_day)).sum_by_items
+    Accounting::Item.includes(:type).where(user_id: user_id).map { |item| Accounting::Inventory.new(item, amounts[item.id] || 0) }
   end
 
   # 指定日付以前のユーザーの棚卸額を科目ごとに集計します

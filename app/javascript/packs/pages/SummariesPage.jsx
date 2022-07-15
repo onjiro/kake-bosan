@@ -76,19 +76,21 @@ export default () => {
       </Row>
       <Row>
         <ListGroup variant="flush">
-          {summaries?.map((i) => (
-            <ListGroupItem
-              key={i.item_id}
-              className="list-group-item list-group-item-action"
-            >
-              <div className="clearfix">
-                <span>{i.description}</span>
-                <span className="float-end">
-                  <span>&yen;{i.offset_amount}</span>
-                </span>
-              </div>
-            </ListGroupItem>
-          ))}
+          {summaries
+            ?.filter((i) => i.amount !== 0)
+            .map((i) => (
+              <ListGroupItem
+                key={i.item.id}
+                className="list-group-item list-group-item-action"
+              >
+                <div className="clearfix">
+                  <span>{i.item.name}</span>
+                  <span className="float-end">
+                    <span>&yen;{i.amount}</span>
+                  </span>
+                </div>
+              </ListGroupItem>
+            ))}
         </ListGroup>
       </Row>
     </>
