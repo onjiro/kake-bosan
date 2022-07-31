@@ -23,7 +23,7 @@ export default (props) => {
           <FooterItem to="/summaries" icon={<BsDiagram3 />}>
             集計
           </FooterItem>
-          <FooterItem href="/configs" icon={<BsWrench />}>
+          <FooterItem to="/configs" icon={<BsWrench />}>
             設定
           </FooterItem>
           <Nav.Item>

@@ -7,6 +7,7 @@ import DashboardPage from "./pages/DashboardPage";
 import InventoriesPage from "./pages/InventoriesPage";
 import Footer from "./components/Footer";
 import SummariesPage from "./pages/SummariesPage";
+import ConfigsPage from "./pages/ConfigsPage";
 
 export default () => {
   const { success } = useAlert();
@@ -29,6 +30,7 @@ export default () => {
             />
             <Route path="/inventories" element={<InventoriesPage />} />
             <Route path="/summaries" element={<SummariesPage />} />
+            <Route path="/configs" element={<ConfigsPage />} />
           </Routes>
           <Footer onClickNewButton={() => openModal()} />
 

@@ -4,49 +4,48 @@ class Accounting::ItemsController < ApplicationController
   # GET /accounting/items
   # GET /accounting/items.json
   def index
-    @accounting_items = Accounting::Item
-      .where(user_id: @current_user.id)
-      .includes(:type)
-      .joins(:type)
+    items = @current_user.items.eager_load(:type)
 
     respond_to do |format|
-      format.json { render json: @accounting_items, include: :type }
+      format.json { render json: items, include: :type }
     end
   end
 
   def create
-    @item = Accounting::Item.new(item_params)
+    item = Accounting::Item.new(item_create_params)
 
     respond_to do |format|
-      if @item.save
-        logger.debug(@item)
-        format.json { render json: @item.to_json, status: :created, location: @item }
+      if item.save
+        format.json { render json: item.to_json, status: :created, location: item }
       else
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        format.json { render json: item.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /accounting/items/1
-  # PUT /accounting/items/1.json
   def update
-    @accounting_item = Accounting::Item.find_by(id: params[:id], user_id: @current_user.id)
-    logger.info @accounting_item.inspect
+    item = @current_user.items.find(item_update_params[:id])
 
     respond_to do |format|
-      if @accounting_item.update(item_params)
+      if item.update(item_update_params)
         format.json { head :no_content }
       else
-        format.json { render json: @accounting_item.errors, status: :unprocessable_entity }
+        format.json { render json: item.errors, status: :unprocessable_entity }
       end
     end
   end
 
   private
 
-  def item_params
+  def item_create_params
     params.require(:item)
       .permit(:name, :type_id, :description, :selectable, :type_id)
+      .merge(user_id: @current_user.id)
+  end
+
+  def item_update_params
+    params.require(:item)
+      .permit(:id, :name, :type_id, :description, :selectable, :type_id)
       .merge(user_id: @current_user.id)
   end
 end
