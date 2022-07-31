@@ -1,18 +1,13 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
-import useAlert, { AlertContextProvider, AlertOutlet } from "./hooks/useAlert";
-import useTransactionModal from "./hooks/useTransactionModal";
+import { AlertContextProvider, AlertOutlet } from "./hooks/useAlert";
 import DashboardPage from "./pages/DashboardPage";
 import InventoriesPage from "./pages/InventoriesPage";
-import Footer from "./components/Footer";
 import SummariesPage from "./pages/SummariesPage";
 import ConfigsPage from "./pages/ConfigsPage";
 
 export default () => {
-  const { success } = useAlert();
-  const [TransactionModal, openModal] = useTransactionModal();
-
   return (
     <BrowserRouter>
       <Suspense
@@ -24,24 +19,12 @@ export default () => {
       >
         <AlertContextProvider>
           <Routes>
-            <Route
-              path="/dashboard"
-              element={<DashboardPage openModal={openModal} />}
-            />
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/inventories" element={<InventoriesPage />} />
             <Route path="/summaries" element={<SummariesPage />} />
             <Route path="/configs" element={<ConfigsPage />} />
           </Routes>
-          <Footer onClickNewButton={() => openModal()} />
 
-          <TransactionModal
-            onSubmit={() => {
-              success("取引を保存しました。");
-            }}
-            onDelete={() => {
-              success("取引を削除しました。");
-            }}
-          />
           <AlertOutlet />
         </AlertContextProvider>
       </Suspense>

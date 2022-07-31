@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { BsCalendarRange, BsDash } from "react-icons/bs";
 import useSummaries from "../hooks/useSummaries";
 import ACCOUNTING_TYPES from "../utils/accountingTypes";
+import Footer from "../components/Footer";
 
 export default () => {
   const [searchRange, setSearchRange] = useState({
@@ -112,6 +113,7 @@ export default () => {
             ))}
         </ListGroup>
       </Row>
+      <Footer />
     </>
   );
 };

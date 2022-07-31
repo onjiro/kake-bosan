@@ -4,6 +4,7 @@ import { ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import useAlert from "../hooks/useAlert";
 import useInventories from "../hooks/useInventories";
 import useInventoryModal from "../hooks/useInventoryModal";
+import Footer from "../components/Footer";
 
 export default () => {
   const [InventoryModal, openModal] = useInventoryModal();
@@ -44,6 +45,7 @@ export default () => {
           ))}
         </ListGroup>
       </Row>
+      <Footer />
 
       <InventoryModal onSubmit={() => success("棚卸額を登録しました。")} />
     </>

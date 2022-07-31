@@ -3,6 +3,7 @@ import { ListGroup, ListGroupItem } from "react-bootstrap";
 import useItems from "../hooks/useItems";
 import useItemModal from "../hooks/useItemModal";
 import useAlert from "../hooks/useAlert";
+import Footer from "../components/Footer";
 
 export default () => {
   const [ItemModal, openModal] = useItemModal();
@@ -30,6 +31,7 @@ export default () => {
           </ListGroupItem>
         ))}
       </ListGroup>
+      <Footer onClickNewButton={() => openModal()} />
 
       <ItemModal onSubmit={() => success("棚卸額を登録しました。")} />
     </>

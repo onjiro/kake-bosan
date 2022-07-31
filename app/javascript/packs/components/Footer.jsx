@@ -27,7 +27,13 @@ export default (props) => {
             設定
           </FooterItem>
           <Nav.Item>
-            <Button variant="primary" onClick={props.onClickNewButton}>
+            <Button
+              variant="primary"
+              onClick={props.onClickNewButton}
+              style={{
+                visibility: props.onClickNewButton ? "initial" : "hidden",
+              }}
+            >
               <BsPencilSquare></BsPencilSquare>
             </Button>
           </Nav.Item>
